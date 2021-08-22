@@ -10,11 +10,24 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        return 0
+        max_product = nums[0]
+        products_so_far = [[nums[0], nums[0]]]
+        for idx, num in enumerate(nums[1:]):
+            prod_with_min = num * products_so_far[idx][0]
+            prod_with_max = num * products_so_far[idx][1]
+
+            products_so_far.append([
+                min(prod_with_min, num, prod_with_max),
+                max(prod_with_min, num, prod_with_max)
+            ])
+
+            max_product = max(max_product, *products_so_far[-1])
+
+        return max_product
 
 
 def main():
-    print(Solution().maxProduct([-2, 0, -1]))
+    print(Solution().maxProduct([2, 3, -2, -4]))
 
 
 if __name__ == "__main__":
