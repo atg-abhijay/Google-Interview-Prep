@@ -10,7 +10,16 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        return []
+        num_elements = len(nums)
+        forward_prods = [1] * num_elements
+        for idx in range(1, num_elements):
+            forward_prods[idx] = nums[idx-1] * forward_prods[idx-1]
+
+        backward_prods = [1] * num_elements
+        for idx in range(num_elements-2, -1, -1):
+            backward_prods[idx] = nums[idx+1] * backward_prods[idx+1]
+
+        return [x * y for x, y in zip(forward_prods, backward_prods)]
 
 
 def main():
