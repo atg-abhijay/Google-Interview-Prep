@@ -10,8 +10,15 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
-        return 0
+        profit = 0
+        cost_price = prices[0]
+        for stock_price in prices[1:]:
+            if stock_price <= cost_price:
+                cost_price = stock_price
+            elif stock_price - cost_price > profit:
+                profit = stock_price - cost_price
 
+        return profit
 
 def main():
     print(Solution().maxProfit([7, 1, 5, 3, 6, 4]))
