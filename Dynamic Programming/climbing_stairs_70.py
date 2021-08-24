@@ -10,7 +10,11 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        return -1
+        steps = [1] * (n+1)
+        for x in range(2, n+1):
+            steps[x] = steps[x-1] + steps[x-2]
+
+        return steps[n]
 
 
 def main():
