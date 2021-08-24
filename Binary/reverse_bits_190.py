@@ -6,7 +6,13 @@ https://leetcode.com/problems/reverse-bits/
 
 class Solution:
     def reverseBits(self, n: int) -> int:
-        return -1
+        result = 0
+        for _ in range(32):
+            result |= (n & 1)
+            result <<= 1
+            n >>= 1
+
+        return result >> 1
 
 
 def main():
