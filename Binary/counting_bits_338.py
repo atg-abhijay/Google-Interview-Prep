@@ -10,7 +10,18 @@ class Solution(object):
         :type n: int
         :rtype: List[int]
         """
-        return []
+        ans = [0]
+        is_even = False
+        for num in range(1, n+1):
+            bits_in_half = ans[num >> 1]
+            if is_even:
+                ans.append(bits_in_half)
+            else:
+                ans.append(bits_in_half + 1)
+
+            is_even = not is_even
+
+        return ans
 
 
 def main():
