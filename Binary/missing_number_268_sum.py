@@ -10,7 +10,10 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        return -1
+        num_values = len(nums)
+        total_sum = int((num_values * (num_values + 1)) / 2)
+        given_vals_sum = sum(nums)
+        return total_sum - given_vals_sum
 
 
 def main():
