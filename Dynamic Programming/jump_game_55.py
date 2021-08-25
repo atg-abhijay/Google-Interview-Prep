@@ -10,6 +10,24 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
+        if len(nums) == 1:
+            return True
+
+        last_idx = len(nums) - 1
+        reachable_idxs = [0]
+        visited_idxs = [0] * len(nums)
+        while reachable_idxs:
+            idx = reachable_idxs.pop()
+            visited_idxs[idx] = 1
+            for jump in range(1, nums[idx]+1):
+                new_idx = idx + jump
+                if new_idx > last_idx:
+                    continue
+                if new_idx == last_idx:
+                    return True
+                if not visited_idxs[new_idx]:
+                    reachable_idxs.append(new_idx)
+
         return False
 
 
