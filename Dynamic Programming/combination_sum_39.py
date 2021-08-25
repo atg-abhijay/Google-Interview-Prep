@@ -11,11 +11,24 @@ class Solution(object):
         :type target: int
         :rtype: List[List[int]]
         """
-        return [[]]
+        combinations = [[[] for _ in range(len(candidates))] for _ in range(target + 1)]
+        for sub_target in range(1, target + 1):
+            for idx, candidate in enumerate(candidates):
+                if candidate == sub_target:
+                    combinations[sub_target][idx].append([candidate])
+
+                elif candidate < sub_target and combinations[sub_target - candidate][idx]:
+                    for combo in combinations[sub_target - candidate][idx]:
+                        combinations[sub_target][idx].append(combo + [candidate])
+
+                if idx != 0:
+                    combinations[sub_target][idx].extend(combinations[sub_target][idx-1])
+
+        return combinations[target][len(candidates)-1]
 
 
 def main():
-    print(Solution().combinationSum([2, 3, 5], 8))
+    print(Solution().combinationSum([1], 1))
 
 
 if __name__ == "__main__":
