@@ -10,6 +10,19 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
+        last_idx = len(nums) - 1
+        for idx in range(last_idx-1, -1, -1):
+            if nums[idx] >= last_idx - idx:
+                last_idx = idx
+
+        return last_idx == 0
+
+
+    def canJump2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
         if len(nums) == 1:
             return True
 
