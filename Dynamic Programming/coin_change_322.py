@@ -24,9 +24,6 @@ class Solution(object):
 
 
     def coinChange2(self, coins, amount):
-        """
-        Time Limit Exceeded with this solution
-        """
         upper_limit, num_coins = float('inf'), len(coins)
         least_coins = [[upper_limit] * (amount + 1) for _ in range(num_coins + 1)]
         for row in least_coins:
@@ -37,11 +34,9 @@ class Solution(object):
             if coin_val > amt:
                 least_coins[item_idx][amt] = least_coins[item_idx - 1][amt]
             else:
-                max_quantity = int(amt / coin_val)
-                generate_num_coins = lambda q: q + least_coins[item_idx - 1][amt - q * coin_val]
                 least_coins[item_idx][amt] = min(
                     least_coins[item_idx - 1][amt],
-                    *[generate_num_coins(q) for q in range(1, max_quantity + 1)]
+                    least_coins[item_idx][amt - coin_val] + 1
                 )
 
         output = least_coins[num_coins][amount]
