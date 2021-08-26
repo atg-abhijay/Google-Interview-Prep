@@ -11,7 +11,15 @@ class Solution(object):
         :type queries: List[List[int]]
         :rtype: List[int]
         """
-        return []
+        answer = [0] * len(queries)
+        for idx, [centr_x, centr_y, radius] in enumerate(queries):
+            boundary = radius ** 2
+            for p_x, p_y in points:
+                distance = (centr_x - p_x) ** 2 + (centr_y - p_y) ** 2
+                if distance <= boundary:
+                    answer[idx] += 1
+
+        return answer
 
 
 def main():
