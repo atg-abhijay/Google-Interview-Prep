@@ -11,7 +11,12 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
-        return [[]]
+        """
+        This question can be re-examined
+        once I look into Heaps.
+        """
+        points.sort(key=lambda coords: coords[0] ** 2 + coords[1] ** 2)
+        return points[:k]
 
 
 def main():
