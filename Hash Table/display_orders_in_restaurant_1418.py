@@ -10,7 +10,26 @@ class Solution(object):
         :type orders: List[List[str]]
         :rtype: List[List[str]]
         """
-        return [[]]
+        tables = set()
+        food_dict = dict()
+        for _, table, food in orders:
+            tables.add(int(table))
+            if food not in food_dict:
+                food_dict[food] = dict()
+
+            if int(table) not in food_dict[food]:
+                food_dict[food][int(table)] = 1
+            else:
+                food_dict[food][int(table)] += 1
+
+        sorted_tables = sorted(tables)
+        sorted_foods = sorted(food_dict.keys())
+        result = [["Table"] + sorted_foods]
+        for table in sorted_tables:
+            row = [str(table)] + [str(food_dict[food].get(table, 0)) for food in sorted_foods]
+            result.append(row)
+
+        return result
 
 
 def main():
