@@ -10,7 +10,15 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        return []
+        nums = [0] + nums
+        result = []
+        for num in nums[1:]:
+            if nums[num] < 0:
+                result.append(num)
+            else:
+                nums[num] *= (-1)
+
+        return result
 
 
 def main():
