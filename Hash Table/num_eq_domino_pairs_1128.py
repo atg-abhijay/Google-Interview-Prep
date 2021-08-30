@@ -10,7 +10,22 @@ class Solution(object):
         :type dominoes: List[List[int]]
         :rtype: int
         """
-        return -1
+        num_equiv_pairs = 0
+        unique_dominoes = dict()
+        for dmn in dominoes:
+            dmn = tuple(dmn)
+            rev_dmn = tuple([dmn[1], dmn[0]])
+            if dmn in unique_dominoes:
+                unique_dominoes[dmn] += 1
+            elif rev_dmn in unique_dominoes:
+                unique_dominoes[rev_dmn] += 1
+            else:
+                unique_dominoes[dmn] = 1
+
+        for dmn, count in unique_dominoes.items():
+            num_equiv_pairs += int((count * (count-1) / 2))
+
+        return num_equiv_pairs
 
 
 def main():
