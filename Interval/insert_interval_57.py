@@ -30,10 +30,9 @@ class Solution(object):
                 break
 
             # No overlaps encountered yet
-            else:
-                if newInterval[0] < intvl[0]:
-                    intervals.insert(idx, newInterval)
-                    return intervals
+            elif newInterval[0] < intvl[0]:
+                intervals.insert(idx, newInterval)
+                return intervals
 
         if did_overlap_occur:
             for idx in range(overlap_end, overlap_start, -1):
