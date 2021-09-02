@@ -18,7 +18,29 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
-        return None
+        head = self.reverseLinkedList(head)
+        current_node = head
+        if n == 1:
+            head = head.next
+            return self.reverseLinkedList(head)
+
+        for _ in range(n-2):
+            current_node = current_node.next
+
+        current_node.next = current_node.next.next
+        return self.reverseLinkedList(head)
+
+
+    def reverseLinkedList(self, head):
+        prev_node = None
+        current_node = head
+        while current_node:
+            successor = current_node.next
+            current_node.next = prev_node
+            prev_node = current_node
+            current_node = successor
+
+        return prev_node
 
 
 def main():
