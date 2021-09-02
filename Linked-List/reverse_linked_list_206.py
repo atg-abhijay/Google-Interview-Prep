@@ -17,4 +17,15 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        return None
+        if not head:
+            return None
+
+        prev_node = None
+        current_node = head
+        while current_node:
+            successor = current_node.next
+            current_node.next = prev_node
+            prev_node = current_node
+            current_node = successor
+
+        return prev_node
