@@ -21,21 +21,13 @@ class Solution(object):
         # Add a dummy predecessor at the beginning
         predecs = [0] * (num_intervals + 1)
         for i, interval in enumerate(intervals):
-            predecs[i + 1] = self.findPredecessor(finish_times, interval[0], i)
+            predecs[i + 1] = bisect_right(finish_times, interval[0], hi=i)
 
-        opt_intvls = [0] * (num_intervals + 1)
+        max_overlap = [0] * (num_intervals + 1)
         for idx in range(1, num_intervals + 1):
-            opt_intvls[idx] = max(1 + opt_intvls[predecs[idx]], opt_intvls[idx - 1])
+            max_overlap[idx] = max(1 + max_overlap[predecs[idx]], max_overlap[idx - 1])
 
-        return num_intervals - opt_intvls[-1]
-
-
-    def findPredecessor(self, finish_times, start_time, intvl_idx):
-        pred_idx = bisect_right(finish_times, x=start_time, hi=intvl_idx)
-        if pred_idx == 0 and finish_times[0] == start_time:
-            return 1
-
-        return pred_idx
+        return num_intervals - max_overlap[-1]
 
 
 def main():
