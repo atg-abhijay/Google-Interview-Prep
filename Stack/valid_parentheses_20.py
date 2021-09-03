@@ -10,7 +10,24 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        return False
+        matches = {'}': '{', ')': '(', ']': '['}
+        opening_bkts = matches.values()
+        stack = []
+        for char in s:
+            if char in opening_bkts:
+                stack.append(char)
+            else:
+                if not stack:
+                    return False
+
+                elem = stack.pop()
+                if elem != matches[char]:
+                    return False
+
+        if stack:
+            return False
+
+        return True
 
 
 def main():
