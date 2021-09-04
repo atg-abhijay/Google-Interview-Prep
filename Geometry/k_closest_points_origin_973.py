@@ -4,6 +4,9 @@ https://leetcode.com/problems/k-closest-points-to-origin/
 """
 
 
+import heapq
+
+
 class Solution(object):
     def kClosest(self, points, k):
         """
@@ -11,12 +14,13 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
-        """
-        This question can be re-examined
-        once I look into Heaps.
-        """
-        points.sort(key=lambda coords: coords[0] ** 2 + coords[1] ** 2)
-        return points[:k]
+        heap = []
+        for idx, point in enumerate(points):
+            heapq.heappush(heap, (-1 * (point[0] ** 2 + point[1] ** 2), point))
+            if idx >= k:
+                heapq.heappop(heap)
+
+        return [elem[1] for elem in heap]
 
 
 def main():
