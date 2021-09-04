@@ -11,11 +11,15 @@ class MyQueue:
         """
         self.stack = []
         self.extra_stack = []
+        self.queue_head = None
 
     def push(self, x: int) -> None:
         """
         Push element x to the back of queue.
         """
+        if not self.stack:
+            self.queue_head = x
+
         self.stack.append(x)
 
     def pop(self) -> int:
@@ -26,7 +30,13 @@ class MyQueue:
             self.extra_stack.append(self.stack.pop())
 
         queue_head = self.extra_stack.pop()
+        self.queue_head = None
+        is_head_found = False
         while self.extra_stack:
+            if not is_head_found:
+                self.queue_head = self.extra_stack[-1]
+                is_head_found = True
+
             self.stack.append(self.extra_stack.pop())
 
         return queue_head
@@ -35,14 +45,7 @@ class MyQueue:
         """
         Get the front element.
         """
-        while self.stack:
-            self.extra_stack.append(self.stack.pop())
-
-        queue_head = self.extra_stack[-1]
-        while self.extra_stack:
-            self.stack.append(self.extra_stack.pop())
-
-        return queue_head
+        return self.queue_head
 
     def empty(self) -> bool:
         """
