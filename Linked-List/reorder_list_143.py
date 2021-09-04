@@ -17,7 +17,43 @@ class Solution(object):
         :type head: ListNode
         :rtype: None Do not return anything, modify head in-place instead.
         """
-        return
+        slow_ptr, fast_ptr = head, head
+        while 1:
+            if fast_ptr.next and fast_ptr.next.next:
+                fast_ptr = fast_ptr.next.next
+            else:
+                break
+
+            slow_ptr = slow_ptr.next
+
+        first_head = head
+        second_head = slow_ptr.next
+        slow_ptr.next = None
+        second_head = self.reverseList(second_head)
+        while 1:
+            if not second_head:
+                break
+
+            first_next = first_head.next
+            second_next = second_head.next
+
+            first_head.next = second_head
+            second_head.next = first_next
+
+            first_head = first_next
+            second_head = second_next
+
+
+    def reverseList(self, head):
+        prev_node = None
+        current_node = head
+        while current_node:
+            next_node = current_node.next
+            current_node.next = prev_node
+            prev_node = current_node
+            current_node = next_node
+
+        return prev_node
 
 
 def main():
