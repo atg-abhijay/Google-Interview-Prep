@@ -10,7 +10,11 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: None Do not return anything, modify matrix in-place instead.
         """
-        return
+        if len(matrix) == 1:
+            return
+
+        for idx, row in enumerate(zip(*matrix)):
+            matrix[idx] = list(row[::-1])
 
 
 def main():
