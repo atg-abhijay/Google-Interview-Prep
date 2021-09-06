@@ -13,11 +13,12 @@ class Solution(object):
         """
         grid = [[0 for _ in range(n)] for _ in range(m)]
         directions = [(0, 1), (1, 0)]
-        return self.performDFS([grid, directions], [0, 0], [m, n])
+        num_paths_grid = [[-1 for _ in range(n)] for _ in range(m)]
+        return self.performDFS([grid, directions, num_paths_grid], [0, 0], [m, n])
 
 
     def performDFS(self, arrays, indices, constants):
-        grid, directions = arrays
+        grid, directions, num_paths_grid = arrays
         row_idx, col_idx = indices
         num_rows, num_cols = constants
         if grid[row_idx][col_idx] == 1:
@@ -31,7 +32,10 @@ class Solution(object):
         for incr_x, incr_y in directions:
             nbr_row, nbr_col = row_idx + incr_x, col_idx + incr_y
             if 0 <= nbr_row < len(grid) and 0 <= nbr_col < len(grid[0]):
-                num_paths += self.performDFS(arrays, [nbr_row, nbr_col], constants)
+                if num_paths_grid[nbr_row][nbr_col] == -1:
+                    num_paths_grid[nbr_row][nbr_col] = self.performDFS(arrays, [nbr_row, nbr_col], constants)
+
+                num_paths += num_paths_grid[nbr_row][nbr_col]
                 grid[nbr_row][nbr_col] = 0
 
         return num_paths
