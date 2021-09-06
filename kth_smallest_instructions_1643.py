@@ -49,6 +49,8 @@ class Solution(object):
         grid_paths[target_row][target_col] = [StringWrapper("")]
         while dq:
             row_idx, col_idx = dq.popleft()
+            if [row_idx, col_idx] == [0, 0]:
+                break
             for decr_x, decr_y in backward_dirns:
                 nbr_row, nbr_col = row_idx + decr_x, col_idx + decr_y
                 within_bounds = 0 <= nbr_row <= target_row and 0 <= nbr_col <= target_col
@@ -60,6 +62,10 @@ class Solution(object):
                     dirn = "H" if decr_y == -1 else "V"
                     for path in grid_paths[row_idx][col_idx]:
                         self.addPathForPosition(nbr_row, nbr_col, grid_paths, dirn, path, k)
+
+            # Clear out the paths since they
+            # have been added to the neighbors now
+            grid_paths[row_idx][col_idx] = []
 
 
     def addPathForPosition(self, row_idx, col_idx, grid_paths, dirn, path, k):
