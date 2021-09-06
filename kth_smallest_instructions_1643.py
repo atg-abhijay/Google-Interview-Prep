@@ -10,7 +10,7 @@ from collections import deque
 
 class StringWrapper:
     def __init__(self, value: str):
-        self.val = value
+        self.val = [value]
 
     # Use a reverse comparison to make
     # larger values smaller so that these
@@ -20,7 +20,7 @@ class StringWrapper:
         return other.val < self.val
 
     def add_path(self, path):
-        self.val += path.val
+        self.val.extend(path.val)
 
 
 class Solution(object):
@@ -33,7 +33,7 @@ class Solution(object):
         target_row, target_col = destination
         grid_paths = [[[] for _ in range(target_col+1)] for _ in range(target_row+1)]
         self.determinePaths(grid_paths, [target_row, target_col, k])
-        return heapq.heappop(grid_paths[0][0]).val
+        return ''.join(heapq.heappop(grid_paths[0][0]).val)
 
 
     def determinePaths(self, grid_paths, constants):
