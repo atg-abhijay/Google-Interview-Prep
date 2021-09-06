@@ -6,18 +6,12 @@ https://leetcode.com/problems/kth-smallest-instructions/
 
 import heapq
 from collections import deque
+from math import comb
 
 
 class StringWrapper:
     def __init__(self, value: str):
         self.val = [value]
-
-    # Use a reverse comparison to make
-    # larger values smaller so that these
-    # larger values are popped from the heap,
-    # thereby only leaving the smaller values
-    def __lt__(self, other):
-        return other.val < self.val
 
     def add_path(self, path):
         self.val.extend(path.val)
@@ -31,6 +25,17 @@ class Solution(object):
         :rtype: str
         """
         target_row, target_col = destination
+        num_combinations = comb(target_row + target_col, target_row)
+        if k > int(num_combinations/2):
+            k = num_combinations - k + 1
+            StringWrapper.__lt__ = lambda self, other: self.val < other.val
+        else:
+            # Use a reverse comparison to make
+            # larger values smaller so that these
+            # larger values are popped from the heap,
+            # thereby only leaving the smaller values
+            StringWrapper.__lt__ = lambda self, other: other.val < self.val
+
         grid_paths = [[[] for _ in range(target_col+1)] for _ in range(target_row+1)]
         self.determinePaths(grid_paths, [target_row, target_col, k])
         return ''.join(heapq.heappop(grid_paths[0][0]).val)
