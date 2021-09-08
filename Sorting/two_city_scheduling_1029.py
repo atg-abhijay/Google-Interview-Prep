@@ -33,6 +33,14 @@ class Solution(object):
         return min_costs[n][n]
 
 
+    def twoCitySchedCost2(self, costs):
+        n = int(len(costs) / 2)
+        total_for_a = sum([cost[0] for cost in costs])
+        refunds_for_b = [cost[1] - cost[0] for cost in costs]
+        refunds_for_b.sort()
+        return total_for_a + sum(refunds_for_b[:n])
+
+
 def main():
     print(
         Solution().twoCitySchedCost(
