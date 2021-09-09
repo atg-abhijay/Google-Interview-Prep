@@ -48,3 +48,40 @@ class Solution:
             max_depth = max(max_depth, node.val)
 
         return max_depth
+
+
+    def maxDepthIterativeDFS(self, root: TreeNode) -> int:
+        # Since the values of the nodes are not
+        # being used, store the depths in them
+        if not root:
+            return 0
+
+        stack = [root]
+        max_depth = 1
+        root.val = 1
+        while stack:
+            node = stack.pop()
+            if node.left:
+                node.left.val = node.val + 1
+                stack.append(node.left)
+
+            if node.right:
+                node.right.val = node.val + 1
+                stack.append(node.right)
+
+            max_depth = max(max_depth, node.val)
+
+        return max_depth
+
+
+def main():
+    root = TreeNode(3)
+    root.left = TreeNode(9)
+    root.right = TreeNode(20)
+    root.right.left = TreeNode(15)
+    root.right.right = TreeNode(7)
+    print(Solution().maxDepthIterativeDFS(root))
+
+
+if __name__ == "__main__":
+    main()
