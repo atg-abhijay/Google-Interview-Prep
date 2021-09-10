@@ -4,6 +4,9 @@ https://leetcode.com/problems/subtree-of-another-tree/
 """
 
 
+from collections import deque
+
+
 # Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
@@ -19,4 +22,42 @@ class Solution(object):
         :type subRoot: TreeNode
         :rtype: bool
         """
+        queue = deque([root])
+        while queue:
+            node = queue.popleft()
+            if node.val == subRoot.val:
+                if self.isSameTree(node, subRoot):
+                    return True
+
+            if node.left:
+                queue.append(node.left)
+
+            if node.right:
+                queue.append(node.right)
+
         return False
+
+
+    def isSameTree(self, p_root, q_root):
+        p_nodes, q_nodes = deque([p_root]), deque([q_root])
+        while p_nodes and q_nodes:
+            p_node, q_node = p_nodes.popleft(), q_nodes.popleft()
+
+            if p_node.val != q_node.val:
+                return False
+
+            if bool(p_node.left) ^ bool(q_node.left):
+                return False
+
+            if p_node.left:
+                p_nodes.append(p_node.left)
+                q_nodes.append(q_node.left)
+
+            if bool(p_node.right) ^ bool(q_node.right):
+                return False
+
+            if p_node.right:
+                p_nodes.append(p_node.right)
+                q_nodes.append(q_node.right)
+
+        return True
