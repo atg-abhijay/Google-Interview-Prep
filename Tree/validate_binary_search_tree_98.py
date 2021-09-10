@@ -18,4 +18,20 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        return False
+        traversal = self.performInOrderTraversal(root)
+        for current_idx in range(len(traversal)-1):
+            if traversal[current_idx] >= traversal[current_idx+1]:
+                return False
+
+        return True
+
+
+    def performInOrderTraversal(self, root):
+        traversal = []
+        if root.left:
+            traversal.extend(self.performInOrderTraversal(root.left))
+        traversal.append(root.val)
+        if root.right:
+            traversal.extend(self.performInOrderTraversal(root.right))
+
+        return traversal
