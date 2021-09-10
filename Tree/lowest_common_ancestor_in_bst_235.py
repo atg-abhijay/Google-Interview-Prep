@@ -13,6 +13,20 @@ class TreeNode(object):
 
 
 class Solution(object):
+    def lowestCommonAncestor2(self, root, p, q):
+        if p == root or q == root:
+            return root
+
+        if p.val < root.val < q.val or q.val < root.val < p.val:
+            return root
+
+        if max(p.val, q.val) < root.val:
+            return self.lowestCommonAncestor2(root.left, p, q)
+
+        if min(p.val, q.val) > root.val:
+            return self.lowestCommonAncestor2(root.right, p, q)
+
+
     def lowestCommonAncestor(self, root, p, q):
         """
         :type root: TreeNode
