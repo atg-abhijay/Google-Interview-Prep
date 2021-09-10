@@ -20,4 +20,31 @@ class Solution(object):
         :type q: TreeNode
         :rtype: TreeNode
         """
-        return None
+        if p == root or q == root:
+            return root
+
+        path_p = self.findPath(root, p)
+        path_q = self.findPath(root, q)
+
+        least_common_ancestor = root
+        for path_p_node, path_q_node in zip(path_p, path_q):
+            if path_p_node == path_q_node:
+                least_common_ancestor = path_p_node
+            else:
+                break
+
+        return least_common_ancestor
+
+
+    def findPath(self, root, target):
+        path = [root]
+        while 1:
+            node = path[-1]
+            if target.val < node.val:
+                path.append(node.left)
+            elif target.val > node.val:
+                path.append(node.right)
+            else:
+                break
+
+        return path
