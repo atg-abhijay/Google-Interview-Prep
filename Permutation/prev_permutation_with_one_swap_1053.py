@@ -10,11 +10,8 @@ class Solution(object):
         :type arr: List[int]
         :rtype: List[int]
         """
-        if arr == sorted(arr):
-            return arr
-
         swap_idx_a, swap_idx_b = -1, -1
-        for idx in range(len(arr)-1, -1, -1):
+        for idx in range(len(arr)-1, 0, -1):
             current_num, prev_num = arr[idx], arr[idx-1]
             if current_num >= prev_num:
                 continue
@@ -30,7 +27,9 @@ class Solution(object):
                     swap_idx_b = idx+sub_idx
 
             arr[swap_idx_a], arr[swap_idx_b] = arr[swap_idx_b], arr[swap_idx_a]
-            return arr
+            break
+
+        return arr
 
 
 def main():
