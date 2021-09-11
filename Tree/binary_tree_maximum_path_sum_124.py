@@ -22,6 +22,28 @@ class Solution(object):
 
 
     def determineMaxSum(self, root, nodes_sum):
+        """
+        Keep track of the max sum possible at each node
+        in a dictionary. For this sum, assume that the
+        node is part of the sum and then find the best
+        value for that node amongst [node, node + right,
+        node + left] but not node + right + left.
+
+        If node + right + left is selected at any point,
+        then the parent of node cannot build a path with
+        node since node + right + left is already a path
+        in and of itself.
+
+        Doing it this way allows parent nodes to continue
+        building paths using their children because the
+        max sum of the child was found by actually using
+        the child in each possible case. This helps avoid
+        having to check for disconnected parents and max sums.
+
+        Use a separate variable max_sum to keep track of the
+        actual max path sum that takes into account the max
+        sum for the node and also node + right + left.
+        """
         max_sum = float('-inf')
         if not root.left and not root.right:
             nodes_sum[root] = root.val
