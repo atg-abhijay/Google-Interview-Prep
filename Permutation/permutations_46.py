@@ -10,7 +10,18 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        return [[]]
+        if len(nums) == 1:
+            return [nums]
+
+        permutations = []
+        sub_permutations = self.permute(nums[1:])
+        for sub_permt in sub_permutations:
+            for insert_idx in range(len(sub_permt)+1):
+                permt_copy = sub_permt.copy()
+                permt_copy.insert(insert_idx, nums[0])
+                permutations.append(permt_copy)
+
+        return permutations
 
 
 def main():
