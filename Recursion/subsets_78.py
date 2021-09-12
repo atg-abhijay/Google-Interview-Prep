@@ -42,6 +42,21 @@ class Solution(object):
             nums = nums[1:]
 
 
+    def subsets3(self, nums):
+        size = len(nums)
+        subsets = []
+        for combn in range(pow(2, size)):
+            bit_repn = bin(combn)[2:].zfill(size)
+            subset = []
+            for idx, bit in enumerate(bit_repn):
+                if bit == "1":
+                    subset.append(nums[idx])
+
+            subsets.append(subset)
+
+        return subsets
+
+
 def main():
     print(Solution().subsets([1, 2, 3]))
 
