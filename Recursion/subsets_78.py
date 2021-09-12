@@ -24,6 +24,24 @@ class Solution(object):
         return subsets
 
 
+    def subsets2(self, nums):
+        # Non-recursive solution
+        # Tail-call optimization
+        result = [[]]
+        while 1:
+            if not nums:
+                return result
+
+            subsets = []
+            subsets.extend(result)
+            for subset in subsets:
+                subset_copy = subset.copy()
+                subset_copy.append(nums[0])
+                result.append(subset_copy)
+
+            nums = nums[1:]
+
+
 def main():
     print(Solution().subsets([1, 2, 3]))
 
