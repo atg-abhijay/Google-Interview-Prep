@@ -4,7 +4,15 @@ https://leetcode.com/problems/unique-paths/
 """
 
 
+from math import comb
+
+
 class Solution(object):
+    def uniquePaths2(self, m, n):
+        # Add a combinatorial solution
+        return comb(m+n-2, n-1)
+
+
     def uniquePaths(self, m, n):
         """
         :type m: int
