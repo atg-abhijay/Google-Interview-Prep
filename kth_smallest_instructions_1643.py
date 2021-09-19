@@ -10,6 +10,30 @@ from math import comb
 
 
 class Solution(object):
+    def kthSmallestPath2(self, destination, k):
+        target_row, target_col = destination
+        path_length = target_row + target_col
+        count = 0
+        for num in range(1 << target_row - 1, 1 << path_length):
+            if self.checkNumOneBits(num, target_row):
+                count += 1
+
+            if count == k:
+                break
+
+        kth_path_bits = bin(num)[2:].zfill(path_length)
+        return ''.join(["H" if bit == "0" else "V" for bit in kth_path_bits])
+
+
+    def checkNumOneBits(self, num, target):
+        num_one_bits = 0
+        while num > 0:
+            num &= num - 1
+            num_one_bits += 1
+
+        return num_one_bits == target
+
+
     def kthSmallestPath(self, destination, k):
         """
         :type destination: List[int]
@@ -66,7 +90,7 @@ class Solution(object):
 
 
 def main():
-    print(Solution().kthSmallestPath([2, 3], 1))
+    print(Solution().kthSmallestPath2([10, 9], 60000))
 
 
 if __name__ == "__main__":
