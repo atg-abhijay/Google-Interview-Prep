@@ -20,6 +20,15 @@ class Solution(object):
             dictionary[num] = idx
 
 
+    def twoSum_2ndPass(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        return []
+
+
 def main():
     print(Solution().twoSum([3, 2, 4], 6))
 
