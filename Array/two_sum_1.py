@@ -26,7 +26,21 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        return []
+        mapping = dict()
+        for idx, num in enumerate(nums):
+            if num in mapping:
+                mapping[num].append(idx)
+            else:
+                mapping[num] = [idx]
+
+        for num in mapping:
+            complement = target - num
+            if complement in mapping:
+                if complement != num:
+                    return [mapping[num][0], mapping[complement][0]]
+                else:
+                    if len(mapping[num]) == 2:
+                        return mapping[num]
 
 
 def main():
