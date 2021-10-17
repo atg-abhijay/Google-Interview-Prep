@@ -19,6 +19,14 @@ class Solution(object):
         return False
 
 
+    def containsDuplicate_2ndPass(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        return False
+
+
 def main():
     print(Solution().containsDuplicate([]))
 
