@@ -19,6 +19,14 @@ class Solution(object):
         return max_sum
 
 
+    def maxSubArray_2ndPass(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return -1
+
+
 def main():
     print(Solution().maxSubArray([-2, -1, -3, -4, -1, -2, -1, -5, -4]))
 
