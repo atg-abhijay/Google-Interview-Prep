@@ -10,6 +10,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Arrays, Dynamic Programming
         max_sum = nums[0]
         sums_so_far = [nums[0]]
         for idx, num in enumerate(nums[1:]):
@@ -24,6 +26,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Arrays, Dynamic Programming
         current_sum, max_sum = nums[0], nums[0]
         for num in nums[1:]:
             current_sum = max(num, num + current_sum)
