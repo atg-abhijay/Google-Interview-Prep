@@ -11,6 +11,8 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Hashmaps
         dictionary = {}
         for idx, num in enumerate(nums):
             complement = target - num
@@ -26,6 +28,8 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Hashmaps
         mapping = dict()
         for idx, num in enumerate(nums):
             if num in mapping:
