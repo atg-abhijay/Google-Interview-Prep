@@ -9,6 +9,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Hash sets
         unique_nums = set()
         for num in nums:
             if num in unique_nums:
@@ -24,6 +26,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Hash sets
         unique_nums = set()
         for num in nums:
             if num in unique_nums:
