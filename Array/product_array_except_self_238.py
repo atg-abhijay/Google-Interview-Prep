@@ -22,6 +22,14 @@ class Solution(object):
         return [x * y for x, y in zip(forward_prods, backward_prods)]
 
 
+    def productExceptSelf_2ndPass(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        return []
+
+
 def main():
     print(Solution().productExceptSelf([1, 2, 3, 4]))
 
