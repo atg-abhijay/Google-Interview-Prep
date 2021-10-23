@@ -26,6 +26,14 @@ class Solution(object):
         return max_product
 
 
+    def maxProduct_2ndPass(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return -1
+
+
 def main():
     print(Solution().maxProduct([2, 3, -2, -4]))
 
