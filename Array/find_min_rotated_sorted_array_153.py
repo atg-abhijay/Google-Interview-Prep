@@ -10,6 +10,9 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # Time: O(log n), Space: O(1)
+        # Tags: Arrays, Binary Search
+
         # The array is rotated n times, which is
         # equivalent to it not being rotated at all
         if nums[0] <= nums[-1]:
