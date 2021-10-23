@@ -10,6 +10,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Arrays
         num_elements = len(nums)
         forward_prods = [1] * num_elements
         for idx in range(1, num_elements):
@@ -27,6 +29,10 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
+        # Time: O(n), Space: O(1)
+        # The output array does not count as
+        # extra space for space complexity analysis.
+        # Tags: Arrays
         num_elems = len(nums)
         fwd_products = [1]
         for idx in range(num_elems - 1):
