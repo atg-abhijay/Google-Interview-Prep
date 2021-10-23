@@ -10,6 +10,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Arrays, Dynamic Programming
         max_product = nums[0]
         products_so_far = [[nums[0], nums[0]]]
         for idx, num in enumerate(nums[1:]):
@@ -31,6 +33,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Arrays, Dynamic Programming
         max_product = nums[0]
         max_min_products = [nums[0], nums[0]]
         for num in nums[1:]:
