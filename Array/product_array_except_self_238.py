@@ -27,7 +27,21 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        return []
+        num_elems = len(nums)
+        fwd_products = [1]
+        for idx in range(num_elems - 1):
+            fwd_products.append(nums[idx] * fwd_products[-1])
+
+        nums.reverse()
+        bwd_products = [1]
+        for idx in range(num_elems - 1):
+            bwd_products.append(nums[idx] * bwd_products[-1])
+
+        product_array = []
+        for fwd, bwd in zip(fwd_products, reversed(bwd_products)):
+            product_array.append(fwd * bwd)
+
+        return product_array
 
 
 def main():
