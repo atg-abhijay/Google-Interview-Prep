@@ -10,7 +10,22 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        return -1
+        # The array is rotated n times, which is
+        # equivalent to it not being rotated at all
+        if nums[0] <= nums[-1]:
+            return nums[0]
+
+        start_idx, stop_idx = 0, len(nums) - 1
+        while 1:
+            mid_idx = (start_idx + stop_idx) // 2
+            if nums[start_idx] < nums[mid_idx]:
+                start_idx = mid_idx
+            elif nums[start_idx] > nums[mid_idx]:
+                stop_idx = mid_idx
+            else:
+                break
+
+        return nums[stop_idx]
 
 
 def main():
