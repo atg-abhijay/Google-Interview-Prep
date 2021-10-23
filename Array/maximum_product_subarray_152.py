@@ -31,7 +31,15 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        return -1
+        max_product = nums[0]
+        max_min_products = [nums[0], nums[0]]
+        for num in nums[1:]:
+            idx_products = [num]
+            idx_products.extend([num * prev for prev in max_min_products])
+            max_min_products = [max(idx_products), min(idx_products)]
+            max_product = max(max_product, *max_min_products)
+
+        return max_product
 
 
 def main():
