@@ -29,7 +29,17 @@ class Solution(object):
         :type n: int
         :rtype: List[int]
         """
-        return []
+        ans = [0] * (n + 1)
+        is_odd = True
+        for num in range(1, n + 1):
+            if is_odd:
+                ans[num] = ans[num - 1] + 1
+            else:
+                ans[num] = ans[num // 2]
+
+            is_odd = not is_odd
+
+        return ans
 
 
 def main():
