@@ -29,7 +29,9 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        return -1
+        all_nums = list(range(len(nums) + 1))
+        all_nums.extend(nums)
+        return reduce(lambda x, y: x ^ y, all_nums)
 
 
 def main():
