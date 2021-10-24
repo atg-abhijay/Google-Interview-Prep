@@ -24,6 +24,14 @@ class Solution(object):
         return ans
 
 
+    def countBits_2ndPass(self, n):
+        """
+        :type n: int
+        :rtype: List[int]
+        """
+        return []
+
+
 def main():
     print(Solution().countBits(5))
 
