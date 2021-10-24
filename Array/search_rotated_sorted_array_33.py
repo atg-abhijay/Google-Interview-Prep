@@ -11,6 +11,9 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
+        # Time: O(log n), Space: O(1)
+        # Tags: Arrays, Binary Search
+
         # Add a dummy value at the end to be able
         # to return the last index if that is the answer
         nums.append(float('inf'))
