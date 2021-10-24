@@ -15,6 +15,10 @@ class Solution:
         return result >> 1
 
 
+    def reverseBits_2ndPass(self, n: int) -> int:
+        return -1
+
+
 def main():
     print(Solution().reverseBits(4294967293))
 
