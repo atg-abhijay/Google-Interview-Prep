@@ -23,11 +23,18 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        return -1
+        # Method learnt from bitCount() method
+        # on https://wiki.python.org/moin/BitManipulation
+        num_one_bits = 0
+        while num > 0:
+            num &= num - 1
+            num_one_bits += 1
+
+        return num_one_bits
 
 
 def main():
-    print(Solution().hammingWeight(11))
+    print(Solution().hammingWeight(0b00000000000000000000000000001011))
 
 
 if __name__ == "__main__":
