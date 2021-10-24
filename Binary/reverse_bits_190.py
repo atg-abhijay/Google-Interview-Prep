@@ -6,6 +6,8 @@ https://leetcode.com/problems/reverse-bits/
 
 class Solution:
     def reverseBits(self, n: int) -> int:
+        # Time: O(1), Space: O(1)
+        # Tags: Binary
         result = 0
         for _ in range(32):
             result |= (n & 1)
@@ -16,6 +18,8 @@ class Solution:
 
 
     def reverseBits_2ndPass(self, n: int) -> int:
+        # Time: O(1), Space: O(1)
+        # Tags: Binary
         rev_num = 0
         for _ in range(32):
             rev_num |= n & 1
