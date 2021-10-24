@@ -13,6 +13,9 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Binary
+
         # Alternate solution:
         # return reduce(
         #     lambda xor, tup: xor ^ tup[0] ^ tup[1], enumerate(nums), len(nums)
@@ -29,6 +32,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Arrays
         all_nums = [0] * (len(nums)+1)
         for num in nums:
             all_nums[num] = 1
@@ -43,6 +48,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Arithmetic
         num_values = len(nums)
         total_sum = int((num_values * (num_values + 1)) / 2)
         given_vals_sum = sum(nums)
@@ -54,6 +61,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Binary
         all_nums = list(range(len(nums) + 1))
         all_nums.extend(nums)
         return reduce(lambda x, y: x ^ y, all_nums)
@@ -64,6 +73,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Arithmetic
         num_elems = len(nums)
         sum_upto_n = num_elems * (num_elems + 1) // 2
         return sum_upto_n - sum(nums)
@@ -74,6 +85,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Hashsets
         return set(range(len(nums) + 1)).difference(set(nums)).pop()
 
 
