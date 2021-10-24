@@ -16,7 +16,13 @@ class Solution:
 
 
     def reverseBits_2ndPass(self, n: int) -> int:
-        return -1
+        rev_num = 0
+        for _ in range(32):
+            rev_num |= n & 1
+            rev_num <<= 1
+            n >>= 1
+
+        return rev_num >> 1
 
 
 def main():
