@@ -16,6 +16,16 @@ class Solution(object):
         return total_sum - given_vals_sum
 
 
+    def missingNumber_2ndPass(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        num_elems = len(nums)
+        sum_upto_n = num_elems * (num_elems + 1) // 2
+        return sum_upto_n - sum(nums)
+
+
 def main():
     print(Solution().missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1]))
 
