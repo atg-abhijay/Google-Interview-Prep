@@ -24,6 +24,14 @@ class Solution(object):
         return xor_value
 
 
+    def missingNumber_2ndPass(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return -1
+
+
 def main():
     print(Solution().missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1]))
 
