@@ -17,6 +17,15 @@ class Solution(object):
 
         return num_one_bits
 
+
+    def hammingWeight_2ndPass(self, num):
+        """
+        :type n: int
+        :rtype: int
+        """
+        return -1
+
+
 def main():
     print(Solution().hammingWeight(11))
 
