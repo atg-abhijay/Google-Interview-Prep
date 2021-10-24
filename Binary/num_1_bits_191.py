@@ -10,6 +10,8 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
+        # Time: O(log n), Space: O(1)
+        # Tags: Binary
         num_one_bits = 0
         while n > 0:
             num_one_bits += n & 1
@@ -23,6 +25,9 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
+        # Time: O(#set bits), Space: O(1)
+        # Tags: Binary
+
         # Method learnt from bitCount() method
         # on https://wiki.python.org/moin/BitManipulation
         num_one_bits = 0
