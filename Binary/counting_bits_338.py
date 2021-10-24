@@ -10,6 +10,8 @@ class Solution(object):
         :type n: int
         :rtype: List[int]
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Binary
         ans = [0]
         is_even = False
         for num in range(1, n+1):
@@ -29,6 +31,8 @@ class Solution(object):
         :type n: int
         :rtype: List[int]
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Binary
         ans = [0] * (n + 1)
         is_odd = True
         for num in range(1, n + 1):
