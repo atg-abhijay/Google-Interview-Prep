@@ -12,10 +12,8 @@ class Solution(object):
         :rtype: int
         """
         og_a, og_b = a, b
-        a &= 1023
-        b &= 1023
-        bits = []
-        carry = 0
+        a, b = a & 1023, b & 1023
+        carry, bits = 0, []
         while a or b:
             a_bit, b_bit = a & 1, b & 1
             bits_sum = carry ^ a_bit
@@ -27,17 +25,21 @@ class Solution(object):
 
             bits_sum ^= b_bit
             bits.append(str(bits_sum))
-            a >>= 1
-            b >>= 1
+            a, b = a >> 1, b >> 1
 
         bits.append(str(carry))
         sum_val = int("".join(reversed(bits)), 2)
-        # if og_a < 0 and og_b < 0:
+        # If the sum is negative (the negative
+        # sum won't show up as part of sum_val)
         if (og_a < 0 and abs(og_a) > abs(og_b)) or (og_b < 0 and abs(og_b) > abs(og_a)):
             return -1 * ((-1 * sum_val) % 1024)
-        elif og_a < 0 or og_b < 0:
+
+        # If the sum is positive but
+        # one of the numbers is negative
+        if og_a < 0 or og_b < 0:
             return sum_val % 1024
 
+        # If both numbers are positive
         return sum_val
 
 
