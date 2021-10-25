@@ -10,7 +10,23 @@ class Solution(object):
         :type coordinates: List[List[int]]
         :rtype: bool
         """
-        return False
+        slope_dmtr = (coordinates[1][0] - coordinates[0][0])
+        if slope_dmtr == 0:
+            slope = float('inf')
+        else:
+            slope = (coordinates[1][1] - coordinates[0][1]) / slope_dmtr
+
+        for point, next_point in zip(coordinates[1:], coordinates[2:]):
+            slope_dmtr = (next_point[0] - point[0])
+            if slope_dmtr == 0:
+                points_slope = float('inf')
+            else:
+                points_slope = (next_point[1] - point[1]) / slope_dmtr
+
+            if points_slope != slope:
+                return False
+
+        return True
 
 
 def main():
