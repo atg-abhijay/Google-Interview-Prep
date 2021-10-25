@@ -11,6 +11,8 @@ class Solution(object):
         :type b: int
         :rtype: int
         """
+        # Time: O(log n), Space: O(log n)
+        # Tags: Binary
         og_a, og_b = a, b
         a, b = a & 1023, b & 1023
         carry, bits = 0, []
