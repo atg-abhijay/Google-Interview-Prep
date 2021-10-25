@@ -10,6 +10,8 @@ class Solution(object):
         :type coordinates: List[List[int]]
         :rtype: bool
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Geometry
         slope_dmtr = (coordinates[1][0] - coordinates[0][0])
         if slope_dmtr == 0:
             slope = float('inf')
