@@ -23,6 +23,15 @@ class Solution(object):
         return [elem[1] for elem in heap]
 
 
+    def kClosest_2ndPass(self, points, k):
+        """
+        :type points: List[List[int]]
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        return [[]]
+
+
 def main():
     print(Solution().kClosest([[3,3],[5,-1],[-2,4]], 2))
 
