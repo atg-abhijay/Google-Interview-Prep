@@ -10,6 +10,8 @@ class Solution(object):
         :type points: List[List[int]]
         :rtype: bool
         """
+        # Time: O(1), Space: O(1)
+        # Tags: Geometry
         if any([points[0] == points[1], points[0] == points[2], points[1] == points[2]]):
             return False
 
