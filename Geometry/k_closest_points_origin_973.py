@@ -29,7 +29,15 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
-        return [[]]
+        k_closest = []
+        num_added = 0
+        for x, y in points:
+            heapq.heappush(k_closest, (-1 * (x ** 2 + y ** 2), [x, y]))
+            num_added += 1
+            if num_added > k:
+                heapq.heappop(k_closest)
+
+        return [point for _, point in k_closest]
 
 
 def main():
