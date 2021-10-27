@@ -11,11 +11,23 @@ class Solution(object):
         :type q: int
         :rtype: int
         """
-        return -1
+        # Half-working solution
+        if p % q != 0:
+            if p % q < q / 2:
+                return 1
+            if p % q > q / 2:
+                return 2
+
+            return 0
+
+        if (p / q) % 2 == 0:
+            return 2
+
+        return 1
 
 
 def main():
-    print(Solution().mirrorReflection(3, 1))
+    print(Solution().mirrorReflection(4, 3))
 
 
 if __name__ == "__main__":
