@@ -14,6 +14,8 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
+        # Time: O(nlogk), Space: O(k)
+        # Tags: Geometry, Heaps
         heap = []
         for idx, point in enumerate(points):
             heapq.heappush(heap, (-1 * (point[0] ** 2 + point[1] ** 2), point))
@@ -29,6 +31,8 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
+        # Time: O(nlogk), Space: O(k)
+        # Tags: Geometry, Heaps
         k_closest = []
         num_added = 0
         for x, y in points:
