@@ -22,6 +22,15 @@ class Solution(object):
         return answer
 
 
+    def countPoints_2ndPass(self, points, queries):
+        """
+        :type points: List[List[int]]
+        :type queries: List[List[int]]
+        :rtype: List[int]
+        """
+        return []
+
+
 def main():
     print(
         Solution().countPoints(
