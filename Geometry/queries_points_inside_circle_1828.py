@@ -53,6 +53,16 @@ class Solution(object):
         :type queries: List[List[int]]
         :rtype: List[int]
         """
+        # Learnt this approach from the LeetCode discussion here -
+        # https://leetcode.com/problems/queries-on-number-of-points-inside-a-circle/discuss/1165522/C%2B%2B-Brute-Force-vs.-Sort
+
+        # Time:
+        # - Sorting: O(nlogn)
+        # - Bisections for all queries: O(qlogn)
+        # - Iteration only happens over a slice of the
+        #   array 'points'. In most cases, it will be < O(n).
+        # Space: O(n) for x_coords
+        # Tags: Geometry, Sorting, Binary Search
         answer = []
         points.sort(key=lambda pt: pt[0])
         x_coords = [point[0] for point in points]
