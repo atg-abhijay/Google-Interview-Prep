@@ -11,6 +11,8 @@ class Solution(object):
         :type queries: List[List[int]]
         :rtype: List[int]
         """
+        # Time: O(mn), Space: O(1)
+        # Tags: Geometry
         answer = [0] * len(queries)
         for idx, [centr_x, centr_y, radius] in enumerate(queries):
             boundary = radius ** 2
@@ -28,6 +30,8 @@ class Solution(object):
         :type queries: List[List[int]]
         :rtype: List[int]
         """
+        # Time: O(mn), Space: O(1)
+        # Tags: Geometry
         answer = []
         for center_x, center_y, radius in queries:
             num_inside = 0
