@@ -28,7 +28,16 @@ class Solution(object):
         :type queries: List[List[int]]
         :rtype: List[int]
         """
-        return []
+        answer = []
+        for center_x, center_y, radius in queries:
+            num_inside = 0
+            for x, y in points:
+                if (center_x - x) ** 2 + (center_y - y) ** 2 <= radius ** 2:
+                    num_inside += 1
+
+            answer.append(num_inside)
+
+        return answer
 
 
 def main():
