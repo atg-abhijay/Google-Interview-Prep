@@ -28,6 +28,15 @@ class Solution(object):
 
         return True
 
+    def canConstruct_2ndPass(self, ransomNote, magazine):
+        """
+        :type ransomNote: str
+        :type magazine: str
+        :rtype: bool
+        """
+        return False
+
+
 def main():
     print(Solution().canConstruct("aa", "aab"))
 
