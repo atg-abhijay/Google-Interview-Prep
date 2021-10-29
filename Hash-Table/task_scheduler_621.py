@@ -4,7 +4,6 @@ https://leetcode.com/problems/task-scheduler/
 """
 
 
-import string
 import heapq
 
 
@@ -17,47 +16,66 @@ class Solution(object):
         """
         task_details = {}
         for task in tasks:
+            # Use a negative count to emulate a max heap
             if task not in task_details:
-                # [count, cooldown time left, is in heap]
-                task_details[task] = [-1, 0, False]
+                task_details[task] = -1
             else:
-                task_details[task][0] -= 1
+                task_details[task] -= 1
 
-        heap, total_time = [], 0
-        while task_details:
-            # Add all tasks that have zero cooldown time
-            # left and are not in the heap, to the heap
-            for task, values in task_details.items():
-                count, cooldown_left, is_in_heap = values
-                if cooldown_left == 0 and not is_in_heap:
-                    heapq.heappush(heap, (count, task))
-                    values[2] = True
-                # Decrement the cooldown times
-                else:
-                    values[1] = max(0, values[1] - 1)
+        heap, current_time = [], 0
+        for task, count in task_details.items():
+            # Push (remaining cooldown time, count, task)
+            # The cooldown time will be the first priority
+            # and then the count for the task
+            heapq.heappush(heap, (0, count, task))
 
-            total_time += 1
+        # Alternate approach:
+        # Here, the cooldown time is not decremented.
+        # Rather, the current time is incremented and
+        # that is used as a basis for selecting the
+        # next task. Still giving problems though.
+        # while heap:
+        #     if heap[0][0] > current_time:
+        #         print("idle -> ", end=" ")
+        #     else:
+        #         _, count, top_task = heapq.heappop(heap)
+        #         print(f"{top_task} -> ", end=" ")
+        #         if count + 1 != 0:
+        #             heapq.heappush(heap, (n + current_time + 1, count + 1, top_task))
 
-            # Idle
-            if not heap:
+        #     current_time += 1
+
+        # return current_time
+
+        while heap:
+            current_time += 1
+            # If the top priority task doesn't have a remaining
+            # cooldown time of 0, then the CPU has to be idle
+            is_idle = False
+            if heap[0][0] != 0:
+                print("idle -> ", end=" ")
+                is_idle = True
+
+            # Decrement the cooldown times
+            for idx, (cooldown_left, count, task) in enumerate(heap):
+                heap[idx] = (max(0, cooldown_left - 1), count, task)
+
+            if is_idle:
                 continue
 
-            # Complete the task and update it's count.
-            # Delete the task if the count reaches zero
-            count, top_task = heapq.heappop(heap)
-            count += 1
-            if count == 0:
-                del task_details[top_task]
-            else:
-                task_details[top_task] = [count, n, False]
+            _, count, top_task = heapq.heappop(heap)
+            print(f"{top_task} -> ", end=" ")
+            if count + 1 != 0:
+                heapq.heappush(heap, (n, count + 1, top_task))
 
-        return total_time
+        print()
+        return current_time
 
 
 def main():
     print(
         Solution().leastInterval(
-            ["A", "A", "A", "A", "A", "A", "B", "C", "D", "E", "F", "G"], 2
+            ["A","A","A","B","B","B","C","D","E","F","G","H","I","J","K"], n = 7
         )
     )
 
