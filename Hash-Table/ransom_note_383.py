@@ -34,7 +34,23 @@ class Solution(object):
         :type magazine: str
         :rtype: bool
         """
-        return False
+        letter_counts = {}
+        for char in magazine:
+            if char not in letter_counts:
+                letter_counts[char] = 1
+            else:
+                letter_counts[char] += 1
+
+        for char in ransomNote:
+            if char not in letter_counts:
+                return False
+
+            if letter_counts[char] == 0:
+                return False
+
+            letter_counts[char] -= 1
+
+        return True
 
 
 def main():
