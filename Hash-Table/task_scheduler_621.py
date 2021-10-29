@@ -32,11 +32,11 @@ class Solution(object):
                 if cooldown_left == 0 and not is_in_heap:
                     heapq.heappush(heap, (count, task))
                     values[2] = True
+                # Decrement the cooldown times
+                else:
+                    values[1] = max(0, values[1] - 1)
 
             total_time += 1
-            # Decrement the cooldown times
-            for task, values in task_details.items():
-                values[1] = max(0, values[1] - 1)
 
             # Idle
             if not heap:
