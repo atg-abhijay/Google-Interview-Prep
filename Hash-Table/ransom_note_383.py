@@ -11,6 +11,8 @@ class Solution(object):
         :type magazine: str
         :rtype: bool
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Hash tables
         rsm_letters, mzn_letters = dict(), dict()
         for string, dictionary in [[ransomNote, rsm_letters], [magazine, mzn_letters]]:
             for letter in string:
@@ -28,12 +30,15 @@ class Solution(object):
 
         return True
 
+
     def canConstruct_2ndPass(self, ransomNote, magazine):
         """
         :type ransomNote: str
         :type magazine: str
         :rtype: bool
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Hash tables
         letter_counts = {}
         for char in magazine:
             if char not in letter_counts:
