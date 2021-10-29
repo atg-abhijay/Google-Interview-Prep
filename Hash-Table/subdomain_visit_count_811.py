@@ -10,6 +10,8 @@ class Solution(object):
         :type cpdomains: List[str]
         :rtype: List[str]
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Hash tables, Strings
         counts_dict = {}
         for cpdomain in cpdomains:
             count, domain = cpdomain.split(" ")
