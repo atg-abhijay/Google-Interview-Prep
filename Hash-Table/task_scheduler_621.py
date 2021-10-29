@@ -15,45 +15,41 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        cooldown_left = {letter: 0 for letter in string.ascii_uppercase}
-        task_counts = {}
+        task_details = {}
         for task in tasks:
-            if task not in task_counts:
-                task_counts[task] = 1
+            if task not in task_details:
+                # [count, cooldown time left, is in heap]
+                task_details[task] = [-1, 0, False]
             else:
-                task_counts[task] += 1
+                task_details[task][0] -= 1
 
-        heap = []
-        for task, count in task_counts.items():
-            heapq.heappush(heap, (-1 * count, task))
-
-        total_time = 0
-        while heap:
-            count, top_task = heapq.heappop(heap)
-            temp_storage = []
-            is_idle = False
-            while cooldown_left[top_task]:
-                temp_storage.append((count, top_task))
-                if heap:
-                    count, top_task = heapq.heappop(heap)
-                else:
-                    is_idle = True
-                    break
+        heap, total_time = [], 0
+        while task_details:
+            # Add all tasks that have zero cooldown time
+            # left and are not in the heap, to the heap
+            for task, values in task_details.items():
+                count, cooldown_left, is_in_heap = values
+                if cooldown_left == 0 and not is_in_heap:
+                    heapq.heappush(heap, (count, task))
+                    values[2] = True
 
             total_time += 1
-            for task, time_left in cooldown_left.items():
-                cooldown_left[task] = max(0, time_left - 1)
+            # Decrement the cooldown times
+            for task, values in task_details.items():
+                values[1] = max(0, values[1] - 1)
 
-            while temp_storage:
-                heapq.heappush(heap, temp_storage.pop())
-
-            if is_idle:
+            # Idle
+            if not heap:
                 continue
 
+            # Complete the task and update it's count.
+            # Delete the task if the count reaches zero
+            count, top_task = heapq.heappop(heap)
             count += 1
-            if count != 0:
-                heapq.heappush(heap, (count, top_task))
-                cooldown_left[top_task] = n
+            if count == 0:
+                del task_details[top_task]
+            else:
+                task_details[top_task] = [count, n, False]
 
         return total_time
 
