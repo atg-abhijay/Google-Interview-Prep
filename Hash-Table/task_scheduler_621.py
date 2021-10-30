@@ -48,25 +48,22 @@ class Solution(object):
         # return current_time
 
         while heap:
-            current_time += 1
             # If the top priority task doesn't have a remaining
             # cooldown time of 0, then the CPU has to be idle
-            is_idle = False
-            if heap[0][0] != 0:
+            if heap[0][0] == 0:
+                _, count, top_task = heapq.heappop(heap)
+                print(f"{top_task} -> ", end=" ")
+                if count + 1 != 0:
+                    heapq.heappush(heap, (n + 1, count + 1, top_task))
+            else:
                 print("idle -> ", end=" ")
-                is_idle = True
 
             # Decrement the cooldown times
             for idx, (cooldown_left, count, task) in enumerate(heap):
                 heap[idx] = (max(0, cooldown_left - 1), count, task)
 
-            if is_idle:
-                continue
-
-            _, count, top_task = heapq.heappop(heap)
-            print(f"{top_task} -> ", end=" ")
-            if count + 1 != 0:
-                heapq.heappush(heap, (n, count + 1, top_task))
+            heapq.heapify(heap)
+            current_time += 1
 
         print()
         return current_time
