@@ -11,6 +11,8 @@ class Solution(object):
         :type newInterval: List[int]
         :rtype: List[List[int]]
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Intervals
         if not intervals:
             return [newInterval]
 
@@ -60,6 +62,8 @@ class Solution(object):
         :type newInterval: List[int]
         :rtype: List[List[int]]
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Intervals
         if not intervals:
             return [newInterval]
 
