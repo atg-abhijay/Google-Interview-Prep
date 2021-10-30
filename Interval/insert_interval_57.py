@@ -69,29 +69,42 @@ class Solution(object):
 
         # If the new interval comes before all the intervals
         if newInterval[1] < intervals[0][0]:
-            return [newInterval] + intervals
+            intervals.insert(0, newInterval)
+            return intervals
 
-        ans = []
         did_find_overlap, did_insert = False, False
+        overlap_start_idx = -1
         for idx, intvl in enumerate(intervals):
             if self.is_overlap_2ndPass(intvl, newInterval):
+                if overlap_start_idx == -1:
+                    overlap_start_idx = idx
+
                 newInterval = self.merge_intervals_2ndPass(intvl, newInterval)
                 did_find_overlap = True
             else:
-                # If the overlap is coming to an end or the
-                # new interval sits before the current interval
-                if did_find_overlap or newInterval[1] < intvl[0]:
-                    ans.append(newInterval)
+                # If the overlap is coming to an end
+                if did_find_overlap:
+                    for pop_idx in range(idx-1, overlap_start_idx-1, -1):
+                        intervals.pop(pop_idx)
+
+                    intervals.insert(overlap_start_idx, newInterval)
                     did_insert = True
-                    ans.extend(intervals[idx:])
                     break
 
-                ans.append(intvl)
+                # If the new interval sits before the current interval
+                if newInterval[1] < intvl[0]:
+                    intervals.insert(idx, newInterval)
+                    did_insert = True
+                    break
 
         if not did_insert:
-            ans.append(newInterval)
+            if did_find_overlap:
+                for pop_idx in range(len(intervals)-1, overlap_start_idx-1, -1):
+                    intervals.pop(pop_idx)
 
-        return ans
+            intervals.append(newInterval)
+
+        return intervals
 
 
     def is_overlap_2ndPass(self, intvl_a, intvl_b):
