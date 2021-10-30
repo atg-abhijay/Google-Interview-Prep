@@ -28,6 +28,14 @@ class Solution(object):
         return intvl_a[0] <= intvl_b[1] and intvl_b[0] <= intvl_a[1]
 
 
+    def merge_2ndPass(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        return [[]]
+
+
 def main():
     print(Solution().merge([[4,5],[2,4],[4,6],[3,4],[0,0],[1,1],[3,5],[2,2]]))
 
