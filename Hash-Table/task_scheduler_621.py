@@ -22,11 +22,11 @@ class Solution(object):
             else:
                 task_details[task] -= 1
 
+        # Push (remaining cooldown time, count, task)
+        # The cooldown time will be the first
+        # priority and then the count for the task
         heap, current_time = [], 0
         for task, count in task_details.items():
-            # Push (remaining cooldown time, count, task)
-            # The cooldown time will be the first priority
-            # and then the count for the task
             heapq.heappush(heap, (0, count, task))
 
         # Alternate approach:
@@ -58,11 +58,16 @@ class Solution(object):
             else:
                 print("idle -> ", end=" ")
 
-            # Decrement the cooldown times
+            # Decrement the cooldown times and heapify the heap
+            are_cooldowns_updated = False
             for idx, (cooldown_left, count, task) in enumerate(heap):
-                heap[idx] = (max(0, cooldown_left - 1), count, task)
+                if cooldown_left != 0:
+                    heap[idx] = (max(0, cooldown_left - 1), count, task)
+                    are_cooldowns_updated = True
 
-            heapq.heapify(heap)
+            if are_cooldowns_updated:
+                heapq.heapify(heap)
+
             current_time += 1
 
         print()
