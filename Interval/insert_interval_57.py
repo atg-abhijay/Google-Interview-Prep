@@ -54,6 +54,15 @@ class Solution(object):
         return [min(intvl_a[0], intvl_b[0]), max(intvl_a[1], intvl_b[1])]
 
 
+    def insert_2ndPass(self, intervals, newInterval):
+        """
+        :type intervals: List[List[int]]
+        :type newInterval: List[int]
+        :rtype: List[List[int]]
+        """
+        return [[]]
+
+
 def main():
     print(Solution().insert([[1, 5]], [2, 3]))
 
