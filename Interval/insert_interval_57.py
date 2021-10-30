@@ -60,7 +60,42 @@ class Solution(object):
         :type newInterval: List[int]
         :rtype: List[List[int]]
         """
-        return [[]]
+        if not intervals:
+            return [newInterval]
+
+        # If the new interval comes before all the intervals
+        if newInterval[1] < intervals[0][0]:
+            return [newInterval] + intervals
+
+        ans = []
+        did_find_overlap, did_insert = False, False
+        for idx, intvl in enumerate(intervals):
+            if self.is_overlap_2ndPass(intvl, newInterval):
+                newInterval = self.merge_intervals_2ndPass(intvl, newInterval)
+                did_find_overlap = True
+            else:
+                # If the overlap is coming to an end or the
+                # new interval sits before the current interval
+                if did_find_overlap or newInterval[1] < intvl[0]:
+                    ans.append(newInterval)
+                    did_insert = True
+                    ans.extend(intervals[idx:])
+                    break
+
+                ans.append(intvl)
+
+        if not did_insert:
+            ans.append(newInterval)
+
+        return ans
+
+
+    def is_overlap_2ndPass(self, intvl_a, intvl_b):
+        return intvl_a[0] <= intvl_b[1] and intvl_b[0] <= intvl_a[1]
+
+
+    def merge_intervals_2ndPass(self, intvl_a, intvl_b):
+        return [min(intvl_a[0], intvl_b[0]), max(intvl_a[1], intvl_b[1])]
 
 
 def main():
