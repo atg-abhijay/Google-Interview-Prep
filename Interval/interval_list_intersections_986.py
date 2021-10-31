@@ -14,6 +14,13 @@ class Solution(object):
         :type secondList: List[List[int]]
         :rtype: List[List[int]]
         """
+        # Let length of the lists be m, n.
+        # Time:
+        # - m instances of binary search: O(mlogn)
+        # - m instances of iterating on a subarray: O(n) I think
+        # - Therefore: O(mlogn) + O(n)
+        # Space: O(n)
+        # Tags: Intervals, Binary Search, Sorting
         ans, second_list_starts = [], [intvl[0] for intvl in secondList]
         prev_search_idx = 0
         for f_intvl in firstList:
