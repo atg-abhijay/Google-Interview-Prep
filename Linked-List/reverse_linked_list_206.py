@@ -36,4 +36,15 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        return None
+        # If the list has 0 or 1 nodes
+        if not head or not head.next:
+            return head
+
+        current_node = head
+        while current_node.next:
+            successor = current_node.next
+            current_node.next = successor.next
+            successor.next = head
+            head = successor
+
+        return head
