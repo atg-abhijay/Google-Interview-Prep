@@ -51,7 +51,25 @@ class Solution(object):
         :type lists: List[ListNode]
         :rtype: ListNode
         """
-        return None
+        # If there are no linked lists or
+        # all of the linked lists are empty
+        if not lists or not any(lists):
+            return None
+
+        # Discard the empty linked lists
+        lists = [lst for lst in lists if lst]
+        ListNode.__lt__ = lambda self, other: self.val < other.val
+        heapq.heapify(lists)
+        merged_head = ListNode()
+        merged_tail = merged_head
+        while lists:
+            smallest_node = heapq.heappop(lists)
+            merged_tail.next = smallest_node
+            merged_tail = merged_tail.next
+            if smallest_node.next:
+                heapq.heappush(lists, smallest_node.next)
+
+        return merged_head.next
 
 
 def main():
