@@ -49,7 +49,26 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
-        return None
+        # If the size is 1
+        if not head.next:
+            return None
+
+        slow_ptr, n_ahead_ptr = head, head
+        for _ in range(n):
+            n_ahead_ptr = n_ahead_ptr.next
+
+        # If the first node from the
+        # start has to be removed
+        if not n_ahead_ptr:
+            head = head.next
+            return head
+
+        while n_ahead_ptr.next:
+            slow_ptr = slow_ptr.next
+            n_ahead_ptr = n_ahead_ptr.next
+
+        slow_ptr.next = slow_ptr.next.next
+        return head
 
 
 def main():
