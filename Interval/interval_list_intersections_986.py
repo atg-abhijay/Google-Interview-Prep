@@ -30,7 +30,7 @@ class Solution(object):
                 if self.is_overlap(f_intvl, s_intvl):
                     ans.append(self.find_intxn(f_intvl, s_intvl))
 
-            prev_search_idx = search_idx - 1
+            prev_search_idx = max(0, search_idx - 1)
 
         return ans
 
