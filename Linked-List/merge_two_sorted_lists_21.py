@@ -55,4 +55,24 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        return None
+        if not (l1 and l2):
+            return l1 or l2
+
+        merged_head = ListNode()
+        merged_tail = merged_head
+        while l1 and l2:
+            if l1.val < l2.val:
+                merged_tail.next = l1
+                l1 = l1.next
+            else:
+                merged_tail.next = l2
+                l2 = l2.next
+
+            merged_tail = merged_tail.next
+
+        if l1:
+            merged_tail.next = l1
+        else:
+            merged_tail.next = l2
+
+        return merged_head.next
