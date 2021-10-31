@@ -4,6 +4,9 @@ https://leetcode.com/problems/interval-list-intersections/
 """
 
 
+from itertools import product
+
+
 class Solution(object):
     def intervalIntersection(self, firstList, secondList):
         """
@@ -16,30 +19,32 @@ class Solution(object):
 
         f_idx, s_idx = 0, 0
         f_len, s_len = len(firstList), len(secondList)
-        ans = []
-        # for f_intvl in firstList:
-        #     for idx, s_intvl in enumerate(secondList[s_idx:]):
-        #         if self.is_overlap(f_intvl, s_intvl):
-        #             ans.append(self.find_intxn(f_intvl, s_intvl))
-        #         else:
-        #             s_idx += idx - 1
+        if s_len > f_len:
+            firstList, secondList = secondList, firstList
+            f_len, s_len = s_len, f_len
 
-        did_reset = False
-        while f_idx < f_len and s_idx < s_len:
-            f_intvl, s_intvl = firstList[f_idx], secondList[s_idx]
+        ans = []
+        for f_intvl, s_intvl in product(firstList, secondList):
             if self.is_overlap(f_intvl, s_intvl):
                 ans.append(self.find_intxn(f_intvl, s_intvl))
-                s_idx += 1
-                did_reset = False
-            else:
-                if not did_reset:
-                    s_idx -= 1
-                    f_idx += 1
-                    did_reset = True
-                else:
-                    s_idx += 1
 
         return ans
+
+        # did_reset, ans = False, []
+        # while f_idx < f_len:
+        #     f_intvl, s_intvl = firstList[f_idx], secondList[s_idx]
+        #     if self.is_overlap(f_intvl, s_intvl):
+        #         ans.append(self.find_intxn(f_intvl, s_intvl))
+        #         s_idx = min(s_len - 1, s_idx + 1)
+        #         did_reset = False
+        #     else:
+        #         if not did_reset:
+        #             s_idx = max(0, s_idx - 1)
+        #             f_idx += 1
+        #             did_reset = True
+        #         else:
+        #             s_idx += 1
+        # return ans
 
 
     def is_overlap(self, intvl_a, intvl_b):
