@@ -43,6 +43,15 @@ class Solution(object):
         return prev_node
 
 
+    def removeNthFromEnd_2ndPass(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        return None
+
+
 def main():
     input_head = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
     head = Solution().removeNthFromEnd(input_head, 2)
