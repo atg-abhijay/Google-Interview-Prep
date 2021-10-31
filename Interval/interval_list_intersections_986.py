@@ -14,14 +14,6 @@ class Solution(object):
         :type secondList: List[List[int]]
         :rtype: List[List[int]]
         """
-        if bool(firstList) ^ bool(secondList):
-            return []
-
-        f_len, s_len = len(firstList), len(secondList)
-        if s_len > f_len:
-            firstList, secondList = secondList, firstList
-            f_len, s_len = s_len, f_len
-
         ans, second_list_starts = [], [intvl[0] for intvl in secondList]
         prev_search_idx = 0
         for f_intvl in firstList:
