@@ -18,6 +18,8 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
+        # Time: O(min(m, n)), Space: O(1)
+        # Tags: Linked List
         if not l1 and not l2:
             return None
 
@@ -55,6 +57,8 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
+        # Time: O(min(m, n)), Space: O(1)
+        # Tags: Linked List
         if not (l1 and l2):
             return l1 or l2
 
