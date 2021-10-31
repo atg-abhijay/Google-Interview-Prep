@@ -20,6 +20,15 @@ class Solution(object):
         :type lists: List[ListNode]
         :rtype: ListNode
         """
+        # Let there be n lists with an average of
+        # m nodes each.
+        # Time:
+        # - mn iterations of the while loop
+        # - log(n) time to pop from the heap and restore
+        #   the heap property
+        # - Therefore: O(mnlog(n)) I believe
+        # Space: O(1)
+        # Tags: Linked List, Heaps
         ListNode.__lt__ = lambda self, other: self.val < other.val
         if not lists or not any(lists):
             return None
@@ -51,6 +60,16 @@ class Solution(object):
         :type lists: List[ListNode]
         :rtype: ListNode
         """
+        # Let there be n lists with an average of
+        # m nodes each.
+        # Time:
+        # - mn iterations of the while loop
+        # - log(n) time to pop from the heap and restore
+        #   the heap property
+        # - Therefore: O(mnlog(n)) I believe
+        # Space: O(1)
+        # Tags: Linked List, Heaps
+
         # If there are no linked lists or
         # all of the linked lists are empty
         if not lists or not any(lists):
