@@ -29,3 +29,11 @@ class Solution(object):
             current_node = successor
 
         return prev_node
+
+
+    def reverseList_2ndPass(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        return None
