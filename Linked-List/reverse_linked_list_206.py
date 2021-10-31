@@ -17,6 +17,8 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Linked List
         if not head:
             return None
 
@@ -36,6 +38,9 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Linked List
+
         # If the list has 0 or 1 nodes
         if not head or not head.next:
             return head
