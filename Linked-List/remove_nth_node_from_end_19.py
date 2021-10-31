@@ -18,6 +18,8 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Linked List
         head = self.reverseLinkedList(head)
         current_node = head
         if n == 1:
@@ -49,6 +51,11 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Linked List
+        # Approach mentioned in Yangshun's
+        # notes for Linked Lists
+
         # If the size is 1
         if not head.next:
             return None
