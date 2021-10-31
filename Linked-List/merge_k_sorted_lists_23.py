@@ -46,6 +46,14 @@ class Solution(object):
         return head
 
 
+    def mergeKLists_2ndPass(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        return None
+
+
 def main():
     lists = [
         ListNode(1, ListNode(4, ListNode(5))),
