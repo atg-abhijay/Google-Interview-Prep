@@ -4,7 +4,7 @@ https://leetcode.com/problems/interval-list-intersections/
 """
 
 
-from itertools import product
+from bisect import bisect_left
 
 
 class Solution(object):
@@ -17,34 +17,22 @@ class Solution(object):
         if bool(firstList) ^ bool(secondList):
             return []
 
-        f_idx, s_idx = 0, 0
         f_len, s_len = len(firstList), len(secondList)
         if s_len > f_len:
             firstList, secondList = secondList, firstList
             f_len, s_len = s_len, f_len
 
-        ans = []
-        for f_intvl, s_intvl in product(firstList, secondList):
-            if self.is_overlap(f_intvl, s_intvl):
-                ans.append(self.find_intxn(f_intvl, s_intvl))
+        ans, second_list_starts = [], [intvl[0] for intvl in secondList]
+        prev_search_idx = 0
+        for f_intvl in firstList:
+            search_idx = bisect_left(second_list_starts, f_intvl[1] + 1)
+            for s_intvl in secondList[prev_search_idx:search_idx]:
+                if self.is_overlap(f_intvl, s_intvl):
+                    ans.append(self.find_intxn(f_intvl, s_intvl))
+
+            prev_search_idx = search_idx - 1
 
         return ans
-
-        # did_reset, ans = False, []
-        # while f_idx < f_len:
-        #     f_intvl, s_intvl = firstList[f_idx], secondList[s_idx]
-        #     if self.is_overlap(f_intvl, s_intvl):
-        #         ans.append(self.find_intxn(f_intvl, s_intvl))
-        #         s_idx = min(s_len - 1, s_idx + 1)
-        #         did_reset = False
-        #     else:
-        #         if not did_reset:
-        #             s_idx = max(0, s_idx - 1)
-        #             f_idx += 1
-        #             did_reset = True
-        #         else:
-        #             s_idx += 1
-        # return ans
 
 
     def is_overlap(self, intvl_a, intvl_b):
