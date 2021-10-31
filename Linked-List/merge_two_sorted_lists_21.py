@@ -74,9 +74,16 @@ class Solution(object):
 
             merged_tail = merged_tail.next
 
-        if l1:
-            merged_tail.next = l1
-        else:
-            merged_tail.next = l2
-
+        merged_tail.next = l1 or l2
         return merged_head.next
+
+
+def main():
+    print(Solution().mergeTwoLists_2ndPass(
+        ListNode(1, ListNode(2, ListNode(4))),
+        ListNode(3, ListNode(7, ListNode(9)))
+    ))
+
+
+if __name__ == "__main__":
+    main()
