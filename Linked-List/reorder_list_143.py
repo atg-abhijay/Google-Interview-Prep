@@ -56,6 +56,14 @@ class Solution(object):
         return prev_node
 
 
+    def reorderList_2ndPass(self, head):
+        """
+        :type head: ListNode
+        :rtype: None Do not return anything, modify head in-place instead.
+        """
+        return
+
+
 def main():
     head = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
     Solution().reorderList(head)
