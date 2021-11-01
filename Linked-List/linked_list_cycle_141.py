@@ -39,4 +39,16 @@ class Solution(object):
         :type head: ListNode
         :rtype: bool
         """
-        return False
+        # If the list has size 0 or 1
+        if not head or not head.next:
+            return False
+
+        slow_ptr, fast_ptr = head, head
+        while 1:
+            if not fast_ptr.next or not fast_ptr.next.next:
+                return False
+
+            slow_ptr = slow_ptr.next
+            fast_ptr = fast_ptr.next.next
+            if slow_ptr == fast_ptr:
+                return True
