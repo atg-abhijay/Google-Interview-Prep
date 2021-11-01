@@ -32,3 +32,11 @@ class Solution(object):
                 return True
 
         return False
+
+
+    def hasCycle_2ndPass(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        return False
