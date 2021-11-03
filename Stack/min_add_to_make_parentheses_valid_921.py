@@ -10,6 +10,8 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Stacks
         unmatched_closing_bkts = 0
         stack_size = 0
         for char in s:
@@ -29,6 +31,8 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Stacks
         num_unmatched_bkts, stack = 0, []
         for bracket in s:
             if bracket == '(':
