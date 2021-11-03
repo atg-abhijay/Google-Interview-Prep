@@ -10,6 +10,8 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Stacks, Hash tables
         matches = {'}': '{', ')': '(', ']': '['}
         opening_bkts = matches.values()
         stack = []
@@ -35,6 +37,8 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Stacks, Hash tables
         pairs = {'{': '}', '[': ']', '(': ')'}
         stack = []
         for bracket in s:
