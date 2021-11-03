@@ -10,7 +10,20 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        return ""
+        s, opening_bkt_idxs, closing_bkt_idxs = list(s), [], []
+        for idx, char in enumerate(s):
+            if char == '(':
+                opening_bkt_idxs.append(idx)
+            elif char == ')':
+                if opening_bkt_idxs:
+                    opening_bkt_idxs.pop()
+                else:
+                    closing_bkt_idxs.append(idx)
+
+        for idx in opening_bkt_idxs + closing_bkt_idxs:
+            s[idx] = ""
+
+        return ''.join(s)
 
 
 def main():
