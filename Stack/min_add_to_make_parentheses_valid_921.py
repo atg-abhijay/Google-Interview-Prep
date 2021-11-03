@@ -29,7 +29,17 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        return -1
+        num_unmatched_bkts, stack = 0, []
+        for bracket in s:
+            if bracket == '(':
+                stack.append(bracket)
+            else:
+                if stack:
+                    stack.pop()
+                else:
+                    num_unmatched_bkts += 1
+
+        return num_unmatched_bkts + len(stack)
 
 
 def main():
