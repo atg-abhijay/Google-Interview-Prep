@@ -10,6 +10,8 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Stacks, Arrays
         s, opening_bkt_idxs, closing_bkt_idxs = list(s), [], []
         for idx, char in enumerate(s):
             if char == '(':
