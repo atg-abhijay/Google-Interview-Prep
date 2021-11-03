@@ -24,6 +24,14 @@ class Solution(object):
         return stack_size + unmatched_closing_bkts
 
 
+    def minAddToMakeValid_2ndPass(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        return -1
+
+
 def main():
     print(Solution().minAddToMakeValid("()))(("))
 
