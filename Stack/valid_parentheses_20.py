@@ -35,7 +35,23 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        return False
+        pairs = {'{': '}', '[': ']', '(': ')'}
+        stack = []
+        for bracket in s:
+            if bracket in pairs.keys():
+                stack.append(bracket)
+            else:
+                if not stack:
+                    return False
+
+                opening_bracket = stack.pop()
+                if pairs[opening_bracket] != bracket:
+                    return False
+
+        if stack:
+            return False
+
+        return True
 
 
 def main():
