@@ -11,6 +11,8 @@ class Solution(object):
         :type logs: List[str]
         :rtype: List[int]
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Stacks
         exclusive_times = [0] * n
         prev_fn, prev_state, prev_timestamp = self.parse_log(logs[0])
         call_stack = [prev_fn]
