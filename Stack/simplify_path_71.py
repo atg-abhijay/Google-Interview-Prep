@@ -10,7 +10,21 @@ class Solution(object):
         :type path: str
         :rtype: str
         """
-        return ""
+        path_stack = ['']
+        for directory in path.split('/'):
+            if directory in ['.', '']:
+                continue
+
+            if directory == '..':
+                if len(path_stack) > 1:
+                    path_stack.pop()
+            else:
+                path_stack.append(directory)
+
+        if path_stack == ['']:
+            return '/'
+
+        return '/'.join(path_stack)
 
 
 def main():
