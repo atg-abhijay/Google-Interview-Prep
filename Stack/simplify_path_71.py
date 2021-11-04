@@ -10,6 +10,8 @@ class Solution(object):
         :type path: str
         :rtype: str
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Stacks
         path_stack = ['']
         for directory in path.split('/'):
             if directory in ['.', '']:
