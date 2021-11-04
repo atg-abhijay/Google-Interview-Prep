@@ -14,28 +14,24 @@ class Solution(object):
         exclusive_times = [0] * n
         prev_fn, prev_state, prev_timestamp = self.parse_log(logs[0])
         call_stack = [prev_fn]
-        for log in logs[1:]:
-            f_id, state, timestamp = self.parse_log(log)
-            did_finish_same_process = False
-            if prev_state == "start":
-                exclusive_times[prev_fn] += timestamp - prev_timestamp
-                # This can only happen if the same
-                # process is coming to an end
-                if state == "end":
-                    exclusive_times[prev_fn] += 1
-                    did_finish_same_process = True
-                    call_stack.pop()
+        for f_id, state, timestamp in map(self.parse_log, logs[1:]):
+            time_diff, states = timestamp - prev_timestamp, [prev_state, state]
+            if states == ["start", "start"]:
+                exclusive_times[prev_fn] += time_diff
 
-            if state == "end" and not did_finish_same_process:
-                exclusive_times[f_id] += timestamp - prev_timestamp
-                if call_stack:
-                    call_stack.pop()
+            # This only happens if the same process is coming to an end
+            elif states == ["start", "end"]:
+                exclusive_times[prev_fn] += time_diff + 1
+                call_stack.pop()
+
+            elif states == ["end", "end"]:
+                exclusive_times[f_id] += time_diff
+                call_stack.pop()
 
             # Vacant time between end of previous function and start of
             # new function will be used by function on top of the stack
-            if prev_state == "end" and state == "start" :
-                if call_stack:
-                    exclusive_times[call_stack[-1]] += timestamp - prev_timestamp - 1
+            elif states == ["end", "start"] and call_stack:
+                exclusive_times[call_stack[-1]] += time_diff - 1
 
             if state == "start":
                 call_stack.append(f_id)
@@ -60,8 +56,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# ["0:start:0","1:start:5","2:start:6","3:start:9","4:start:11","5:start:12","6:start:14","7:start:15","7:end:34","6:end:37","5:end:39","4:end:40","3:end:45","5:start:55","5:end:59","2:end:70","1:end:102","0:end:114"]
-
-# ["0:start:0","1:start:5","2:start:6","3:start:9","4:start:11","5:start:12","5:end:39","4:end:40","3:end:45","5:start:55","5:end:59","2:end:70","1:end:102","0:end:114"]
