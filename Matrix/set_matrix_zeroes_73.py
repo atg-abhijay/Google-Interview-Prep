@@ -38,6 +38,25 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: None Do not return anything, modify matrix in-place instead.
         """
+        num_rows, num_cols = len(matrix), len(matrix[0])
+        change_rows, change_cols = [0] * num_rows, [0] * num_cols
+        for row_idx, row in enumerate(matrix):
+            for col_idx, elem in enumerate(row):
+                if elem == 0:
+                    change_rows[row_idx] = 1
+                    change_cols[col_idx] = 1
+
+        for idx, flag in enumerate(change_rows):
+            if flag:
+                matrix[idx] = [0] * num_cols
+
+        for idx, flag in enumerate(change_cols):
+            if not flag:
+                continue
+
+            for row in matrix:
+                row[idx] = 0
+
         return
 
 
