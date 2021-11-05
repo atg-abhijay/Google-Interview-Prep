@@ -22,6 +22,10 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: None Do not return anything, modify matrix in-place instead.
         """
+        # Time: O(m) (linear in size of input, not n^2)
+        # Space: O(1) I think
+        # Tags: Matrices
+
         # Take the transpose of the matrix
         # and then reverse each row
         for idx, row in enumerate(zip(*matrix)):
