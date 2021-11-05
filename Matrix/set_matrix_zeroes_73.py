@@ -38,6 +38,8 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: None Do not return anything, modify matrix in-place instead.
         """
+        # Time: O(mn), Space: O(m + n)
+        # Tags: Matrices
         num_rows, num_cols = len(matrix), len(matrix[0])
         change_rows, change_cols = [0] * num_rows, [0] * num_cols
         for row_idx, row in enumerate(matrix):
