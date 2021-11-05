@@ -10,6 +10,9 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: List[int]
         """
+        # Let M be the size of the input
+        # Time: O(M), Space: O(1)
+        # Tags: Matrices
         row_start, col_start = 0, 0
         row_end, col_end = len(matrix)-1, len(matrix[0])-1
         spiral_order = []
@@ -43,6 +46,9 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: List[int]
         """
+        # Let M be the size of the input
+        # Time: O(M), Space: O(M)
+        # Tags: Matrices
         if not matrix or not any(matrix):
             return []
 
