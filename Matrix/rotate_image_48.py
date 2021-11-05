@@ -17,6 +17,14 @@ class Solution(object):
             matrix[idx] = list(row[::-1])
 
 
+    def rotate_2ndPass(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        return
+
+
 def main():
     matrix = [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]]
     print("Original matrix:")
