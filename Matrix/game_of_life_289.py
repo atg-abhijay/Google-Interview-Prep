@@ -18,15 +18,17 @@ class Solution(object):
         # Tags: Matrices
 
         num_rows, num_cols = len(board), len(board[0])
-        # Add an outer boundary to the original board
-        # to bypass conducting checks for corner cells
+        # Add an outer boundary to the board to
+        # bypass conducting checks for corner cells
         for idx, row in enumerate(board):
             board[idx] = [0] + row + [0]
 
         board.insert(0, [0] * (num_cols+2))
         board.append([0] * (num_cols+2))
 
-        # Collect the new states in the other board
+        # Since the states are 0/1, leverage binary numbers
+        # to store the next state at the higher position and
+        # the original state at the lower position
         for row_idx, col_idx in product(range(1, num_rows+1), range(1, num_cols+1)):
             cell_state = board[row_idx][col_idx]
             num_live_neighbours = self.calculateLiveNeighbours(row_idx, col_idx, board)
@@ -39,14 +41,13 @@ class Solution(object):
 
             board[row_idx][col_idx] = (next_state << 1) | cell_state
 
-        # Remove the previously introduced,
-        # outer boundary for the original board
+        # Remove the previously introduced, outer boundary for the board
         board.pop()
         board.pop(0)
         for idx, row in enumerate(board):
             board[idx] = row[1:-1]
 
-        # Update the original board with the new states
+        # Update the board with the next states
         for row_idx, col_idx in product(range(num_rows), range(num_cols)):
             board[row_idx][col_idx] >>= 1
 
@@ -56,6 +57,8 @@ class Solution(object):
             "n": (-1, 0), "ne": (-1, 1), "e": (0, 1), "se": (1, 1),
             "s": (1, 0), "sw": (1, -1), "w": (0, -1), "nw": (-1, -1)
         }
+        # The #live neighbours will be determined using the
+        # original cell state. Therefore, extract the lowest bit
         num_live_neighbours = 0
         for row_diff, col_diff in directions.values():
             num_live_neighbours += board[row_idx + row_diff][col_idx + col_diff] & 1
