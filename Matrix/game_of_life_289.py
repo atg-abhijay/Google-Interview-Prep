@@ -13,16 +13,19 @@ class Solution(object):
         :type board: List[List[int]]
         :rtype: None Do not return anything, modify board in-place instead.
         """
+        # Create a separate board to store the new states
         num_rows, num_cols = len(board), len(board[0])
         next_board = [[0 for _ in range(num_cols)] for _ in range(num_rows)]
 
-        # Add an outer boundary to the board
+        # Add an outer boundary to the original board
+        # to bypass conducting checks for corner cells
         for idx, row in enumerate(board):
             board[idx] = [0] + row + [0]
 
         board.insert(0, [0] * (num_cols+2))
         board.append([0] * (num_cols+2))
 
+        # Collect the new states in the other board
         for row_idx, col_idx in product(range(1, num_rows+1), range(1, num_cols+1)):
             cell_state = board[row_idx][col_idx]
             num_live_neighbours = self.calculateLiveNeighbours(row_idx, col_idx, board)
@@ -35,11 +38,14 @@ class Solution(object):
 
             next_board[row_idx-1][col_idx-1] = next_state
 
+        # Remove the previously introduced,
+        # outer boundary for the original board
         board.pop()
         board.pop(0)
         for idx, row in enumerate(board):
             board[idx] = row[1:-1]
 
+        # Update the original board with the new states
         for row_idx, col_idx in product(range(num_rows), range(num_cols)):
             board[row_idx][col_idx] = next_board[row_idx][col_idx]
 
