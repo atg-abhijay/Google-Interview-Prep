@@ -38,6 +38,14 @@ class Solution(object):
         return spiral_order
 
 
+    def spiralOrder_2ndPass(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[int]
+        """
+        return []
+
+
 def main():
     print(Solution().spiralOrder([[1,2],[3,4]]))
 
