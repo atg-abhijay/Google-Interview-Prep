@@ -17,10 +17,7 @@ class Solution(object):
         # Time: O(M), Space: O(M)
         # Tags: Matrices
 
-        # Create a separate board to store the new states
         num_rows, num_cols = len(board), len(board[0])
-        next_board = [[0 for _ in range(num_cols)] for _ in range(num_rows)]
-
         # Add an outer boundary to the original board
         # to bypass conducting checks for corner cells
         for idx, row in enumerate(board):
@@ -40,7 +37,7 @@ class Solution(object):
             elif cell_state == 0 and num_live_neighbours == 3:
                 next_state = 1
 
-            next_board[row_idx-1][col_idx-1] = next_state
+            board[row_idx][col_idx] = (next_state << 1) | cell_state
 
         # Remove the previously introduced,
         # outer boundary for the original board
@@ -51,7 +48,7 @@ class Solution(object):
 
         # Update the original board with the new states
         for row_idx, col_idx in product(range(num_rows), range(num_cols)):
-            board[row_idx][col_idx] = next_board[row_idx][col_idx]
+            board[row_idx][col_idx] >>= 1
 
 
     def calculateLiveNeighbours(self, row_idx, col_idx, board):
@@ -61,7 +58,7 @@ class Solution(object):
         }
         num_live_neighbours = 0
         for row_diff, col_diff in directions.values():
-            num_live_neighbours += board[row_idx + row_diff][col_idx + col_diff]
+            num_live_neighbours += board[row_idx + row_diff][col_idx + col_diff] & 1
 
         return num_live_neighbours
 
