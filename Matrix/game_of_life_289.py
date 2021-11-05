@@ -14,7 +14,7 @@ class Solution(object):
         :rtype: None Do not return anything, modify board in-place instead.
         """
         # Let M be the size of the input
-        # Time: O(M), Space: O(M)
+        # Time: O(M), Space: O(1)
         # Tags: Matrices
 
         num_rows, num_cols = len(board), len(board[0])
