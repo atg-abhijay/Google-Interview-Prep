@@ -22,6 +22,12 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: None Do not return anything, modify matrix in-place instead.
         """
+        # Take the transpose of the matrix
+        # and then reverse each row
+        for idx, row in enumerate(zip(*matrix)):
+            matrix[idx] = list(row)
+            matrix[idx].reverse()
+
         return
 
 
