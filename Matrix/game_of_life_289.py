@@ -13,6 +13,10 @@ class Solution(object):
         :type board: List[List[int]]
         :rtype: None Do not return anything, modify board in-place instead.
         """
+        # Let M be the size of the input
+        # Time: O(M), Space: O(M)
+        # Tags: Matrices
+
         # Create a separate board to store the new states
         num_rows, num_cols = len(board), len(board[0])
         next_board = [[0 for _ in range(num_cols)] for _ in range(num_rows)]
