@@ -4,19 +4,16 @@ https://leetcode.com/problems/product-of-the-last-k-numbers/
 """
 
 
-from collections import deque
-from functools import reduce
-
-
 class ProductOfNumbers(object):
     def __init__(self):
-        self.stream = deque()
+        self.stream = []
 
     def add(self, num):
         """
         :type num: int
         :rtype: None
         """
+        self.stream = [num * x for x in self.stream]
         self.stream.append(num)
 
     def getProduct(self, k):
@@ -24,12 +21,7 @@ class ProductOfNumbers(object):
         :type k: int
         :rtype: int
         """
-        popped_nums = [self.stream.pop() for _ in range(k)]
-        ans = reduce(lambda x, y: x*y, popped_nums)
-        while popped_nums:
-            self.stream.append(popped_nums.pop())
-
-        return ans
+        return self.stream[-1 * k]
 
 
 # Your ProductOfNumbers object will be instantiated and called as such:
