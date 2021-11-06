@@ -72,6 +72,8 @@ class MyQueue_2ndPass(object):
         :type x: int
         :rtype: None
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Stacks, Queues
         while self.stack_1:
             self.stack_2.append(self.stack_1.pop())
 
@@ -84,6 +86,8 @@ class MyQueue_2ndPass(object):
         Removes the element from in front of queue and returns that element.
         :rtype: int
         """
+        # Time: O(1), Space: O(1)
+        # Tags: Stacks, Queues
         return self.stack_1.pop()
 
     def peek(self):
@@ -91,6 +95,8 @@ class MyQueue_2ndPass(object):
         Get the front element.
         :rtype: int
         """
+        # Time: O(1), Space: O(1)
+        # Tags: Stacks, Queues
         return self.stack_1[-1]
 
     def empty(self):
@@ -98,6 +104,8 @@ class MyQueue_2ndPass(object):
         Returns whether the queue is empty.
         :rtype: bool
         """
+        # Time: O(1), Space: O(1)
+        # Tags: Stacks, Queues
         if self.stack_1:
             return False
 
