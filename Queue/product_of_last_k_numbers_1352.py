@@ -4,7 +4,7 @@ https://leetcode.com/problems/product-of-the-last-k-numbers/
 """
 
 
-import bisect
+from bisect import bisect_left
 
 
 class ProductOfNumbers(object):
@@ -38,18 +38,10 @@ class ProductOfNumbers(object):
         :rtype: int
         """
         start_idx = self.size - k
-        if self.find_index(start_idx):
+        if bisect_left(self.zero_idxs, start_idx) < self.num_zeroes:
             return 0
 
         return self.products[-1] // self.products[start_idx] * self.stream[start_idx]
-
-
-    def find_index(self, start_idx):
-        index = bisect.bisect_left(self.zero_idxs, start_idx)
-        if index < self.num_zeroes:
-            return True
-
-        return False
 
 
 # Your ProductOfNumbers object will be instantiated and called as such:
