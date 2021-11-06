@@ -49,7 +49,46 @@ class Solution:
         :type senate: str
         :rtype: str
         """
-        return ""
+        num_senators = len(senate)
+        already_voted = [False] * num_senators
+        radiant_dq, dire_dq = deque(), deque()
+        for idx, senator in enumerate(senate):
+            if senator == "R":
+                radiant_dq.append(idx)
+            else:
+                dire_dq.append(idx)
+
+        while radiant_dq and dire_dq:
+            radiant_sntr = radiant_dq.popleft()
+            dire_sntr = dire_dq.popleft()
+            did_radiant_vote = already_voted[radiant_sntr]
+            did_dire_vote = already_voted[dire_sntr]
+
+            # One of them has already voted in this round.
+            # The one who has not yet voted gets precedence
+            if did_radiant_vote ^ did_dire_vote:
+                if not did_radiant_vote:
+                    radiant_dq.append(radiant_sntr)
+                    already_voted[radiant_sntr] = True
+                else:
+                    dire_dq.append(dire_sntr)
+                    already_voted[dire_sntr] = True
+
+            # Both of them have voted or neither of them have yet
+            else:
+                # Both of them have voted => reached the end of the current
+                # round. Reset the voting statuses for the next round
+                if did_radiant_vote:
+                    already_voted = [False] * num_senators
+
+                if radiant_sntr < dire_sntr:
+                    radiant_dq.append(radiant_sntr)
+                    already_voted[radiant_sntr] = True
+                else:
+                    dire_dq.append(dire_sntr)
+                    already_voted[dire_sntr] = True
+
+        return "Radiant" if radiant_dq else "Dire"
 
 
 def main():
