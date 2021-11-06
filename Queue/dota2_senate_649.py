@@ -44,6 +44,14 @@ class Solution:
         return "Radiant" if radiant_dq else "Dire"
 
 
+    def predictPartyVictory_2ndPass(self, senate):
+        """
+        :type senate: str
+        :rtype: str
+        """
+        return ""
+
+
 def main():
     print(Solution().predictPartyVictory("RDRDD"))
 
