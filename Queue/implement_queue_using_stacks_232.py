@@ -63,7 +63,8 @@ class MyQueue_2ndPass(object):
         """
         Initialize your data structure here.
         """
-
+        self.stack_1 = []
+        self.stack_2 = []
 
     def push(self, x):
         """
@@ -71,28 +72,36 @@ class MyQueue_2ndPass(object):
         :type x: int
         :rtype: None
         """
+        while self.stack_1:
+            self.stack_2.append(self.stack_1.pop())
 
+        self.stack_1.append(x)
+        while self.stack_2:
+            self.stack_1.append(self.stack_2.pop())
 
     def pop(self):
         """
         Removes the element from in front of queue and returns that element.
         :rtype: int
         """
-
+        return self.stack_1.pop()
 
     def peek(self):
         """
         Get the front element.
         :rtype: int
         """
-
+        return self.stack_1[-1]
 
     def empty(self):
         """
         Returns whether the queue is empty.
         :rtype: bool
         """
+        if self.stack_1:
+            return False
 
+        return True
 
 # Your MyQueue object will be instantiated and called as such:
 # obj = MyQueue()
