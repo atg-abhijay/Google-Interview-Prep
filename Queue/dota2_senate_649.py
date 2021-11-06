@@ -49,6 +49,10 @@ class Solution:
         :type senate: str
         :rtype: str
         """
+        # Time: O(n), since in each iteration of the
+        # loop, one senator is banned.
+        # Space: O(n), for the indices and the voting statuses.
+        # Tags: Queues
         num_senators = len(senate)
         already_voted = [False] * num_senators
         radiant_dq, dire_dq = deque(), deque()
