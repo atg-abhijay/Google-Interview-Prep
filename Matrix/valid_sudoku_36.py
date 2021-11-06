@@ -4,13 +4,52 @@ https://leetcode.com/problems/valid-sudoku/
 """
 
 
+from itertools import product
+
+
 class Solution(object):
     def isValidSudoku(self, board):
         """
         :type board: List[List[str]]
         :rtype: bool
         """
-        return False
+        unique_nums = set()
+        # Check the rows
+        for row in board:
+            for number in row:
+                if number in unique_nums:
+                    return False
+
+                if number != '.':
+                    unique_nums.add(number)
+
+            unique_nums.clear()
+
+        # Check the columns
+        for col_idx in range(9):
+            for row_idx in range(9):
+                number = board[row_idx][col_idx]
+                if number in unique_nums:
+                    return False
+
+                if number != '.':
+                    unique_nums.add(number)
+
+            unique_nums.clear()
+
+        # Check the sub-boxes
+        for box_row, box_col in product([0, 3, 6], [0, 3, 6]):
+            for row_idx, col_idx in product(range(box_row, box_row + 3), range(box_col, box_col + 3)):
+                number = board[row_idx][col_idx]
+                if number in unique_nums:
+                    return False
+
+                if number != '.':
+                    unique_nums.add(number)
+
+            unique_nums.clear()
+
+        return True
 
 
 def main():
