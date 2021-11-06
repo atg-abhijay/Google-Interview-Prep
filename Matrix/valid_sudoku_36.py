@@ -13,6 +13,8 @@ class Solution(object):
         :type board: List[List[str]]
         :rtype: bool
         """
+        # Time: O(1), Space: O(1)
+        # Tags: Matrices
         unique_nums = set()
         # Check the rows
         for row in board:
