@@ -124,56 +124,118 @@ class MyCircularDeque_2ndPass(object):
         """
         :type k: int
         """
-
+        self.max_size = k
+        self.current_size = 0
+        self.head = None
+        self.tail = None
 
     def insertFront(self, value):
         """
         :type value: int
         :rtype: bool
         """
+        if self.isFull():
+            return False
 
+        if self.isEmpty():
+            new_node = ListNode(value)
+            self.head = new_node
+            self.tail = new_node
+            self.head.next, self.head.prev = self.tail, self.tail
+            self.tail.next, self.tail.prev = self.head, self.head
+        else:
+            new_node = ListNode(value, self.head, self.tail)
+            self.tail.next = new_node
+            self.head.prev = new_node
+            self.head = new_node
+
+        self.current_size += 1
+        return True
 
     def insertLast(self, value):
         """
         :type value: int
         :rtype: bool
         """
+        if self.isFull():
+            return False
 
+        if self.isEmpty():
+            new_node = ListNode(value)
+            self.head = new_node
+            self.tail = new_node
+            self.head.next, self.head.prev = self.tail, self.tail
+            self.tail.next, self.tail.prev = self.head, self.head
+        else:
+            new_node = ListNode(value, self.head, self.tail)
+            self.tail.next = new_node
+            self.head.prev = new_node
+            self.tail = new_node
+
+        self.current_size += 1
+        return True
 
     def deleteFront(self):
         """
         :rtype: bool
         """
+        if self.isEmpty():
+            return False
 
+        self.head.next.prev = self.tail
+        self.tail.next = self.head.next
+        self.head = self.head.next
+        self.current_size -= 1
+        return True
 
     def deleteLast(self):
         """
         :rtype: bool
         """
+        if self.isEmpty():
+            return False
 
+        self.tail.prev.next = self.head
+        self.head.prev = self.tail.prev
+        self.tail = self.tail.prev
+        self.current_size -= 1
+        return True
 
     def getFront(self):
         """
         :rtype: int
         """
+        if self.isEmpty():
+            return -1
 
+        return self.head.val
 
     def getRear(self):
         """
         :rtype: int
         """
+        if self.isEmpty():
+            return -1
 
+        return self.tail.val
 
     def isEmpty(self):
         """
         :rtype: bool
         """
+        if self.current_size == 0:
+            return True
 
+        return False
 
     def isFull(self):
         """
         :rtype: bool
         """
+        if self.current_size == self.max_size:
+            return True
+
+        return False
 
 
 # Your MyCircularDeque object will be instantiated and called as such:
