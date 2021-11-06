@@ -10,6 +10,10 @@ class Solution(object):
         :type grid: List[List[int]]
         :rtype: List[int]
         """
+        # Time: O(mn), for each column the ball will
+        # travel down at most all the rows.
+        # Space: O(1)
+        # Tags: Matrices
         num_rows, num_cols = len(grid), len(grid[0])
         ans = [-1] * num_cols
         for col_idx in range(num_cols):
