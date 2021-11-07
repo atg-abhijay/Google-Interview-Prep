@@ -6,6 +6,8 @@ https://leetcode.com/problems/product-of-the-last-k-numbers/
 
 class ProductOfNumbers(object):
     def __init__(self):
+        # Space: O(n)
+        # Tags: Arrays, Queues
         self.stream = []
         self.products = []
         self.last_zero_idx = -1
@@ -16,6 +18,7 @@ class ProductOfNumbers(object):
         :type num: int
         :rtype: None
         """
+        # Time: O(1)
         self.stream.append(num)
         self.size += 1
         if num == 0:
@@ -32,7 +35,10 @@ class ProductOfNumbers(object):
         :type k: int
         :rtype: int
         """
+        # Time: O(1)
         start_idx = self.size - k
+        # If the product uses an index that comes before
+        # the last zero, the whole product will be zero
         if start_idx <= self.last_zero_idx:
             return 0
 
