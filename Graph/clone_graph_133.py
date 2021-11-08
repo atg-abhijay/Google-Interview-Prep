@@ -38,6 +38,14 @@ class Solution(object):
         return cloned_nodes[1]
 
 
+    def cloneGraph_2ndPass(self, node):
+        """
+        :type node: Node
+        :rtype: Node
+        """
+        return None
+
+
 def main():
     a = Node(1, [])
     b = Node(2, [])
