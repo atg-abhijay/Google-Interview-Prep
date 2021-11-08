@@ -4,6 +4,9 @@ https://leetcode.com/problems/clone-graph/
 """
 
 
+from collections import deque
+
+
 # Definition for a Node.
 class Node(object):
     def __init__(self, val=0, neighbors=None):
@@ -43,7 +46,29 @@ class Solution(object):
         :type node: Node
         :rtype: Node
         """
-        return None
+        if not node:
+            return None
+
+        if not node.neighbors:
+            return Node(1)
+
+        first_clone = Node(1)
+        clones = {1: first_clone}
+        queue = deque([node])
+        visited = set([1])
+        while queue:
+            curr_node = queue.popleft()
+            for nbr in curr_node.neighbors:
+                if not nbr.val in visited:
+                    visited.add(nbr.val)
+                    queue.append(nbr)
+
+                if not nbr.val in clones:
+                    clones[nbr.val] = Node(nbr.val)
+
+                clones[curr_node.val].neighbors.append(clones[nbr.val])
+
+        return first_clone
 
 
 def main():
