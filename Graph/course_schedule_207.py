@@ -65,17 +65,19 @@ class Solution(object):
         for crse, prereq in prerequisites:
             courses[crse].append(prereq)
 
-        random_course = prerequisites[0][0]
-        visited = set([random_course])
-        queue = deque([random_course])
-        while queue:
-            crse = queue.popleft()
-            for prereq in courses[crse]:
-                if prereq in visited:
-                    return False
+        visited, course_keys = set(), set(courses.keys())
+        while course_keys:
+            queue = deque([course_keys.pop()])
+            visited.add(queue[0])
+            while queue:
+                crse = queue.popleft()
+                course_keys.discard(crse)
+                for prereq in courses[crse]:
+                    if prereq in visited:
+                        return False
 
-                visited.add(prereq)
-                queue.append(prereq)
+                    visited.add(prereq)
+                    queue.append(prereq)
 
         return True
 
