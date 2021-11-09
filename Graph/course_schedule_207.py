@@ -4,6 +4,9 @@ https://leetcode.com/problems/course-schedule/
 """
 
 
+from collections import defaultdict, deque
+
+
 class Solution(object):
     def canFinish(self, numCourses, prerequisites):
         """
@@ -55,7 +58,26 @@ class Solution(object):
         :type prerequisites: List[List[int]]
         :rtype: bool
         """
-        return False
+        if numCourses == 1 or not prerequisites:
+            return True
+
+        courses = defaultdict(list)
+        for crse, prereq in prerequisites:
+            courses[crse].append(prereq)
+
+        random_course = prerequisites[0][0]
+        visited = set([random_course])
+        queue = deque([random_course])
+        while queue:
+            crse = queue.popleft()
+            for prereq in courses[crse]:
+                if prereq in visited:
+                    return False
+
+                visited.add(prereq)
+                queue.append(prereq)
+
+        return True
 
 
 def main():
