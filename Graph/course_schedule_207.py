@@ -65,19 +65,29 @@ class Solution(object):
         for crse, prereq in prerequisites:
             courses[crse].append(prereq)
 
-        visited, course_keys = set(), set(courses.keys())
+        # 0 = not visited, 1 = in progress, 2 = completed
+        visited = [0] * numCourses
+        course_keys = set(courses.keys())
         while course_keys:
-            queue = deque([course_keys.pop()])
-            visited.add(queue[0])
-            while queue:
-                crse = queue.popleft()
+            stack = [course_keys.pop()]
+            while stack:
+                crse = stack[-1]
                 course_keys.discard(crse)
-                for prereq in courses[crse]:
-                    if prereq in visited:
+                visit_status = visited[crse]
+
+                if visit_status == 0:
+                    stack.extend(courses[crse])
+                    visited[crse] = 1
+
+                elif visit_status == 1:
+                    if not all(map(lambda pr: visited[pr] == 2, courses[crse])):
                         return False
 
-                    visited.add(prereq)
-                    queue.append(prereq)
+                    visited[crse] = 2
+                    stack.pop()
+
+                else:
+                    stack.pop()
 
         return True
 
