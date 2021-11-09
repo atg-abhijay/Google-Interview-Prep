@@ -58,6 +58,9 @@ class Solution(object):
         :type prerequisites: List[List[int]]
         :rtype: bool
         """
+        # Time: O(#nodes + #edges), Space: O(#nodes + #edges)
+        # Tags: Graphs, DFS
+
         if numCourses == 1 or not prerequisites:
             return True
 
