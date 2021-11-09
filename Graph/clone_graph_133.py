@@ -20,6 +20,13 @@ class Solution(object):
         :type node: Node
         :rtype: Node
         """
+        # Let n be #nodes and m be #edges
+        # Time: O(n + 2m), Space: O(n + 2m)
+        # (larger space actually since the
+        # array has all possible nodes)
+        # (the 'queue' here is actually a
+        # stack => DFS)
+        # Tags: Graphs, DFS
         if not node:
             return None
 
@@ -46,9 +53,15 @@ class Solution(object):
         :type node: Node
         :rtype: Node
         """
+        # Let n be #nodes and m be #edges
+        # Time: O(n + 2m), Space: O(n + 2m)
+        # Tags: Graphs, BFS
+
+        # Empty graph
         if not node:
             return None
 
+        # One node and no edges
         if not node.neighbors:
             return Node(1)
 
