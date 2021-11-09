@@ -14,6 +14,21 @@ class Solution(object):
         :type grid: List[List[str]]
         :rtype: int
         """
+        # Given m, n are dimensions of the grid.
+        # Time: O(mn + 8mn), where mn = #nodes
+        # and each node has 4 neighbors (4 edges)
+        # and since graph is undirected, each edge
+        # gets counted twice => 8mn.
+        # Therefore, O(mn + 8mn) or O(#nodes + #edges)
+        # Space: O(mn), space for the queue since at
+        # max, it can store all the cells.
+        # Tags: Graphs, BFS
+
+        # Run a BFS (or DFS) whenever a piece of land
+        # is encountered. Find all the land that's
+        # connected to it and that will be 1 island.
+        # The number of times BFS (or DFS) gets run
+        # gives us the number of islands.
         num_islands = 0
         num_rows, num_cols = len(grid), len(grid[0])
         directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
