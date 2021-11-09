@@ -49,6 +49,15 @@ class Solution(object):
         return True
 
 
+    def canFinish_2ndPass(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        return False
+
+
 def main():
     print(Solution().canFinish(5, [[1,4],[2,4],[3,1],[3,2]]))
 
