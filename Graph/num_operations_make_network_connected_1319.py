@@ -19,6 +19,7 @@ class Solution(object):
         graph = defaultdict(list)
         for node_a, node_b in connections:
             graph[node_a].append(node_b)
+            graph[node_b].append(node_a)
 
         num_conns = len(connections)
         computers, num_bfs_edges = set(range(n)), 0
