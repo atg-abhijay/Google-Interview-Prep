@@ -28,11 +28,6 @@ class Solution(object):
 
         answer = [-1] * num_people
         for person in range(num_people):
-            # Answer for this person has
-            # already been determined
-            # if answer[person] != -1:
-            #     continue
-
             least_quiet_richer = person
             stack = [person]
             while stack:
@@ -41,7 +36,11 @@ class Solution(object):
                     least_quiet_richer = p
 
                 for richer_person in graph[p]:
-                    stack.append(richer_person)
+                    if answer[richer_person] != -1:
+                        if quiet[richer_person] < quiet[least_quiet_richer]:
+                            least_quiet_richer = richer_person
+                    else:
+                        stack.append(richer_person)
 
             answer[person] = least_quiet_richer
 
