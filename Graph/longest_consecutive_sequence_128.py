@@ -10,7 +10,16 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        return -1
+        if not nums:
+            return 0
+
+        min_val = min(nums)
+        num_elems = len(nums)
+        diffs = {x for x in range(num_elems)}
+        for num in nums:
+            diffs.discard(num - min_val)
+
+        return num_elems - len(diffs)
 
 
 def main():
