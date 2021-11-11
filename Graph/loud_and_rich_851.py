@@ -64,7 +64,7 @@ class Solution(object):
         """
         num_people = len(quiet)
         if not richer:
-            return list(range(len(quiet)))
+            return list(range(num_people))
 
         graph = [[] for _ in range(num_people)]
         for person_a, person_b in richer:
@@ -72,10 +72,8 @@ class Solution(object):
 
         answer = [-1] * num_people
         for person in range(num_people):
-            if answer[person] != -1:
-                continue
-
-            self.runDFS(person, graph, answer, quiet)
+            if answer[person] == -1:
+                self.runDFS(person, graph, answer, quiet)
 
         return answer
 
