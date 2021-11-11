@@ -56,6 +56,44 @@ class Solution(object):
         return answer
 
 
+    def loudAndRich_Recursive(self, richer, quiet):
+        """
+        :type richer: List[List[int]]
+        :type quiet: List[int]
+        :rtype: List[int]
+        """
+        num_people = len(quiet)
+        if not richer:
+            return list(range(len(quiet)))
+
+        graph = [[] for _ in range(num_people)]
+        for person_a, person_b in richer:
+            graph[person_b].append(person_a)
+
+        answer = [-1] * num_people
+        for person in range(num_people):
+            if answer[person] != -1:
+                continue
+
+            self.runDFS(person, graph, answer, quiet)
+
+        return answer
+
+
+    def runDFS(self, person, graph, answer, quiet):
+        if answer[person] != -1:
+            return answer[person]
+
+        least_quiet_richer = person
+        for richer_nbr in graph[person]:
+            nbr_answer = self.runDFS(richer_nbr, graph, answer, quiet)
+            if quiet[nbr_answer] < quiet[least_quiet_richer]:
+                least_quiet_richer = nbr_answer
+
+        answer[person] = least_quiet_richer
+        return answer[person]
+
+
 def main():
     print(
         Solution().loudAndRich(
