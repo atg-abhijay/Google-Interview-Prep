@@ -62,6 +62,9 @@ class Solution(object):
         :type quiet: List[int]
         :rtype: List[int]
         """
+        # Let n be #people and m be #relations.
+        # Time: O(n + m), Space: O(n + m)
+        # Tags: Graphs, DFS
         num_people = len(quiet)
         if not richer:
             return list(range(num_people))
@@ -79,6 +82,7 @@ class Solution(object):
 
 
     def runDFS(self, person, graph, answer, quiet):
+        # If the answer has already been determined
         if answer[person] != -1:
             return answer[person]
 
