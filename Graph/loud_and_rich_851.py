@@ -37,8 +37,8 @@ class Solution(object):
 
                 for richer_person in graph[p]:
                     if answer[richer_person] != -1:
-                        if quiet[richer_person] < quiet[least_quiet_richer]:
-                            least_quiet_richer = richer_person
+                        if quiet[answer[richer_person]] < quiet[least_quiet_richer]:
+                            least_quiet_richer = answer[richer_person]
                     else:
                         stack.append(richer_person)
 
