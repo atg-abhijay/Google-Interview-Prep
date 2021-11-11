@@ -14,6 +14,12 @@ class Solution(object):
         :type connections: List[List[int]]
         :rtype: int
         """
+        # n is #computers and let m be #connections.
+        # Time: O(n + m), Space: O(n + m)
+        # Tags: Graphs, BFS
+        # Information about solving this problem
+        # can be found in the commit messages.
+
         # Build an adjacency list representation
         # of the graph of connections in the network
         graph = defaultdict(list)
