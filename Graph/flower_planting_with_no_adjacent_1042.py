@@ -14,6 +14,10 @@ class Solution(object):
         :type paths: List[List[int]]
         :rtype: List[int]
         """
+        # n is #gardens and let m be #paths.
+        # Time: O(n + m), Space: O(n + m)
+        # Tags: Graphs, BFS
+
         # If the gardens don't have paths between them,
         # any flower can be planted in each of them
         if not paths:
