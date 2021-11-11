@@ -11,6 +11,15 @@ class Solution(object):
         :type quiet: List[int]
         :rtype: List[int]
         """
+        # Let n be #people and m be #relations.
+        # - Time: O(n * m) The way the solution works,
+        #   counting for all n people, it is possible
+        #   to iterate over some/many edges more than
+        #   once. Due to that, the time wouldn't be
+        #   O(n + m), rather it would be O(n * m).
+        # - Space: O(n + m)
+        # - Tags: Graphs, DFS
+
         # If there is no information about
         # anybody being richer than anybody else
         if not richer:
