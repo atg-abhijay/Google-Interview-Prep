@@ -70,7 +70,51 @@ class Solution(object):
         :type heights: List[List[int]]
         :rtype: List[List[int]]
         """
-        return [[]]
+        num_rows, num_cols = len(heights), len(heights[0])
+        if num_rows == 1 or num_cols == 1:
+            return [[row_idx, col_idx] for row_idx, col_idx in product(range(num_rows), range(num_cols))]
+
+        # [x, x, x] = [reach Pacific, reach Atlantic, visited]
+        grid_flows = [[[0, 0, 0] for _ in range(num_cols)] for _ in range(num_rows)]
+        for row_idx, col_idx in product(range(num_rows), range(num_cols)):
+            if grid_flows[row_idx][col_idx][2] == 0:
+                grid_flows[row_idx][col_idx][2] = 1
+                self.runDFS((heights, grid_flows), (row_idx, col_idx), (num_rows, num_cols))
+
+        result = []
+        for row_idx, col_idx in product(range(num_rows), range(num_cols)):
+            if grid_flows[row_idx][col_idx][:2] == [1, 1]:
+                result.append([row_idx, col_idx])
+
+        return result
+
+
+    def runDFS(self, matrices, idxs, lengths):
+        heights, grid_flows = matrices
+        row_idx, col_idx = idxs
+        num_rows, num_cols = lengths
+        cell_info = grid_flows[row_idx][col_idx]
+        if row_idx == 0 or col_idx == 0:
+            cell_info[0] = 1
+
+        if row_idx == num_rows - 1 or col_idx == num_cols - 1:
+            cell_info[1] = 1
+
+        directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
+        cell_height = heights[row_idx][col_idx]
+        for row_diff, col_diff in directions:
+            nbr_row, nbr_col = row_idx + row_diff, col_idx + col_diff
+            within_bounds = 0 <= nbr_row < num_rows and 0 <= nbr_col < num_cols
+            if within_bounds and heights[nbr_row][nbr_col] <= cell_height:
+                if grid_flows[nbr_row][nbr_col][2] == 0:
+                    grid_flows[nbr_row][nbr_col][2] = 1
+                    self.runDFS(matrices, (nbr_row, nbr_col), lengths)
+
+                nbr_info = grid_flows[nbr_row][nbr_col]
+                cell_info[0] |= nbr_info[0]
+                cell_info[1] |= nbr_info[1]
+
+        return
 
 
 def main():
