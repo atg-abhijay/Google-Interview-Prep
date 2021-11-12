@@ -24,6 +24,14 @@ class Solution(object):
         return permutations
 
 
+    def permute_2ndPass(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        return [[]]
+
+
 def main():
     print(Solution().permute([1, 2, 3]))
 
