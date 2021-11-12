@@ -77,9 +77,8 @@ class Solution(object):
         # [x, x, x] = [reach Pacific, reach Atlantic, visited]
         grid_flows = [[[0, 0, 0] for _ in range(num_cols)] for _ in range(num_rows)]
         for row_idx, col_idx in product(range(num_rows), range(num_cols)):
-            if grid_flows[row_idx][col_idx][2] == 0:
-                grid_flows[row_idx][col_idx][2] = 1
-                self.runDFS((heights, grid_flows), (row_idx, col_idx), (num_rows, num_cols))
+            grid_flows[row_idx][col_idx][2] = 1
+            self.runDFS((heights, grid_flows), (row_idx, col_idx), (num_rows, num_cols))
 
         result = []
         for row_idx, col_idx in product(range(num_rows), range(num_cols)):
