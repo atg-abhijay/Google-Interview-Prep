@@ -78,6 +78,7 @@ class Solution(object):
         grid_flows = [[[0, 0, 0] for _ in range(num_cols)] for _ in range(num_rows)]
         for row_idx, col_idx in product(range(num_rows), range(num_cols)):
             if grid_flows[row_idx][col_idx][:2] != [1, 1]:
+                grid_flows[row_idx][col_idx][2] = 1
                 self.runDFS((heights, grid_flows), (row_idx, col_idx), (num_rows, num_cols))
                 # print()
 
@@ -113,12 +114,12 @@ class Solution(object):
                 if grid_flows[nbr_row][nbr_col][2] == 0:
                     grid_flows[nbr_row][nbr_col][2] = 1
                     self.runDFS(matrices, (nbr_row, nbr_col), lengths)
+                    grid_flows[nbr_row][nbr_col][2] = 0
 
                 nbr_info = grid_flows[nbr_row][nbr_col]
                 cell_info[0] |= nbr_info[0]
                 cell_info[1] |= nbr_info[1]
 
-        cell_info[2] = 0
         return
 
 
