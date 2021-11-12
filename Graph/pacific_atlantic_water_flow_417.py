@@ -65,6 +65,14 @@ class Solution(object):
         }
 
 
+    def pacificAtlantic_2ndPass(self, heights):
+        """
+        :type heights: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        return [[]]
+
+
 def main():
     print(Solution().pacificAtlantic([[10,10,10],[10,1,10],[10,10,10]]))
 
