@@ -79,6 +79,7 @@ class Solution(object):
         for row_idx, col_idx in product(range(num_rows), range(num_cols)):
             grid_flows[row_idx][col_idx][2] = 1
             self.runDFS((heights, grid_flows), (row_idx, col_idx), (num_rows, num_cols))
+            # print()
 
         result = []
         for row_idx, col_idx in product(range(num_rows), range(num_cols)):
@@ -93,6 +94,7 @@ class Solution(object):
         row_idx, col_idx = idxs
         num_rows, num_cols = lengths
         cell_info = grid_flows[row_idx][col_idx]
+        # print(f"(Row, Column): ({row_idx}, {col_idx}), Height: {heights[row_idx][col_idx]}")
         if row_idx == 0 or col_idx == 0:
             cell_info[0] = 1
 
@@ -113,6 +115,7 @@ class Solution(object):
                 cell_info[0] |= nbr_info[0]
                 cell_info[1] |= nbr_info[1]
 
+        cell_info[2] = 0
         return
 
 
