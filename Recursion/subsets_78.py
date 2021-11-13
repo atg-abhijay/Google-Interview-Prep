@@ -62,8 +62,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        # Time: O(2^n), Space: O(1)
-        # Tags: Recursion, Combinatorics
+        # Time: O(n * 2^n), Space: O(1)
+        # Tags: Recursion
         if not nums:
             return [[]]
 
@@ -77,8 +77,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        # Time: O(2^n), Space: O(1)
-        # Tags: Recursion, Combinatorics
+        # Time: O(n * 2^n), Space: O(1)
+        # Tags: Non-recursive
         power_set = [[]]
         while nums:
             power_set.extend([p_set + [nums[0]] for p_set in power_set])
@@ -92,6 +92,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
+        # Time: O(n * 2^n), Space: O(1)
+        # Tags: Combinatorics, Binary
         power_set, num_elems = [], len(nums)
         num_subsets = 2 ** num_elems
         for combn in range(num_subsets):
