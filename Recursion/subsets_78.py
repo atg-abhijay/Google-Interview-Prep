@@ -87,6 +87,20 @@ class Solution(object):
         return power_set
 
 
+    def subsets_binary_2ndPass(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        power_set, num_elems = [], len(nums)
+        num_subsets = 2 ** num_elems
+        for combn in range(num_subsets):
+            switches = map(int, bin(combn)[2:].zfill(num_elems))
+            power_set.append([num for switch, num in zip(switches, nums) if switch])
+
+        return power_set
+
+
 def main():
     print(Solution().subsets([1, 2, 3]))
 
