@@ -72,6 +72,21 @@ class Solution(object):
         return sub_results
 
 
+    def subsets_nonRecursive_2ndPass(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        # Time: O(2^n), Space: O(1)
+        # Tags: Recursion, Combinatorics
+        power_set = [[]]
+        while nums:
+            power_set.extend([p_set + [nums[0]] for p_set in power_set])
+            nums = nums[1:]
+
+        return power_set
+
+
 def main():
     print(Solution().subsets([1, 2, 3]))
 
