@@ -62,7 +62,12 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        return [[]]
+        if not nums:
+            return [[]]
+
+        sub_results = self.subsets(nums[1:])
+        sub_results.extend([sub_res + [nums[0]] for sub_res in sub_results])
+        return sub_results
 
 
 def main():
