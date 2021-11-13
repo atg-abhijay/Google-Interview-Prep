@@ -19,16 +19,12 @@ class Solution(object):
         for num in nums:
             unique_nums[num] += 1
 
-        repeated_nums = set(filter(lambda num: unique_nums[num] > 1, unique_nums))
-        visited = set()
-        while nums:
-            num = nums.pop()
-            if num not in repeated_nums:
+        for num, count in unique_nums.items():
+            if count == 1:
                 power_set.extend([p_set + [num] for p_set in power_set])
-            elif num not in visited:
-                sets = [[num] * x for x in range(1, unique_nums[num]+1)]
+            else:
+                sets = [[num] * x for x in range(1, count + 1)]
                 power_set.extend([p + s for p, s in product(power_set, sets)])
-                visited.add(num)
 
         return power_set
 
