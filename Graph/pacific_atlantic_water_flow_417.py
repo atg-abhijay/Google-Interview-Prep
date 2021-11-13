@@ -77,7 +77,7 @@ class Solution(object):
         # [x, y, z] = [reach Pacific, reach Atlantic, visited]
         grid_flows = [[[0, 0, 0] for _ in range(num_cols)] for _ in range(num_rows)]
         for row_idx, col_idx in product(range(num_rows), range(num_cols)):
-            if grid_flows[row_idx][col_idx][:2] == [0, 0]:
+            if grid_flows[row_idx][col_idx][:2] != [1, 1]:
                 visited = set([(row_idx, col_idx)])
                 self.runDFS((heights, grid_flows), (row_idx, col_idx), (num_rows, num_cols), visited)
                 # print()
@@ -125,7 +125,7 @@ class Solution(object):
 def main():
     print(
         Solution().pacificAtlantic_2ndPass(
-            [[78, 65, 50, 95], [0, 64, 98, 94], [19, 27, 27, 49]]
+            [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]
         )
     )
 
