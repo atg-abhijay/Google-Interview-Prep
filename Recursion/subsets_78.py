@@ -62,6 +62,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
+        # Time: O(2^n), Space: O(1)
+        # Tags: Recursion, Combinatorics
         if not nums:
             return [[]]
 
