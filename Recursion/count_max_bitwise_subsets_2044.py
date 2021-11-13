@@ -13,19 +13,21 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        num_elems = len(nums)
         max_bitwise, num_subsets = 0, 0
-        for combn in range(2 ** num_elems, 2 ** (num_elems + 1)):
-            bitmask = bin(combn)[3:]
-            subset = [num for bit, num in zip(bitmask, nums) if bit == '1']
-            subset_OR = reduce(lambda x, y: x | y, subset, 0)
-            if subset_OR > max_bitwise:
-                max_bitwise = subset_OR
+        power_set = [[]]
+        for num in nums:
+            power_set.extend([p_set + [num] for p_set in power_set])
+
+        for p_set in power_set:
+            p_set_OR = reduce(lambda x, y: x | y, p_set, 0)
+            if p_set_OR > max_bitwise:
+                max_bitwise = p_set_OR
                 num_subsets = 1
-            elif subset_OR == max_bitwise:
+            elif p_set_OR == max_bitwise:
                 num_subsets += 1
 
         return num_subsets
+
 
 def main():
     print(Solution().countMaxOrSubsets([2, 2, 2]))
