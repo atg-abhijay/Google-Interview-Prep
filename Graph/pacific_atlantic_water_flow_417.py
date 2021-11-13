@@ -77,9 +77,9 @@ class Solution(object):
         # [x, y, z] = [reach Pacific, reach Atlantic, visited]
         grid_flows = [[[0, 0, 0] for _ in range(num_cols)] for _ in range(num_rows)]
         for row_idx, col_idx in product(range(num_rows), range(num_cols)):
-            if grid_flows[row_idx][col_idx][:2] != [1, 1]:
-                grid_flows[row_idx][col_idx][2] = 1
-                self.runDFS((heights, grid_flows), (row_idx, col_idx), (num_rows, num_cols))
+            if grid_flows[row_idx][col_idx][:2] == [0, 0]:
+                visited = set([(row_idx, col_idx)])
+                self.runDFS((heights, grid_flows), (row_idx, col_idx), (num_rows, num_cols), visited)
                 # print()
 
         result = []
@@ -90,7 +90,7 @@ class Solution(object):
         return result
 
 
-    def runDFS(self, matrices, idxs, lengths):
+    def runDFS(self, matrices, idxs, lengths, visited):
         heights, grid_flows = matrices
         row_idx, col_idx = idxs
         num_rows, num_cols = lengths
@@ -111,10 +111,9 @@ class Solution(object):
             nbr_row, nbr_col = row_idx + row_diff, col_idx + col_diff
             within_bounds = 0 <= nbr_row < num_rows and 0 <= nbr_col < num_cols
             if within_bounds and heights[nbr_row][nbr_col] <= cell_height:
-                if grid_flows[nbr_row][nbr_col][2] == 0:
-                    grid_flows[nbr_row][nbr_col][2] = 1
-                    self.runDFS(matrices, (nbr_row, nbr_col), lengths)
-                    grid_flows[nbr_row][nbr_col][2] = 0
+                if (nbr_row, nbr_col) not in visited:
+                    visited.add((nbr_row, nbr_col))
+                    self.runDFS(matrices, (nbr_row, nbr_col), lengths, visited)
 
                 nbr_info = grid_flows[nbr_row][nbr_col]
                 cell_info[0] |= nbr_info[0]
@@ -124,7 +123,11 @@ class Solution(object):
 
 
 def main():
-    print(Solution().pacificAtlantic([[10,10,10],[10,1,10],[10,10,10]]))
+    print(
+        Solution().pacificAtlantic_2ndPass(
+            [[78, 65, 50, 95], [0, 64, 98, 94], [19, 27, 27, 49]]
+        )
+    )
 
 
 if __name__ == "__main__":
