@@ -77,9 +77,10 @@ class Solution(object):
         # [x, y, z] = [reach Pacific, reach Atlantic, visited]
         grid_flows = [[[0, 0, 0] for _ in range(num_cols)] for _ in range(num_rows)]
         for row_idx, col_idx in product(range(num_rows), range(num_cols)):
-            if grid_flows[row_idx][col_idx][:2] != [1, 1]:
-                visited = set([(row_idx, col_idx)])
-                self.runDFS((heights, grid_flows), (row_idx, col_idx), (num_rows, num_cols), visited)
+            if grid_flows[row_idx][col_idx][2] == 0:
+                grid_flows[row_idx][col_idx][2] = 1
+                # visited = set([(row_idx, col_idx)])
+                self.runDFS((heights, grid_flows), (row_idx, col_idx), (num_rows, num_cols))
                 # print()
 
         result = []
@@ -90,7 +91,7 @@ class Solution(object):
         return result
 
 
-    def runDFS(self, matrices, idxs, lengths, visited):
+    def runDFS(self, matrices, idxs, lengths):
         heights, grid_flows = matrices
         row_idx, col_idx = idxs
         num_rows, num_cols = lengths
@@ -111,11 +112,13 @@ class Solution(object):
             nbr_row, nbr_col = row_idx + row_diff, col_idx + col_diff
             within_bounds = 0 <= nbr_row < num_rows and 0 <= nbr_col < num_cols
             if within_bounds and heights[nbr_row][nbr_col] <= cell_height:
-                if (nbr_row, nbr_col) not in visited:
-                    visited.add((nbr_row, nbr_col))
-                    self.runDFS(matrices, (nbr_row, nbr_col), lengths, visited)
-
                 nbr_info = grid_flows[nbr_row][nbr_col]
+                if nbr_info[2] == 0:
+                    nbr_info[2] = 1
+                    self.runDFS(matrices, (nbr_row, nbr_col), lengths)
+                    if heights[nbr_row][nbr_col] == cell_height:
+                        grid_flows[nbr_row][nbr_col] = cell_info
+
                 cell_info[0] |= nbr_info[0]
                 cell_info[1] |= nbr_info[1]
 
@@ -125,7 +128,7 @@ class Solution(object):
 def main():
     print(
         Solution().pacificAtlantic_2ndPass(
-            [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]
+            [[78, 65, 50, 95], [0, 64, 98, 94], [19, 27, 27, 49]]
         )
     )
 
