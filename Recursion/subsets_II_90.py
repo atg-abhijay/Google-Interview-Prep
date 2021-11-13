@@ -14,6 +14,9 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
+        # Time: O(n * 2^n) upper bound (I think)
+        # Space: O(n)
+        # Tags: Recursion
         power_set = [[]]
         unique_nums = defaultdict(int)
         for num in nums:
