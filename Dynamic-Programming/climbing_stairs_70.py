@@ -22,6 +22,8 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Dynamic Programming
         if n == 1:
             return 1
 
