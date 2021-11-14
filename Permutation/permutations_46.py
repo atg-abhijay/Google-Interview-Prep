@@ -4,6 +4,9 @@ https://leetcode.com/problems/permutations/
 """
 
 
+from collections import deque
+
+
 class Solution(object):
     def permute(self, nums):
         """
@@ -29,7 +32,20 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        return [[]]
+        if len(nums) == 1:
+            return [deque(nums)]
+
+        queue = deque([])
+        sub_results = self.permute(nums[1:])
+        for sub_res in sub_results:
+            length = len(sub_res)
+            queue.append(sub_res + deque([nums[0]]))
+            for _ in range(length):
+                new_perm = queue[-1].copy()
+                new_perm.appendleft(new_perm.pop())
+                queue.append(new_perm)
+
+        return queue
 
 
 def main():
