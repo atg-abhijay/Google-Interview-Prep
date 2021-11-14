@@ -4,6 +4,9 @@ https://leetcode.com/problems/permutations-ii/
 """
 
 
+from collections import deque
+
+
 class Solution(object):
     def permuteUnique(self, nums):
         """
@@ -29,7 +32,21 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        return [[]]
+        if len(nums) == 1:
+            return [deque(nums)]
+
+        permtns = set()
+        sub_results = self.permuteUnique(nums[1:])
+        for sub_res in sub_results:
+            sub_res = deque(sub_res) + deque([nums[0]])
+            permtns.add(tuple(sub_res))
+            new_perm = sub_res
+            for _ in range(len(sub_res) - 1):
+                new_perm = new_perm.copy()
+                new_perm.rotate(1)
+                permtns.add(tuple(new_perm))
+
+        return permtns
 
 
 def main():
