@@ -26,7 +26,7 @@ class Solution(object):
             return 1
 
         ways = [1, 1]
-        for height in range(2, n+1):
+        for _ in range(2, n+1):
             ways.append(ways[-1] + ways[-2])
 
         return ways[n]
