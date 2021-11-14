@@ -49,7 +49,22 @@ class Solution(object):
         :type amount: int
         :rtype: int
         """
-        return -1
+        if amount == 0:
+            return 0
+
+        fewest = [0]
+        for change in range(1, amount + 1):
+            min_coins = float('inf')
+            for coin in coins:
+                if change - coin >= 0:
+                    min_coins = min(min_coins, 1 + fewest[change - coin])
+
+            fewest.append(min_coins)
+
+        if fewest[amount] == float('inf'):
+            return -1
+
+        return fewest[amount]
 
 
 def main():
