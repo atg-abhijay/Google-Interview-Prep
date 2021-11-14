@@ -43,6 +43,15 @@ class Solution(object):
         return -1 if output >= upper_limit else output
 
 
+    def coinChange_2ndPass(self, coins, amount):
+        """
+        :type coins: List[int]
+        :type amount: int
+        :rtype: int
+        """
+        return -1
+
+
 def main():
     print(Solution().coinChange([470, 35, 120, 81, 121], 9825))
 
