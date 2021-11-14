@@ -24,6 +24,14 @@ class Solution(object):
         return permutations
 
 
+    def permuteUnique_2ndPass(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        return [[]]
+
+
 def main():
     print(Solution().permuteUnique([1, 1, 2]))
 
