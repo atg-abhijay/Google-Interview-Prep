@@ -35,17 +35,17 @@ class Solution(object):
         if len(nums) == 1:
             return [deque(nums)]
 
-        queue = deque([])
+        permtns = []
         sub_results = self.permute(nums[1:])
         for sub_res in sub_results:
-            length = len(sub_res)
-            queue.append(sub_res + deque([nums[0]]))
-            for _ in range(length):
-                new_perm = queue[-1].copy()
-                new_perm.appendleft(new_perm.pop())
-                queue.append(new_perm)
+            sub_res.append(nums[0])
+            permtns.append(sub_res)
+            for _ in range(len(sub_res) - 1):
+                new_perm = permtns[-1].copy()
+                new_perm.rotate(1)
+                permtns.append(new_perm)
 
-        return queue
+        return permtns
 
 
 def main():
