@@ -49,6 +49,9 @@ class Solution(object):
         :type amount: int
         :rtype: int
         """
+        # Let there be n coins.
+        # Time: O(amount * n), Space: O(amount)
+        # Tags: Dynamic Programming
         if amount == 0:
             return 0
 
