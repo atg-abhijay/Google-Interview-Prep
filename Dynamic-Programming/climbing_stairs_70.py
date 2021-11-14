@@ -22,7 +22,14 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        return -1
+        if n == 1:
+            return 1
+
+        ways = [1, 1]
+        for height in range(2, n+1):
+            ways.append(ways[-1] + ways[-2])
+
+        return ways[n]
 
 
 def main():
