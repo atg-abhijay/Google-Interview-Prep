@@ -17,6 +17,14 @@ class Solution(object):
         return steps[n]
 
 
+    def climbStairs_2ndPass(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        return -1
+
+
 def main():
     print(Solution().climbStairs(3))
 
