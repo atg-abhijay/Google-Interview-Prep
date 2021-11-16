@@ -12,6 +12,22 @@ class Solution(object):
         """
         # Time: O(n^2), Space: O(n)
         # Tags: Dynamic Programming
+
+        # sequence_lengths[i] will store the sequence
+        # length that can be achieved by -
+        # 1. considering the numbers upto index i,
+        # 2. _selecting_ the number at index i
+        #
+        # When we select the number at index i, we then must
+        # search for the rightmost smaller number which has
+        # the greatest sequence length associated with it.
+        #
+        # We keep track of the maximum length separately
+        # since sequence_lengths is storing the best
+        # lengths that can be obtained when we fix a
+        # choice of picking the number at index i. Due to
+        # that, the lengths in the list aren't in
+        # consistently increasing order.
         max_length, sequence_lengths = 1, [1] * len(nums)
         for idx, num in enumerate(nums):
             rightmost_smaller_idx, greatest_ln = -1, 0
