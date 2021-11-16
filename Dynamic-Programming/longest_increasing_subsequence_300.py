@@ -10,18 +10,20 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        max_length, longest_so_far = 1, [1] * len(nums)
+        # Time: O(n^2), Space: O(n)
+        # Tags: Dynamic Programming
+        max_length, sequence_lengths = 1, [1] * len(nums)
         for idx, num in enumerate(nums):
             rightmost_smaller_idx, greatest_ln = -1, 0
             for j, prev in enumerate(nums[:idx]):
-                if prev < num and longest_so_far[j] > greatest_ln:
+                if prev < num and sequence_lengths[j] > greatest_ln:
                     rightmost_smaller_idx = j
-                    greatest_ln = longest_so_far[j]
+                    greatest_ln = sequence_lengths[j]
 
             if rightmost_smaller_idx != -1:
-                longest_so_far[idx] = 1 + greatest_ln
+                sequence_lengths[idx] = 1 + greatest_ln
 
-            max_length = max(max_length, longest_so_far[idx])
+            max_length = max(max_length, sequence_lengths[idx])
 
         return max_length
 
