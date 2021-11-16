@@ -49,7 +49,23 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        return False
+        num_elems = len(nums)
+        if num_elems == 1:
+            return True
+
+        if nums[0] == 0:
+            return False
+
+        predecessors = [pos for pos in range(num_elems)]
+        for idx, num in enumerate(nums[:-1]):
+            for jump in range(1, num+1):
+                if idx + jump < num_elems:
+                    predecessors[idx + jump] = min(predecessors[idx + jump], predecessors[idx])
+
+                if predecessors[-1] == 0:
+                    return True
+
+        return predecessors[-1] == 0
 
 
 def main():
