@@ -10,22 +10,27 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        if len(nums) == 1:
-            return 1
-
-        longest_so_far = [1] * len(nums)
-        max_length = 0
+        max_length, longest_so_far = 1, [1] * len(nums)
         for idx, num in enumerate(nums):
-            rightmost_smaller_idx = -1
+            rightmost_smaller_idx, greatest_ln = -1, 0
             for j, prev in enumerate(nums[:idx]):
-                if prev < num:
+                if prev < num and longest_so_far[j] > greatest_ln:
                     rightmost_smaller_idx = j
+                    greatest_ln = longest_so_far[j]
 
-            if rightmost_smaller_idx == -1:
-                if idx - 1 >= 0:
-                    longest_so_far[idx] = longest_so_far[idx-1]
-            else:
-                longest_so_far[idx] = 1 + longest_so_far[rightmost_smaller_idx]
+#             if rightmost_smaller_idx == -1:
+#                 continue
+
+#             if nums[rightmost_smaller_idx] == num:
+#                 longest_so_far[idx] = longest_so_far[rightmost_smaller_idx]
+#             # else:
+            if rightmost_smaller_idx != -1:
+                longest_so_far[idx] = 1 + greatest_ln
+            # if rightmost_smaller_idx == -1:
+                # longest_so_far[idx] = 1
+                # if idx - 1 >= 0:
+                #     longest_so_far[idx] = longest_so_far[idx-1]
+
 
             max_length = max(max_length, longest_so_far[idx])
 
