@@ -44,6 +44,14 @@ class Solution(object):
         return False
 
 
+    def canJump_2ndPass(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        return False
+
+
 def main():
     print(Solution().canJump([3, 2, 1, 0, 4]))
 
