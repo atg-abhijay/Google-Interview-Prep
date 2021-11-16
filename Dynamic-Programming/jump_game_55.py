@@ -4,6 +4,9 @@ https://leetcode.com/problems/jump-game/
 """
 
 
+from collections import deque
+
+
 class Solution(object):
     def canJump(self, nums):
         """
@@ -56,16 +59,20 @@ class Solution(object):
         if nums[0] == 0:
             return False
 
-        predecessors = [pos for pos in range(num_elems)]
-        for idx, num in enumerate(nums[:-1]):
-            for jump in range(1, num+1):
-                if idx + jump < num_elems:
-                    predecessors[idx + jump] = min(predecessors[idx + jump], predecessors[idx])
+        queue = deque([0])
+        visited = set([0])
+        while queue:
+            idx = queue.popleft()
+            for jump in range(1, nums[idx] + 1):
+                next_idx = idx + jump
+                if next_idx < num_elems and next_idx not in visited:
+                    visited.add(next_idx)
+                    queue.append(next_idx)
 
-                if predecessors[-1] == 0:
-                    return True
+            if num_elems - 1 in visited:
+                return True
 
-        return predecessors[-1] == 0
+        return num_elems - 1 in visited
 
 
 def main():
