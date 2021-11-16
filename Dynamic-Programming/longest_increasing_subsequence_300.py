@@ -18,19 +18,8 @@ class Solution(object):
                     rightmost_smaller_idx = j
                     greatest_ln = longest_so_far[j]
 
-#             if rightmost_smaller_idx == -1:
-#                 continue
-
-#             if nums[rightmost_smaller_idx] == num:
-#                 longest_so_far[idx] = longest_so_far[rightmost_smaller_idx]
-#             # else:
             if rightmost_smaller_idx != -1:
                 longest_so_far[idx] = 1 + greatest_ln
-            # if rightmost_smaller_idx == -1:
-                # longest_so_far[idx] = 1
-                # if idx - 1 >= 0:
-                #     longest_so_far[idx] = longest_so_far[idx-1]
-
 
             max_length = max(max_length, longest_so_far[idx])
 
