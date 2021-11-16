@@ -4,6 +4,9 @@ https://leetcode.com/problems/longest-increasing-subsequence/
 """
 
 
+import heapq
+
+
 class Solution(object):
     def lengthOfLIS(self, nums):
         """
@@ -39,6 +42,37 @@ class Solution(object):
             if rightmost_smaller_idx != -1:
                 sequence_lengths[idx] = 1 + greatest_ln
 
+            max_length = max(max_length, sequence_lengths[idx])
+
+        return max_length
+
+
+    def lengthOfLIS_alternate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # Attempt an alternate solution to try to achieve
+        # O(nlogn) time complexity. Unfortunately, this doesn't
+        # achieve it. Running time is quite bad - ~9800 ms, 5%
+        max_length, sequence_lengths = 1, [1] * len(nums)
+        heap = []
+        for idx, num in enumerate(nums):
+            temp_storage = []
+            while heap:
+                seq_length, _, rightmost_idx = heap[0]
+                if nums[rightmost_idx] < num:
+                    sequence_lengths[idx] = 1 + (-1 * seq_length)
+                    break
+
+                temp_storage.append(rightmost_idx)
+                heapq.heappop(heap)
+
+            while temp_storage:
+                p_idx = temp_storage.pop()
+                heapq.heappush(heap, (-1 * sequence_lengths[p_idx], -1 * p_idx, p_idx))
+
+            heapq.heappush(heap, (-1 * sequence_lengths[idx], -1 * idx, idx))
             max_length = max(max_length, sequence_lengths[idx])
 
         return max_length
