@@ -27,6 +27,15 @@ class Solution(object):
         return combinations[target][len(candidates)-1]
 
 
+    def combinationSum_2ndPass(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        return [[]]
+
+
 def main():
     print(Solution().combinationSum([1], 1))
 
