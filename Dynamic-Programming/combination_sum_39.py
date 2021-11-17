@@ -33,7 +33,15 @@ class Solution(object):
         :type target: int
         :rtype: List[List[int]]
         """
-        return [[]]
+        combinations = [[] for _ in range(target + 1)]
+        for tgt in range(1, target + 1):
+            for candt in candidates:
+                if tgt - candt > 0 and combinations[tgt - candt]:
+                    combinations[tgt] += [combn + [candt] for combn in combinations[tgt - candt]]
+                if tgt - candt == 0:
+                    combinations[tgt] += [[candt]]
+
+        return combinations[target]
 
 
 def main():
