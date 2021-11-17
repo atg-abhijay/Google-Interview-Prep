@@ -4,7 +4,7 @@ https://leetcode.com/problems/combination-sum/
 """
 
 
-from collections import Counter
+from itertools import product
 
 
 class Solution(object):
@@ -37,24 +37,17 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         combinations = [[] for _ in range(target + 1)]
-        for tgt in range(1, target + 1):
-            for candt in candidates:
-                if tgt - candt > 0 and combinations[tgt - candt]:
-                    combinations[tgt] += [combn + [candt] for combn in combinations[tgt - candt]]
-                elif tgt - candt == 0:
-                    combinations[tgt] += [[candt]]
+        for tgt, c in product(range(1, target + 1), candidates):
+            for qty in range(1, tgt // c + 1):
+                candt = qty * c
+                complement = tgt - candt
+                if complement > 0 and combinations[complement] and candt > complement:
+                    combinations[tgt] += [combn + [c] * qty for combn in combinations[complement]]
+                    break
+                elif complement == 0:
+                    combinations[tgt] += [[c] * qty]
 
-        unique_combns = set()
-        for combn in combinations[target]:
-            unique_combns.add(tuple(sorted(Counter(combn).items(), key=lambda tup: tup[0])))
-
-        ans = []
-        for combn in unique_combns:
-            ans.append([])
-            for num, count in combn:
-                ans[-1].extend([num] * count)
-
-        return ans
+        return combinations[target]
 
 
 def main():
