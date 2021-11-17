@@ -4,6 +4,9 @@ https://leetcode.com/problems/combination-sum/
 """
 
 
+from collections import Counter
+
+
 class Solution(object):
     def combinationSum(self, candidates, target):
         """
@@ -50,7 +53,17 @@ class Solution(object):
 
             used_cands.clear()
 
-        return combinations[target]
+        unique_combns = set()
+        for combn in combinations[target]:
+            unique_combns.add(tuple(sorted(Counter(combn).items(), key=lambda tup: tup[0])))
+
+        ans = []
+        for combn in unique_combns:
+            ans.append([])
+            for num, count in combn:
+                ans[-1].extend([num] * count)
+
+        return ans
 
 
 def main():
