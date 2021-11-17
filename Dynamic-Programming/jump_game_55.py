@@ -59,15 +59,15 @@ class Solution(object):
         if nums[0] == 0:
             return False
 
-        queue = deque([0])
+        stack = [0]
         visited = set([0])
-        while queue:
-            idx = queue.popleft()
+        while stack:
+            idx = stack.pop()
             for jump in range(1, nums[idx] + 1):
                 next_idx = idx + jump
                 if next_idx < num_elems and next_idx not in visited:
                     visited.add(next_idx)
-                    queue.append(next_idx)
+                    stack.append(next_idx)
 
             if num_elems - 1 in visited:
                 return True
