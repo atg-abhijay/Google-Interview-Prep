@@ -59,20 +59,11 @@ class Solution(object):
         if nums[0] == 0:
             return False
 
-        stack = [0]
-        visited = set([0])
-        while stack:
-            idx = stack.pop()
-            for jump in range(1, nums[idx] + 1):
-                next_idx = idx + jump
-                if next_idx < num_elems and next_idx not in visited:
-                    visited.add(next_idx)
-                    stack.append(next_idx)
+        prev_largest_jump = nums[0]
+        for idx in range(num_elems-1):
+            prev_largest_jump = max(prev_largest_jump - 1, nums[idx])
 
-            if num_elems - 1 in visited:
-                return True
-
-        return num_elems - 1 in visited
+        return prev_largest_jump > 0
 
 
 def main():
