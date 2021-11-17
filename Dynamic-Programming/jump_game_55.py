@@ -52,6 +52,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Dynamic Programming
         num_elems = len(nums)
         if num_elems == 1:
             return True
