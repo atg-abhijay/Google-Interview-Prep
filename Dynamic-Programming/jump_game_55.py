@@ -62,6 +62,8 @@ class Solution(object):
         prev_largest_jump = nums[0]
         for idx in range(num_elems-1):
             prev_largest_jump = max(prev_largest_jump - 1, nums[idx])
+            if prev_largest_jump == 0:
+                return False
 
         return prev_largest_jump > 0
 
