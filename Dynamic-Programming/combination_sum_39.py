@@ -41,11 +41,14 @@ class Solution(object):
             for qty in range(1, tgt // c + 1):
                 candt = qty * c
                 complement = tgt - candt
-                if complement > 0 and combinations[complement] and candt > complement:
+                if candt > complement > 0 and combinations[complement]:
                     combinations[tgt] += [combn + [c] * qty for combn in combinations[complement]]
                     break
                 elif complement == 0:
                     combinations[tgt] += [[c] * qty]
+                elif candt == complement and candt <= c:
+                    combinations[tgt] += [combn + [c] * qty for combn in combinations[complement]]
+                    break
 
         return combinations[target]
 
