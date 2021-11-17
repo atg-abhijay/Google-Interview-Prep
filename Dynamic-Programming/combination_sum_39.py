@@ -38,20 +38,11 @@ class Solution(object):
         """
         combinations = [[] for _ in range(target + 1)]
         for tgt in range(1, target + 1):
-            used_cands = set()
             for candt in candidates:
-                if candt in used_cands:
-                    continue
-
                 if tgt - candt > 0 and combinations[tgt - candt]:
                     combinations[tgt] += [combn + [candt] for combn in combinations[tgt - candt]]
-                    used_cands.add(tgt - candt)
                 elif tgt - candt == 0:
                     combinations[tgt] += [[candt]]
-
-                used_cands.add(candt)
-
-            used_cands.clear()
 
         unique_combns = set()
         for combn in combinations[target]:
