@@ -10,6 +10,19 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
+        num_elems = len(nums)
+        for combn in range(2 ** num_elems, 2 ** (num_elems + 1)):
+            combn = bin(combn)[3:]
+            sum_a, sum_b = 0, 0
+            for switch, num in zip(combn, nums):
+                if switch == '1':
+                    sum_a += num
+                else:
+                    sum_b += num
+
+            if sum_a == sum_b:
+                return True
+
         return False
 
 
