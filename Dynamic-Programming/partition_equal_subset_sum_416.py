@@ -4,7 +4,7 @@ https://leetcode.com/problems/partition-equal-subset-sum/
 """
 
 
-from math import ceil
+from itertools import product
 
 
 class Solution(object):
@@ -18,19 +18,23 @@ class Solution(object):
             return False
 
         nums.sort()
-        target, curr_sum = total_sum // 2, 0
-        start_idx, stop_idx = 0, len(nums) - 1
-        while start_idx < stop_idx:
-            mid_idx = ceil((start_idx + stop_idx)/2)
-            curr_sum += sum(nums[start_idx:mid_idx])
-            if curr_sum < target:
-                start_idx = mid_idx
-            elif curr_sum == target:
-                return True
-            else:
-                return False
+        num_elems, target = len(nums), total_sum // 2
+        matrix = [[[] for _ in range(target + 1)] for _ in range(num_elems)]
+        for idx, tgt in product(range(num_elems), range(target + 1)):
+            curr_num = nums[idx]
+            if curr_num < tgt and idx - 1 >= 0:
+                combinations = []
+                for combn in matrix[idx - 1][tgt - curr_num]:
+                    combinations.append([curr_num] + combn)
 
-        return False
+                matrix[idx][tgt].extend(combinations)
+
+            elif curr_num == tgt:
+                matrix[idx][tgt].append([curr_num])
+
+            matrix[idx][tgt].extend(matrix[idx-1][tgt])
+
+        return bool(matrix[num_elems-1][target])
 
 
 def main():
