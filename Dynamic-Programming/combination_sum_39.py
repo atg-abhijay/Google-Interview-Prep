@@ -36,21 +36,20 @@ class Solution(object):
         :type target: int
         :rtype: List[List[int]]
         """
-        combinations = [[] for _ in range(target + 1)]
-        for tgt, c in product(range(1, target + 1), candidates):
-            for qty in range(1, tgt // c + 1):
-                candt = qty * c
-                complement = tgt - candt
-                if candt > complement > 0 and combinations[complement]:
-                    combinations[tgt] += [combn + [c] * qty for combn in combinations[complement]]
-                    break
-                elif complement == 0:
-                    combinations[tgt] += [[c] * qty]
-                elif candt == complement and candt <= c:
-                    combinations[tgt] += [combn + [c] * qty for combn in combinations[complement]]
-                    break
+        candidates.sort()
+        curr_combns = [[] for _ in range(target + 1)]
+        for candt, tgt in product(candidates, range(target + 1)):
+            if candt < tgt:
+                combinations = []
+                for combn in curr_combns[tgt - candt]:
+                    combinations.append([candt] + combn)
 
-        return combinations[target]
+                curr_combns[tgt].extend(combinations)
+
+            elif candt == tgt:
+                curr_combns[tgt].append([candt])
+
+        return curr_combns[target]
 
 
 def main():
