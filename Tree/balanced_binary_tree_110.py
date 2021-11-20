@@ -18,7 +18,23 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        return False
+        if not root:
+            return True
+
+        left_hgt = self.determineHeight(root.left)
+        right_hgt = self.determineHeight(root.right)
+
+        left_balanced = self.isBalanced(root.left)
+        right_balanced = self.isBalanced(root.right)
+
+        return abs(left_hgt - right_hgt) <= 1 and left_balanced and right_balanced
+
+
+    def determineHeight(self, root):
+        if not root:
+            return 0
+
+        return 1 + max(self.determineHeight(root.left), self.determineHeight(root.right))
 
 
 def main():
