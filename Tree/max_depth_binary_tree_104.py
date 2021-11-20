@@ -74,6 +74,14 @@ class Solution:
         return max_depth
 
 
+    def maxDepth_2ndPass(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        return -1
+
+
 def main():
     root = TreeNode(3)
     root.left = TreeNode(9)
