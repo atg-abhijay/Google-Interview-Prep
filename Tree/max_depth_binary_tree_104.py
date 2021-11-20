@@ -79,6 +79,8 @@ class Solution:
         :type root: TreeNode
         :rtype: int
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Trees
         if not root:
             return 0
 
