@@ -62,3 +62,13 @@ class Solution(object):
                 break
 
         return path
+
+
+    def lowestCommonAncestor_2ndPass(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        return None
