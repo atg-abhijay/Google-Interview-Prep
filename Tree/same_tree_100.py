@@ -56,6 +56,8 @@ class Solution(object):
         :type q: TreeNode
         :rtype: bool
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Trees, BFS
         if not p and not q:
             return True
 
