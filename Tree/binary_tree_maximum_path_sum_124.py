@@ -82,9 +82,9 @@ class Solution(object):
         left_sum, max_left = self.determineMaxSumAtNode(node.left)
         right_sum, max_right = self.determineMaxSumAtNode(node.right)
 
-        node_sum = max(node.val + left_sum, node.val + right_sum, node.val + left_sum + right_sum)
+        node_sum = max(node.val + left_sum, node.val + right_sum, node.val)
 
-        max_overall = max(max_left, max_right, node_sum)
+        max_overall = max(max_left, max_right, node_sum, node.val + left_sum + right_sum)
         return node_sum, max_overall
 
 
