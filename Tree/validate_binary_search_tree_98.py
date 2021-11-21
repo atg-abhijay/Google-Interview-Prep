@@ -46,6 +46,8 @@ class Solution(object):
 
 
     def doInOrderTraversal(self, root, curr_value):
+        # Time: O(n), Space: O(1)
+        # Tags: Trees
         if not root:
             return curr_value, True
 
