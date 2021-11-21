@@ -12,6 +12,11 @@ class TreeNode(object):
         self.right = right
 
 
+class Height:
+    def __init__(self, hgt):
+        self.height = hgt
+
+
 class Solution(object):
     def isBalanced(self, root):
         """
@@ -34,7 +39,11 @@ class Solution(object):
         if not root:
             return 0
 
-        return 1 + max(self.determineHeight(root.left), self.determineHeight(root.right))
+        if isinstance(root.val, Height):
+            return root.val.height
+
+        root.val = Height(1 + max(self.determineHeight(root.left), self.determineHeight(root.right)))
+        return root.val.height
 
 
 def main():
