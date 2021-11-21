@@ -35,3 +35,20 @@ class Solution(object):
             traversal.extend(self.performInOrderTraversal(root.right))
 
         return traversal
+
+
+    def isValidBST_2ndPass(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        return False
+
+
+def main():
+    root = TreeNode(3, TreeNode(4, TreeNode(1), TreeNode(2)), TreeNode(5))
+    print(Solution().isValidBST_2ndPass(root))
+
+
+if __name__ == "__main__":
+    main()
