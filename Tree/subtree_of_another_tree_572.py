@@ -69,41 +69,26 @@ class Solution(object):
         :type subRoot: TreeNode
         :rtype: bool
         """
-        tree_nodes = deque([root])
-        same_trees = False
-        while tree_nodes:
-            node = tree_nodes.popleft()
-            if node.val == subRoot.val:
-                same_trees |= self.areSameTrees(node, subRoot)
+        root_traversal = self.getInOrderTraversal(root, [])
+        sub_root_traversal = self.getInOrderTraversal(subRoot, [])
+        sub_root_length = len(sub_root_traversal)
+        for i in range(0, len(root_traversal), sub_root_length):
+            sub_list = root_traversal[i:i+sub_root_length]
+            if sub_list == sub_root_traversal:
+                return True
 
-            if node.left:
-                tree_nodes.append(node.left)
-            if node.right:
-                tree_nodes.append(node.right)
+        return False
 
-        return same_trees
+    def getInOrderTraversal(self, root, traversal):
+        if root.left:
+            self.getInOrderTraversal(root.left, traversal)
 
+        traversal.append(root.val)
 
-    def areSameTrees(self, root_p, root_q):
-        p_nodes, q_nodes = deque([root_p]), deque([root_q])
-        while p_nodes and q_nodes:
-            p_node, q_node = p_nodes.popleft(), q_nodes.popleft()
-            if bool(p_node) ^ bool(q_node):
-                return False
+        if root.right:
+            self.getInOrderTraversal(root.right, traversal)
 
-            if not p_node:
-                continue
-
-            if p_node.val != q_node.val:
-                return False
-
-            p_nodes.extend([p_node.left, p_node.right])
-            q_nodes.extend([q_node.left, q_node.right])
-
-        if bool(p_nodes) ^ bool(q_nodes):
-            return False
-
-        return True
+        return traversal
 
 
 def main():
