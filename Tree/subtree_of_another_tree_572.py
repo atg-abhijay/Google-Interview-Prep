@@ -72,7 +72,7 @@ class Solution(object):
         root_traversal = self.getPostOrderTraversal(root, [])
         sub_root_traversal = self.getPostOrderTraversal(subRoot, [])
         sub_root_length = len(sub_root_traversal)
-        for i in range(0, len(root_traversal), sub_root_length):
+        for i in range(0, len(root_traversal) - sub_root_length + 1):
             sub_list = root_traversal[i:i+sub_root_length]
             if sub_list == sub_root_traversal:
                 return True
@@ -82,9 +82,13 @@ class Solution(object):
     def getPostOrderTraversal(self, root, traversal):
         if root.left:
             self.getPostOrderTraversal(root.left, traversal)
+        else:
+            traversal.append(None)
 
         if root.right:
             self.getPostOrderTraversal(root.right, traversal)
+        else:
+            traversal.append(None)
 
         traversal.append(root.val)
 
