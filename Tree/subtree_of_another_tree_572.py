@@ -61,3 +61,22 @@ class Solution(object):
                 q_nodes.append(q_node.right)
 
         return True
+
+
+    def isSubtree_2ndPass(self, root, subRoot):
+        """
+        :type root: TreeNode
+        :type subRoot: TreeNode
+        :rtype: bool
+        """
+        return False
+
+
+def main():
+    root = TreeNode(3, TreeNode(4, TreeNode(1), TreeNode(2)), TreeNode(5))
+    sub_root = TreeNode(4, TreeNode(1), TreeNode(2))
+    print(Solution().isSubtree_2ndPass(root, sub_root))
+
+
+if __name__ == "__main__":
+    main()
