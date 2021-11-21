@@ -42,6 +42,15 @@ class Solution(object):
         return heap[0].val
 
 
+    def kthSmallest_2ndPass(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: int
+        """
+        return -1
+
+
 def main():
     root = TreeNode(5, TreeNode(3, TreeNode(2, TreeNode(1)), TreeNode(4)), TreeNode(6))
     print(Solution().kthSmallest(root, 3))
