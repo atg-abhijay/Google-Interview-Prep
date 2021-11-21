@@ -49,3 +49,11 @@ class Solution(object):
                 q_nodes.append(node_q.right)
 
         return True
+
+    def isSameTree_2ndPass(self, p, q):
+        """
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: bool
+        """
+        return False
