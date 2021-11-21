@@ -12,38 +12,37 @@ class TreeNode(object):
         self.right = right
 
 
-class Height:
-    def __init__(self, hgt):
-        self.height = hgt
-
-
 class Solution(object):
     def isBalanced(self, root):
         """
         :type root: TreeNode
         :rtype: bool
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Trees
+
+        # Approach learnt using this LeetCode discussion post:
+        # https://leetcode.com/problems/balanced-binary-tree/discuss/35691/The-bottom-up-O(N)-solution-would-be-better
         if not root:
             return True
 
-        left_hgt = self.determineHeight(root.left)
-        right_hgt = self.determineHeight(root.right)
-
-        left_balanced = self.isBalanced(root.left)
-        right_balanced = self.isBalanced(root.right)
-
-        return abs(left_hgt - right_hgt) <= 1 and left_balanced and right_balanced
+        return self.runDFS(root) != -1
 
 
-    def determineHeight(self, root):
+    def runDFS(self, root):
         if not root:
             return 0
 
-        if isinstance(root.val, Height):
-            return root.val.height
+        left_hgt = self.runDFS(root.left)
+        right_hgt = self.runDFS(root.right)
 
-        root.val = Height(1 + max(self.determineHeight(root.left), self.determineHeight(root.right)))
-        return root.val.height
+        if abs(left_hgt - right_hgt) > 1:
+            return -1
+
+        if left_hgt == -1 or right_hgt == -1:
+            return -1
+
+        return 1 + max(left_hgt, right_hgt)
 
 
 def main():
