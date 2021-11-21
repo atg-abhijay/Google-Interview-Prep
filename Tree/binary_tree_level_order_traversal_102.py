@@ -54,7 +54,30 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[List[int]]
         """
-        return [[]]
+        if not root:
+            return []
+
+        level_size, next_lvl_size = 1, 0
+        traversal, queue = [[]], deque([root])
+        while queue:
+            node = queue.popleft()
+            if level_size == 0:
+                level_size = next_lvl_size
+                next_lvl_size = 0
+                traversal.append([])
+
+            traversal[-1].append(node.val)
+            if node.left:
+                queue.append(node.left)
+                next_lvl_size += 1
+
+            if node.right:
+                queue.append(node.right)
+                next_lvl_size += 1
+
+            level_size -= 1
+
+        return traversal
 
 
 def main():
