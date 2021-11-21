@@ -48,7 +48,19 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        return -1
+        in_order_traversal = self.doInOrderTraversal(root, [])
+        return in_order_traversal[k-1]
+
+
+    def doInOrderTraversal(self, root, traversal):
+        if not root:
+            return
+
+        self.doInOrderTraversal(root.left, traversal)
+        traversal.append(root.val)
+        self.doInOrderTraversal(root.right, traversal)
+
+        return traversal
 
 
 def main():
