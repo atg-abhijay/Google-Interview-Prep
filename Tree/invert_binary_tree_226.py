@@ -30,6 +30,8 @@ class Solution(object):
         :type root: TreeNode
         :rtype: TreeNode
         """
+        # Time: O(n), Space: O(1)
+        # Tags: Trees, Recursion
         if not root:
             return
 
