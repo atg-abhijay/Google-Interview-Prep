@@ -49,6 +49,14 @@ class Solution(object):
         return traversal
 
 
+    def levelOrder_2ndPass(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        return [[]]
+
+
 def main():
     root = TreeNode(3)
     root.left = TreeNode(9)
