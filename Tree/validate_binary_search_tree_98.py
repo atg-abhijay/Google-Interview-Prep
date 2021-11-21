@@ -42,16 +42,22 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
+        in_order_traversal = self.getInOrderTraversal(root, [])
+        for prev, curr in zip(in_order_traversal, in_order_traversal[1:]):
+            if prev >= curr:
+                return False
+
+        return True
+
+
+    def getInOrderTraversal(self, root, traversal):
         if not root:
-            return True
+            return traversal
 
-        if root.left and root.val <= root.left.val:
-            return False
-
-        if root.right and root.val >= root.right.val:
-            return False
-
-        return self.isValidBST(root.left) and self.isValidBST(root.right)
+        self.getInOrderTraversal(root.left, traversal)
+        traversal.append(root.val)
+        self.getInOrderTraversal(root.right, traversal)
+        return traversal
 
 
 def main():
