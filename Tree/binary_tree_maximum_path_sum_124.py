@@ -75,6 +75,7 @@ class Solution(object):
         """
         return self.determineMaxSumAtNode(root)[1]
 
+
     def determineMaxSumAtNode(self, node):
         if not node:
             return 0, float('-inf')
@@ -83,7 +84,6 @@ class Solution(object):
         right_sum, max_right = self.determineMaxSumAtNode(node.right)
 
         node_sum = max(node.val + left_sum, node.val + right_sum, node.val)
-
         max_overall = max(max_left, max_right, node_sum, node.val + left_sum + right_sum)
         return node_sum, max_overall
 
