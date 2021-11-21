@@ -42,7 +42,16 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        return False
+        if not root:
+            return True
+
+        if root.left and root.val <= root.left.val:
+            return False
+
+        if root.right and root.val >= root.right.val:
+            return False
+
+        return self.isValidBST(root.left) and self.isValidBST(root.right)
 
 
 def main():
