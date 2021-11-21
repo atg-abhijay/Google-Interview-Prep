@@ -48,19 +48,22 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        in_order_traversal = self.doInOrderTraversal(root, [])
-        return in_order_traversal[k-1]
+        queue, heap = deque([root]), []
+        heap_size = 0
+        while queue:
+            node = queue.popleft()
+            heapq.heappush(heap, -1 * node.val)
+            heap_size += 1
+            if heap_size > k:
+                heapq.heappop(heap)
 
+            if node.left:
+                queue.append(node.left)
 
-    def doInOrderTraversal(self, root, traversal):
-        if not root:
-            return
+            if node.right:
+                queue.append(node.right)
 
-        self.doInOrderTraversal(root.left, traversal)
-        traversal.append(root.val)
-        self.doInOrderTraversal(root.right, traversal)
-
-        return traversal
+        return heap[0] * (-1)
 
 
 def main():
