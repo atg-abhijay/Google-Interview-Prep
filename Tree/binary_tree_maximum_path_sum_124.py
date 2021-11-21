@@ -66,3 +66,20 @@ class Solution(object):
         ])
 
         return max_sum
+
+
+    def maxPathSum_2ndPass(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        return -1
+
+
+def main():
+    root = TreeNode(-10, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7)))
+    print(Solution().maxPathSum_2ndPass(root))
+
+
+if __name__ == "__main__":
+    main()
