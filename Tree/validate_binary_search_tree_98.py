@@ -42,24 +42,26 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        return self.doInOrderTraversal(root, [float('-inf')])
+        return self.doInOrderTraversal(root, float('-inf'))[1]
 
 
-    def doInOrderTraversal(self, root, traversal):
+    def doInOrderTraversal(self, root, curr_value):
         if not root:
-            return True
+            return curr_value, True
 
-        if not self.doInOrderTraversal(root.left, traversal):
-            return False
+        curr_value, sub_result = self.doInOrderTraversal(root.left, curr_value)
+        if not sub_result:
+            return curr_value, False
 
-        if traversal[-1] >= root.val:
-            return False
+        if curr_value >= root.val:
+            return curr_value, False
 
-        traversal.append(root.val)
-        if not self.doInOrderTraversal(root.right, traversal):
-            return False
+        curr_value = root.val
+        curr_value, sub_result = self.doInOrderTraversal(root.right, curr_value)
+        if not sub_result:
+            return curr_value, False
 
-        return True
+        return curr_value, sub_result
 
 
 def main():
