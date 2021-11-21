@@ -77,6 +77,8 @@ class Solution(object):
 
 
     def determineMaxSumAtNode(self, node):
+        # Time: O(n), Space: O(1)
+        # Tags: Trees, Dynamic Programming, DFS
         if not node:
             return 0, float('-inf')
 
