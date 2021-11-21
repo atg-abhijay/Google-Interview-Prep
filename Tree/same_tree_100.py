@@ -56,4 +56,25 @@ class Solution(object):
         :type q: TreeNode
         :rtype: bool
         """
-        return False
+        if not p and not q:
+            return True
+
+        queue_p, queue_q = deque([p]), deque([q])
+        while queue_p and queue_q:
+            p_node, q_node = queue_p.popleft(), queue_q.popleft()
+            if bool(p_node) ^ bool(q_node):
+                return False
+
+            if not p_node:
+                continue
+
+            if p_node.val != q_node.val:
+                return False
+
+            queue_p.extend([p_node.left, p_node.right])
+            queue_q.extend([q_node.left, q_node.right])
+
+        if bool(queue_p) ^ bool(queue_q):
+            return False
+
+        return True
