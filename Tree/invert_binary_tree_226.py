@@ -23,3 +23,11 @@ class Solution(object):
 
         root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
         return root
+
+
+    def invertTree_2ndPass(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        return None
