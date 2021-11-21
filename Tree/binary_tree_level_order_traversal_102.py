@@ -54,6 +54,8 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[List[int]]
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Trees, BFS
         if not root:
             return []
 
