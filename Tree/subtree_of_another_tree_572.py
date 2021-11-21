@@ -69,8 +69,8 @@ class Solution(object):
         :type subRoot: TreeNode
         :rtype: bool
         """
-        root_traversal = self.getInOrderTraversal(root, [])
-        sub_root_traversal = self.getInOrderTraversal(subRoot, [])
+        root_traversal = self.getPostOrderTraversal(root, [])
+        sub_root_traversal = self.getPostOrderTraversal(subRoot, [])
         sub_root_length = len(sub_root_traversal)
         for i in range(0, len(root_traversal), sub_root_length):
             sub_list = root_traversal[i:i+sub_root_length]
@@ -79,14 +79,14 @@ class Solution(object):
 
         return False
 
-    def getInOrderTraversal(self, root, traversal):
+    def getPostOrderTraversal(self, root, traversal):
         if root.left:
-            self.getInOrderTraversal(root.left, traversal)
-
-        traversal.append(root.val)
+            self.getPostOrderTraversal(root.left, traversal)
 
         if root.right:
-            self.getInOrderTraversal(root.right, traversal)
+            self.getPostOrderTraversal(root.right, traversal)
+
+        traversal.append(root.val)
 
         return traversal
 
