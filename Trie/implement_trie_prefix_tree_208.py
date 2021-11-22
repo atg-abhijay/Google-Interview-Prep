@@ -4,10 +4,13 @@ https://leetcode.com/problems/implement-trie-prefix-tree/
 """
 
 
+from collections import defaultdict
+
+
 class Trie:
     def __init__(self):
         self.value = False
-        self.children = {}
+        self.children = defaultdict(Trie)
 
     def insert(self, word):
         """
@@ -16,9 +19,6 @@ class Trie:
         """
         current_node = self
         for char in word:
-            if char not in current_node.children:
-                current_node.children[char] = Trie()
-
             current_node = current_node.children[char]
 
         current_node.value = True
