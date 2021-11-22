@@ -5,64 +5,76 @@ https://leetcode.com/problems/word-search-ii/
 
 
 from itertools import product
+from collections import defaultdict
 
 
-class Solution(object):
+class Trie:
+    def __init__(self):
+        self.value = False
+        self.children = defaultdict(Trie)
+
+    def insert(self, word):
+        current_node = self
+        for char in word:
+            current_node = current_node.children[char]
+            # Set all intermediate nodes to True as well
+            current_node.value = True
+
+        return
+
+    def search(self, word):
+        current_node = self
+        for char in word:
+            if char not in current_node.children:
+                return False
+
+            current_node = current_node.children[char]
+
+        return current_node.value
+
+class Solution:
+    def setUpData(self, board):
+        self.board = board
+        self.num_rows = len(board)
+        self.num_cols = len(board[0])
+        self.visited = set()
+        # West, North, East, South
+        self.directions = [(0, -1), (-1, 0), (0, 1), (1, 0)]
+        self.words_trie = Trie()
+
+
     def findWords(self, board, words):
-        """
-        :type board: List[List[str]]
-        :type words: List[str]
-        :rtype: List[str]
-        """
-        return [word for word in words if self.exist(board, word)]
-
-    def exist(self, board, word):
-        """
-        :type board: List[List[str]]
-        :type word: str
-        :rtype: bool
-        """
-        num_rows, num_cols = len(board), len(board[0])
-        range_rows, range_cols = range(num_rows), range(num_cols)
-        if len(word) > num_rows * num_cols:
-            return False
-
-        directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
-        visited = [[0 for _ in range_cols] for _ in range_rows]
-        for row_idx, col_idx in product(range_rows, range_cols):
-            if board[row_idx][col_idx] != word[0]:
-                continue
-
-            visited = [[0 for _ in range_cols] for _ in range_rows]
-            indices = [row_idx, col_idx, 0]
-            arrays = [board, visited, directions]
-            if self.performDFS(indices, word, arrays):
-                return True
-
-        return False
+        self.setUpData(board)
+        self.createWords()
+        return [w for w in words if self.words_trie.search(w)]
 
 
-    def performDFS(self, indices, word, arrays):
-        row_idx, col_idx, word_idx = indices
-        board, visited, directions = arrays
-        if board[row_idx][col_idx] != word[word_idx]:
-            return False
+    def createWords(self):
+        for row_idx, col_idx in product(range(self.num_rows), range(self.num_cols)):
+            self.visited.add((row_idx, col_idx))
+            self.performDFS(row_idx, col_idx, [self.board[row_idx][col_idx]])
+            self.visited.clear()
 
-        if word_idx == len(word) - 1:
-            return True
+        return self.words_trie
 
-        visited[row_idx][col_idx] = 1
-        is_found = False
-        for incr_x, incr_y in directions:
-            nbr_row, nbr_col = row_idx + incr_x, col_idx + incr_y
-            if 0 <= nbr_row < len(board) and 0 <= nbr_col < len(board[0]):
-                if visited[nbr_row][nbr_col]:
-                    continue
 
-                is_found |= self.performDFS([nbr_row, nbr_col, word_idx + 1], word, arrays)
-                visited[nbr_row][nbr_col] = 0
+    def performDFS(self, row_idx, col_idx, path):
+        reached_dead_end = True
+        for row_diff, col_diff in self.directions:
+            nbr_row, nbr_col = row_idx + row_diff, col_idx + col_diff
+            within_bounds = 0 <= nbr_row < self.num_rows and 0 <= nbr_col < self.num_cols
+            if within_bounds and (nbr_row, nbr_col) not in self.visited:
+                reached_dead_end = False
+                path.append(self.board[nbr_row][nbr_col])
+                self.visited.add((nbr_row, nbr_col))
+                self.performDFS(nbr_row, nbr_col, path)
+                self.visited.remove((nbr_row, nbr_col))
+                path.pop()
 
-        return is_found
+        if reached_dead_end:
+            self.words_trie.insert(''.join(path))
+
+        return
 
 
 def main():
