@@ -20,8 +20,8 @@ class WordDictionary:
         current_node = self
         for char in word:
             current_node = current_node.children[char]
-            current_node.value = True
 
+        current_node.value = True
         return
 
     def search(self, word):
@@ -43,7 +43,7 @@ class WordDictionary:
 
             current_node = current_node.children[char]
 
-        return True
+        return current_node.value
 
 
 def main():
