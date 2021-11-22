@@ -33,14 +33,20 @@ class Trie:
         return current_node.value
 
 class Solution:
-    def setUpData(self, board):
-        self.board = board
-        self.num_rows = len(board)
-        self.num_cols = len(board[0])
+    def __init__(self):
+        self.board = None
+        self.num_rows = 0
+        self.num_cols = 0
         self.visited = set()
         # West, North, East, South
         self.directions = [(0, -1), (-1, 0), (0, 1), (1, 0)]
         self.words_trie = Trie()
+
+
+    def setUpData(self, board):
+        self.board = board
+        self.num_rows = len(board)
+        self.num_cols = len(board[0])
 
 
     def findWords(self, board, words):
