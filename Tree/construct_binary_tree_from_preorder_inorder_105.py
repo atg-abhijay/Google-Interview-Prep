@@ -25,14 +25,14 @@ class Solution(object):
         if len(inorder) == 1:
             return TreeNode(inorder[0])
 
-        for num in preorder:
+        for idx, num in enumerate(preorder):
             if num in inorder:
                 root_idx = inorder.index(num)
                 break
 
         root = TreeNode(inorder[root_idx])
-        root.left = self.buildTree(preorder[1:], inorder[:root_idx])
-        root.right = self.buildTree(preorder[1:], inorder[root_idx + 1:])
+        root.left = self.buildTree(preorder[idx+1:], inorder[:root_idx])
+        root.right = self.buildTree(preorder[idx+1:], inorder[root_idx + 1:])
 
         return root
 
