@@ -48,6 +48,8 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
+        # Time: O(n + nlogk), Space: O(n)
+        # Tags: Trees, BFS, Heaps
         queue, heap = deque([root]), []
         heap_size = 0
         while queue:
