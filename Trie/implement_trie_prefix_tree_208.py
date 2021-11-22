@@ -7,37 +7,34 @@ https://leetcode.com/problems/implement-trie-prefix-tree/
 class Trie:
     def __init__(self):
         self.value = False
-        self.children = [None for _ in range(26)]
+        self.children = {}
 
     def insert(self, word):
         """
         :type word: str
         :rtype: None
         """
-        alphabet = {letter: idx for idx, letter in enumerate(string.ascii_lowercase)}
         current_node = self
         for char in word:
-            letter_idx = alphabet[char]
-            if not current_node.children[letter_idx]:
-                current_node.children[letter_idx] = Trie()
+            if char not in current_node.children:
+                current_node.children[char] = Trie()
 
-            current_node = current_node.children[letter_idx]
+            current_node = current_node.children[char]
 
         current_node.value = True
+        return
 
     def search(self, word):
         """
         :type word: str
         :rtype: bool
         """
-        alphabet = {letter: idx for idx, letter in enumerate(string.ascii_lowercase)}
         current_node = self
         for char in word:
-            letter_idx = alphabet[char]
-            if not current_node.children[letter_idx]:
+            if char not in current_node.children:
                 return False
 
-            current_node = current_node.children[letter_idx]
+            current_node = current_node.children[char]
 
         return current_node.value
 
@@ -46,13 +43,11 @@ class Trie:
         :type prefix: str
         :rtype: bool
         """
-        alphabet = {letter: idx for idx, letter in enumerate(string.ascii_lowercase)}
         current_node = self
         for char in prefix:
-            letter_idx = alphabet[char]
-            if not current_node.children[letter_idx]:
+            if char not in current_node.children:
                 return False
 
-            current_node = current_node.children[letter_idx]
+            current_node = current_node.children[char]
 
         return True
