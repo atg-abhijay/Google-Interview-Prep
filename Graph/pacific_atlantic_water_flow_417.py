@@ -77,6 +77,8 @@ class Solution(object):
         :type heights: List[List[int]]
         :rtype: List[List[int]]
         """
+        # The idea for this solution was learnt from
+        # LeetCode discussion posts and solutions
         self.heights = heights
         self.num_rows, self.num_cols = len(heights), len(heights[0])
         grid_idxs = (range(self.num_rows), range(self.num_cols))
