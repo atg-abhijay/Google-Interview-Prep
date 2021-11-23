@@ -38,6 +38,8 @@ class Solution:
 
 
     def findWords(self, board, words):
+        # The solution for this question was optimized/made better using
+        # LeetCode discussion posts and 'good' solutions from LeetCode
         for word in words:
             self.words_trie.insert(word)
 
