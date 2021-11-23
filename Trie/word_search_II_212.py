@@ -13,6 +13,7 @@ class Trie:
         self.value = False
         self.children = defaultdict(Trie)
 
+
     def insert(self, word):
         current_node = self
         for char in word:
@@ -21,6 +22,7 @@ class Trie:
             current_node.value = True
 
         return
+
 
     def search(self, word):
         current_node = self
@@ -31,6 +33,7 @@ class Trie:
             current_node = current_node.children[char]
 
         return current_node.value
+
 
 class Solution:
     def __init__(self):
@@ -43,25 +46,15 @@ class Solution:
         self.words_trie = Trie()
 
 
-    def setUpData(self, board):
-        self.board = board
-        self.num_rows = len(board)
-        self.num_cols = len(board[0])
-
-
     def findWords(self, board, words):
-        self.setUpData(board)
-        self.createWords()
-        return [w for w in words if self.words_trie.search(w)]
-
-
-    def createWords(self):
+        self.board = board
+        self.num_rows, self.num_cols = len(board), len(board[0])
         for row_idx, col_idx in product(range(self.num_rows), range(self.num_cols)):
             self.visited.add((row_idx, col_idx))
             self.performDFS(row_idx, col_idx, [self.board[row_idx][col_idx]])
             self.visited.clear()
 
-        return self.words_trie
+        return [w for w in words if self.words_trie.search(w)]
 
 
     def performDFS(self, row_idx, col_idx, path):
