@@ -48,9 +48,9 @@ class Solution:
         for row_idx, col_idx in product(range(self.num_rows), range(self.num_cols)):
             char = self.board[row_idx][col_idx]
             if char in self.words_trie.children:
-                self.board[row_idx][col_idx] = "X"
+                self.visited.add((row_idx, col_idx))
                 self.performDFS(row_idx, col_idx, [char], self.words_trie.children[char])
-                self.board[row_idx][col_idx] = char
+                self.visited.clear()
 
         return self.result
 
@@ -63,17 +63,17 @@ class Solution:
         for row_diff, col_diff in self.directions:
             nbr_row, nbr_col = row_idx + row_diff, col_idx + col_diff
             within_bounds = 0 <= nbr_row < self.num_rows and 0 <= nbr_col < self.num_cols
-            if within_bounds:
+            if within_bounds and (nbr_row, nbr_col) not in self.visited:
                 nbr_char = self.board[nbr_row][nbr_col]
                 if nbr_char in curr_node.children:
                     nbr_node = curr_node.children[nbr_char]
                     path.append(nbr_char)
-                    self.board[nbr_row][nbr_col] = "X"
+                    self.visited.add((nbr_row, nbr_col))
                     self.performDFS(nbr_row, nbr_col, path, nbr_node)
+                    self.visited.remove((nbr_row, nbr_col))
                     if not nbr_node.value and not nbr_node.children:
                         del curr_node.children[nbr_char]
 
-                    self.board[nbr_row][nbr_col] = nbr_char
                     path.pop()
 
         return
