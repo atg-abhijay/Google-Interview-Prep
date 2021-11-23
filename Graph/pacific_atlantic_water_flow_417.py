@@ -66,11 +66,9 @@ class Solution(object):
 
 
     def __init__(self):
+        self.heights = None
         self.num_rows = 0
         self.num_cols = 0
-        self.visited = set()
-        self.atlantic_cells = set()
-        self.pacific_cells = set()
         self.directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]
 
 
@@ -79,49 +77,37 @@ class Solution(object):
         :type heights: List[List[int]]
         :rtype: List[List[int]]
         """
+        self.heights = heights
         self.num_rows, self.num_cols = len(heights), len(heights[0])
         grid_idxs = (range(self.num_rows), range(self.num_cols))
         if self.num_rows == 1 or self.num_cols == 1:
             return [[row_idx, col_idx] for row_idx, col_idx in product(*grid_idxs)]
 
-        for row_idx, col_idx in product(*grid_idxs):
-            cell_idxs = (row_idx, col_idx)
-            if cell_idxs not in self.visited:
-                self.visited.add(cell_idxs)
-                self.runDFS(heights, cell_idxs)
+        pacific_cells, atlantic_cells = set(), set()
+        for row_idx in range(self.num_rows):
+            self.runDFS((row_idx, 0), pacific_cells)
+            self.runDFS((row_idx, self.num_cols - 1), atlantic_cells)
 
-        return list(self.pacific_cells.intersection(self.atlantic_cells))
+        for col_idx in range(self.num_cols):
+            self.runDFS((0, col_idx), pacific_cells)
+            self.runDFS((self.num_rows - 1, col_idx), atlantic_cells)
+
+        return list(pacific_cells.intersection(atlantic_cells))
 
 
-    def runDFS(self, heights, cell_idxs):
-        row_idx, col_idx = cell_idxs
-        if row_idx == 0 or col_idx == 0:
-            self.pacific_cells.add(cell_idxs)
-
-        if row_idx == self.num_rows - 1 or col_idx == self.num_cols - 1:
-            self.atlantic_cells.add(cell_idxs)
-
-        if cell_idxs in self.pacific_cells and cell_idxs in self.atlantic_cells:
+    def runDFS(self, cell_idxs, ocean_cells):
+        if cell_idxs in ocean_cells:
             return
 
-        cell_height = heights[row_idx][col_idx]
+        ocean_cells.add(cell_idxs)
+        row_idx, col_idx = cell_idxs
+        cell_height = self.heights[row_idx][col_idx]
         for row_diff, col_diff in self.directions:
             nbr_row, nbr_col = row_idx + row_diff, col_idx + col_diff
             within_bounds = 0 <= nbr_row < self.num_rows and 0 <= nbr_col < self.num_cols
-            if within_bounds and heights[nbr_row][nbr_col] <= cell_height:
-                nbr_idxs = (nbr_row, nbr_col)
-                if nbr_idxs not in self.visited:
-                    self.visited.add(nbr_idxs)
-                    self.runDFS(heights, nbr_idxs)
-                    self.visited.remove(nbr_idxs)
+            if within_bounds and self.heights[nbr_row][nbr_col] >= cell_height:
+                self.runDFS((nbr_row, nbr_col), ocean_cells)
 
-                if nbr_idxs in self.pacific_cells:
-                    self.pacific_cells.add(cell_idxs)
-
-                if nbr_idxs in self.atlantic_cells:
-                    self.atlantic_cells.add(cell_idxs)
-
-        # self.visited.remove(cell_idxs)
         return
 
 
