@@ -64,9 +64,13 @@ class Solution:
             if within_bounds:
                 nbr_char = self.board[nbr_row][nbr_col]
                 if nbr_char in curr_node.children:
+                    nbr_node = curr_node.children[nbr_char]
                     path.append(nbr_char)
                     self.board[nbr_row][nbr_col] = "X"
-                    self.performDFS(nbr_row, nbr_col, path, curr_node.children[nbr_char])
+                    self.performDFS(nbr_row, nbr_col, path, nbr_node)
+                    if not nbr_node.value and not nbr_node.children:
+                        del curr_node.children[nbr_char]
+
                     self.board[nbr_row][nbr_col] = nbr_char
                     path.pop()
 
