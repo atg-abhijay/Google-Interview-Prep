@@ -86,7 +86,8 @@ class Solution(object):
 
         for row_idx, col_idx in product(*grid_idxs):
             cell_idxs = (row_idx, col_idx)
-            if cell_idxs not in self.pacific_cells or cell_idxs not in self.atlantic_cells:
+            if cell_idxs not in self.visited:
+                self.visited.add(cell_idxs)
                 self.runDFS(heights, cell_idxs)
 
         return list(self.pacific_cells.intersection(self.atlantic_cells))
@@ -112,6 +113,7 @@ class Solution(object):
                 if nbr_idxs not in self.visited:
                     self.visited.add(nbr_idxs)
                     self.runDFS(heights, nbr_idxs)
+                    self.visited.remove(nbr_idxs)
 
                 if nbr_idxs in self.pacific_cells:
                     self.pacific_cells.add(cell_idxs)
