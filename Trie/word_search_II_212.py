@@ -18,9 +18,8 @@ class Trie:
         current_node = self
         for char in word:
             current_node = current_node.children[char]
-            # Set all intermediate nodes to True as well
-            current_node.value = True
 
+        current_node.value = True
         return
 
 
@@ -35,6 +34,17 @@ class Trie:
         return current_node.value
 
 
+    def startsWith(self, prefix):
+        current_node = self
+        for char in prefix:
+            if char not in current_node.children:
+                return False
+
+            current_node = current_node.children[char]
+
+        return True
+
+
 class Solution:
     def __init__(self):
         self.board = None
@@ -44,34 +54,40 @@ class Solution:
         # West, North, East, South
         self.directions = [(0, -1), (-1, 0), (0, 1), (1, 0)]
         self.words_trie = Trie()
+        self.result = set()
 
 
     def findWords(self, board, words):
+        for word in words:
+            self.words_trie.insert(word)
+
         self.board = board
         self.num_rows, self.num_cols = len(board), len(board[0])
         for row_idx, col_idx in product(range(self.num_rows), range(self.num_cols)):
-            self.visited.add((row_idx, col_idx))
-            self.performDFS(row_idx, col_idx, [self.board[row_idx][col_idx]])
-            self.visited.clear()
+            char = self.board[row_idx][col_idx]
+            if char in self.words_trie.children:
+                self.visited.add((row_idx, col_idx))
+                self.performDFS(row_idx, col_idx, [char], self.words_trie.children[char])
+                self.visited.clear()
 
-        return [w for w in words if self.words_trie.search(w)]
+        return self.result
 
 
-    def performDFS(self, row_idx, col_idx, path):
-        reached_dead_end = True
+    def performDFS(self, row_idx, col_idx, path, curr_node):
+        if curr_node.value:
+            self.result.add(''.join(path))
+
         for row_diff, col_diff in self.directions:
             nbr_row, nbr_col = row_idx + row_diff, col_idx + col_diff
             within_bounds = 0 <= nbr_row < self.num_rows and 0 <= nbr_col < self.num_cols
             if within_bounds and (nbr_row, nbr_col) not in self.visited:
-                reached_dead_end = False
-                path.append(self.board[nbr_row][nbr_col])
-                self.visited.add((nbr_row, nbr_col))
-                self.performDFS(nbr_row, nbr_col, path)
-                self.visited.remove((nbr_row, nbr_col))
-                path.pop()
-
-        if reached_dead_end:
-            self.words_trie.insert(''.join(path))
+                nbr_char = self.board[nbr_row][nbr_col]
+                if nbr_char in curr_node.children:
+                    path.append(nbr_char)
+                    self.visited.add((nbr_row, nbr_col))
+                    self.performDFS(nbr_row, nbr_col, path, curr_node.children[nbr_char])
+                    self.visited.remove((nbr_row, nbr_col))
+                    path.pop()
 
         return
 
