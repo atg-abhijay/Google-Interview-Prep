@@ -71,6 +71,9 @@ class Solution:
                     self.visited.add((nbr_row, nbr_col))
                     self.performDFS(nbr_row, nbr_col, path, nbr_node)
                     self.visited.remove((nbr_row, nbr_col))
+                    # Optimization: If a neighbour comes back and has value
+                    # False and it doesn't have any children, then it has
+                    # nothing further to contribute and it can be deleted
                     if not nbr_node.value and not nbr_node.children:
                         del curr_node.children[nbr_char]
 
