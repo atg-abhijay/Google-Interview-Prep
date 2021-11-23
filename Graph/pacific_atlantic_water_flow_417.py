@@ -65,63 +65,61 @@ class Solution(object):
         }
 
 
+    def __init__(self):
+        self.num_rows = 0
+        self.num_cols = 0
+        self.visited = set()
+        self.atlantic_cells = set()
+        self.pacific_cells = set()
+        self.directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+
+
     def pacificAtlantic_2ndPass(self, heights):
         """
         :type heights: List[List[int]]
         :rtype: List[List[int]]
         """
-        num_rows, num_cols = len(heights), len(heights[0])
-        if num_rows == 1 or num_cols == 1:
-            return [[row_idx, col_idx] for row_idx, col_idx in product(range(num_rows), range(num_cols))]
+        self.num_rows, self.num_cols = len(heights), len(heights[0])
+        grid_idxs = (range(self.num_rows), range(self.num_cols))
+        if self.num_rows == 1 or self.num_cols == 1:
+            return [[row_idx, col_idx] for row_idx, col_idx in product(*grid_idxs)]
 
-        # [x, y, z] = [reach Pacific, reach Atlantic, visited]
-        grid_flows = [[[0, 0, 0] for _ in range(num_cols)] for _ in range(num_rows)]
-        for row_idx, col_idx in product(range(num_rows), range(num_cols)):
-            if grid_flows[row_idx][col_idx][2] == 0:
-                grid_flows[row_idx][col_idx][2] = 1
-                # visited = set([(row_idx, col_idx)])
-                self.runDFS((heights, grid_flows), (row_idx, col_idx), (num_rows, num_cols))
-                # print()
+        for row_idx, col_idx in product(*grid_idxs):
+            cell_idxs = (row_idx, col_idx)
+            if cell_idxs not in self.pacific_cells or cell_idxs not in self.atlantic_cells:
+                self.runDFS(heights, cell_idxs)
 
-        result = []
-        for row_idx, col_idx in product(range(num_rows), range(num_cols)):
-            if grid_flows[row_idx][col_idx][:2] == [1, 1]:
-                result.append([row_idx, col_idx])
-
-        return result
+        return list(self.pacific_cells.intersection(self.atlantic_cells))
 
 
-    def runDFS(self, matrices, idxs, lengths):
-        heights, grid_flows = matrices
-        row_idx, col_idx = idxs
-        num_rows, num_cols = lengths
-        cell_info = grid_flows[row_idx][col_idx]
-        # print(f"(Row, Column): ({row_idx}, {col_idx}), Height: {heights[row_idx][col_idx]}")
+    def runDFS(self, heights, cell_idxs):
+        row_idx, col_idx = cell_idxs
         if row_idx == 0 or col_idx == 0:
-            cell_info[0] = 1
+            self.pacific_cells.add(cell_idxs)
 
-        if row_idx == num_rows - 1 or col_idx == num_cols - 1:
-            cell_info[1] = 1
+        if row_idx == self.num_rows - 1 or col_idx == self.num_cols - 1:
+            self.atlantic_cells.add(cell_idxs)
 
-        if cell_info[:2] == [1, 1]:
+        if cell_idxs in self.pacific_cells and cell_idxs in self.atlantic_cells:
             return
 
-        directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]
         cell_height = heights[row_idx][col_idx]
-        for row_diff, col_diff in directions:
+        for row_diff, col_diff in self.directions:
             nbr_row, nbr_col = row_idx + row_diff, col_idx + col_diff
-            within_bounds = 0 <= nbr_row < num_rows and 0 <= nbr_col < num_cols
+            within_bounds = 0 <= nbr_row < self.num_rows and 0 <= nbr_col < self.num_cols
             if within_bounds and heights[nbr_row][nbr_col] <= cell_height:
-                nbr_info = grid_flows[nbr_row][nbr_col]
-                if nbr_info[2] == 0:
-                    nbr_info[2] = 1
-                    self.runDFS(matrices, (nbr_row, nbr_col), lengths)
-                    if heights[nbr_row][nbr_col] == cell_height:
-                        grid_flows[nbr_row][nbr_col] = cell_info
+                nbr_idxs = (nbr_row, nbr_col)
+                if nbr_idxs not in self.visited:
+                    self.visited.add(nbr_idxs)
+                    self.runDFS(heights, nbr_idxs)
 
-                cell_info[0] |= nbr_info[0]
-                cell_info[1] |= nbr_info[1]
+                if nbr_idxs in self.pacific_cells:
+                    self.pacific_cells.add(cell_idxs)
 
+                if nbr_idxs in self.atlantic_cells:
+                    self.atlantic_cells.add(cell_idxs)
+
+        # self.visited.remove(cell_idxs)
         return
 
 
