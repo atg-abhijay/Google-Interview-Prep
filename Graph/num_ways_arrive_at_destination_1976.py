@@ -23,6 +23,11 @@ class Solution:
         :type roads: List[List[int]]
         :rtype: int
         """
+        # Time:
+        # - Dijkstra's: O(E + VlogV)
+        # - Dynamic Programming-DFS: ??
+        # Space: ??
+        # Tags: Graphs, Dynamic Programming
         if not roads:
             return 1
 
