@@ -15,6 +15,7 @@ class Solution:
         self.shortest_time = 0
         self.target = -1
         self.num_ways = 0
+        self.time_boundaries = defaultdict(lambda: -1)
 
     def countPaths(self, n, roads):
         """
@@ -29,24 +30,29 @@ class Solution:
             self.graph[u_node][v_node] = time
             self.graph[v_node][u_node] = time
 
-        self.target = n - 1
+        # self.target = 0
         self.determineShortestPath(n)
-        self.visited.add(0)
-        self.performDFS(0, 0, [0])
+        self.visited.add(n-1)
+        self.performDFS(n-1, self.shortest_time, [n-1])
         return self.num_ways
 
     def performDFS(self, curr_node, path_time, path):
-        if curr_node == self.target:
+        if curr_node == 0:
             self.num_ways += 1
-            print(path)
+            # print(path)
             return
 
         for nbr, travel_time in self.graph[curr_node].items():
-            new_time = path_time + travel_time
-            if nbr not in self.visited and new_time <= self.shortest_time:
+            reduced_time = path_time - travel_time
+            curr_time_bound = self.time_boundaries[nbr]
+            if nbr not in self.visited and reduced_time > curr_time_bound:
                 self.visited.add(nbr)
                 path.append(nbr)
-                self.performDFS(nbr, new_time, path)
+                curr_num_ways = self.num_ways
+                self.performDFS(nbr, reduced_time, path)
+                if self.num_ways == curr_num_ways:
+                    self.time_boundaries[nbr] = max(curr_time_bound, reduced_time)
+
                 path.pop()
                 self.visited.remove(nbr)
 
