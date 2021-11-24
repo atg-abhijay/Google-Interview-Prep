@@ -4,6 +4,9 @@ https://leetcode.com/problems/find-if-path-exists-in-graph/
 """
 
 
+from collections import defaultdict
+
+
 class Solution:
     def validPath(self, n, edges, start, end):
         """
@@ -13,6 +16,25 @@ class Solution:
         :type end: int
         :rtype: bool
         """
+        # Build an adjancency list graph
+        # representation from the edges
+        graph = defaultdict(list)
+        for edge in edges:
+            graph[edge[0]].append(edge[1])
+            graph[edge[1]].append(edge[0])
+
+        stack = [start]
+        visited = set([start])
+        while stack:
+            node = stack.pop()
+            if node == end:
+                return True
+
+            for nbr in graph[node]:
+                if nbr not in visited:
+                    visited.add(nbr)
+                    stack.append(nbr)
+
         return False
 
 
