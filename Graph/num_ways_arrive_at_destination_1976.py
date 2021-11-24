@@ -10,11 +10,12 @@ import heapq
 
 class Solution:
     def __init__(self):
-        self.graph = None
+        self.graph = defaultdict(dict)
         self.visited = set()
         self.shortest_time = 0
         self.num_ways = 0
         self.min_times = {}
+        self.ways_from_nodes = defaultdict(lambda: defaultdict(int))
 
     def countPaths(self, n, roads):
         """
@@ -24,29 +25,34 @@ class Solution:
         """
         # Build an adjacency list graph
         # representation of the input
-        self.graph = defaultdict(dict)
         for u_node, v_node, time in roads:
             self.graph[u_node][v_node] = time
             self.graph[v_node][u_node] = time
 
         self.determineShortestPath(n)
         self.visited.add(n-1)
-        self.performDFS(n-1, self.shortest_time)
-        return self.num_ways % (10 ** 9 + 7)
+        result = self.performDFS(n-1, self.shortest_time)
+        return result
 
-    def performDFS(self, curr_node, path_time):
+    def performDFS(self, curr_node, journey_money):
         if curr_node == 0:
-            self.num_ways += 1
+            self.ways_from_nodes[curr_node][journey_money] += 1
             return
 
-        for nbr, travel_time in self.graph[curr_node].items():
-            reduced_time = path_time - travel_time
-            if nbr not in self.visited and reduced_time >= self.min_times[nbr]:
+        for nbr, edge_cost in self.graph[curr_node].items():
+            money_left = journey_money - edge_cost
+            not_visited = nbr not in self.visited
+            money_check = money_left >= self.min_times[nbr]
+            did_compute_before = money_left in self.ways_from_nodes[nbr]
+            if not_visited and money_check and not did_compute_before:
                 self.visited.add(nbr)
-                self.performDFS(nbr, reduced_time)
+                self.performDFS(nbr, money_left)
                 self.visited.remove(nbr)
 
-        return
+            if money_check:
+                self.ways_from_nodes[curr_node][journey_money] += self.ways_from_nodes[nbr][money_left]
+
+        return self.ways_from_nodes[curr_node][journey_money] % (10 ** 9 + 7)
 
     def determineShortestPath(self, n):
         # Use Dijkstra's algorithm
