@@ -14,7 +14,7 @@ class Solution:
         self.visited = set()
         self.shortest_time = 0
         self.num_ways = 0
-        self.time_boundaries = defaultdict(lambda: -1)
+        self.min_times = {}
 
     def countPaths(self, n, roads):
         """
@@ -41,22 +41,17 @@ class Solution:
 
         for nbr, travel_time in self.graph[curr_node].items():
             reduced_time = path_time - travel_time
-            nbr_time_bound = self.time_boundaries[nbr]
-            if nbr not in self.visited and reduced_time > nbr_time_bound:
+            if nbr not in self.visited and reduced_time >= self.min_times[nbr]:
                 self.visited.add(nbr)
-                curr_num_ways = self.num_ways
                 self.performDFS(nbr, reduced_time)
-                if self.num_ways == curr_num_ways:
-                    self.time_boundaries[nbr] = reduced_time
-
                 self.visited.remove(nbr)
 
         return
 
     def determineShortestPath(self, n):
         # Use Dijkstra's algorithm
-        min_times = {node: float("inf") for node in range(n)}
-        min_times[0] = 0
+        self.min_times = {node: float("inf") for node in range(n)}
+        self.min_times[0] = 0
         heap, visited = [(0, 0)], set()
         while heap:
             _, curr_node = heapq.heappop(heap)
@@ -68,13 +63,13 @@ class Solution:
                 if nbr in visited:
                     continue
 
-                old_cost = min_times[nbr]
-                new_cost = min_times[curr_node] + travel_time
+                old_cost = self.min_times[nbr]
+                new_cost = self.min_times[curr_node] + travel_time
                 if new_cost < old_cost:
-                    min_times[nbr] = new_cost
+                    self.min_times[nbr] = new_cost
                     heapq.heappush(heap, (new_cost, nbr))
 
-        self.shortest_time = min_times[n - 1]
+        self.shortest_time = self.min_times[n-1]
 
 
 def main():
