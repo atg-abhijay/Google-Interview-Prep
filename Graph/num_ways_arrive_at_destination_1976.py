@@ -23,6 +23,9 @@ class Solution:
         :type roads: List[List[int]]
         :rtype: int
         """
+        if not roads:
+            return 1
+
         # Build an adjacency list graph
         # representation of the input
         for u_node, v_node, time in roads:
