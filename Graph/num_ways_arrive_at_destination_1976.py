@@ -13,7 +13,6 @@ class Solution:
         self.graph = None
         self.visited = set()
         self.shortest_time = 0
-        self.target = -1
         self.num_ways = 0
         self.time_boundaries = defaultdict(lambda: -1)
 
@@ -30,30 +29,26 @@ class Solution:
             self.graph[u_node][v_node] = time
             self.graph[v_node][u_node] = time
 
-        # self.target = 0
         self.determineShortestPath(n)
         self.visited.add(n-1)
-        self.performDFS(n-1, self.shortest_time, [n-1])
-        return self.num_ways
+        self.performDFS(n-1, self.shortest_time)
+        return self.num_ways % (10 ** 9 + 7)
 
-    def performDFS(self, curr_node, path_time, path):
+    def performDFS(self, curr_node, path_time):
         if curr_node == 0:
             self.num_ways += 1
-            # print(path)
             return
 
         for nbr, travel_time in self.graph[curr_node].items():
             reduced_time = path_time - travel_time
-            curr_time_bound = self.time_boundaries[nbr]
-            if nbr not in self.visited and reduced_time > curr_time_bound:
+            nbr_time_bound = self.time_boundaries[nbr]
+            if nbr not in self.visited and reduced_time > nbr_time_bound:
                 self.visited.add(nbr)
-                path.append(nbr)
                 curr_num_ways = self.num_ways
-                self.performDFS(nbr, reduced_time, path)
+                self.performDFS(nbr, reduced_time)
                 if self.num_ways == curr_num_ways:
-                    self.time_boundaries[nbr] = max(curr_time_bound, reduced_time)
+                    self.time_boundaries[nbr] = reduced_time
 
-                path.pop()
                 self.visited.remove(nbr)
 
         return
