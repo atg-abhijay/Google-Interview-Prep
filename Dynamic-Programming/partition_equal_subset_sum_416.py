@@ -17,28 +17,23 @@ class Solution(object):
         if total_sum % 2 == 1 or len(nums) == 1:
             return False
 
-        nums.sort()
-        num_elems, target = len(nums), total_sum // 2
-        matrix = [[[] for _ in range(target + 1)] for _ in range(num_elems)]
-        for idx, tgt in product(range(num_elems), range(target + 1)):
-            curr_num = nums[idx]
-            if curr_num < tgt and idx - 1 >= 0:
-                combinations = []
-                for combn in matrix[idx - 1][tgt - curr_num]:
-                    combinations.append([curr_num] + combn)
+        return self.partition(nums, total_sum // 2)
 
-                matrix[idx][tgt].extend(combinations)
+    def partition(self, nums, target):
+        if target < 0 or not nums:
+            return False
 
-            elif curr_num == tgt:
-                matrix[idx][tgt].append([curr_num])
+        if target == 0:
+            return True
 
-            matrix[idx][tgt].extend(matrix[idx-1][tgt])
+        exclude_result = self.partition(nums[1:], target)
+        include_result = self.partition(nums[1:], target - nums[0])
 
-        return bool(matrix[num_elems-1][target])
+        return include_result or exclude_result
 
 
 def main():
-    print(Solution().canPartition([1, 2, 3, 5]))
+    print(Solution().canPartition([1, 5, 11, 5]))
 
 
 if __name__ == "__main__":
