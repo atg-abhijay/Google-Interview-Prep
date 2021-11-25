@@ -23,6 +23,7 @@ class Solution:
         return self.partition(0, total_sum // 2, nums)
 
     def partition(self, idx, target, nums):
+        # Base cases
         if target < 0 or not nums[idx:]:
             self.possible[idx][target] = False
             return False
@@ -31,23 +32,17 @@ class Solution:
             self.possible[idx][target] = True
             return True
 
-        if target not in self.possible[idx + 1]:
-            if self.partition(idx + 1, target, nums):
-                return True
+        for tgt in [target, target - nums[idx]]:
+            if tgt not in self.possible[idx + 1]:
+                if self.partition(idx + 1, tgt, nums):
+                    return True
 
-        exclude_result = self.possible[idx + 1][target]
-
-        sub_target = target - nums[idx]
-        if sub_target not in self.possible[idx + 1]:
-            if self.partition(idx + 1, sub_target, nums):
-                return True
-
-        include_result = self.possible[idx + 1][sub_target]
-        return include_result or exclude_result
+        idx_routes = self.possible[idx + 1]
+        return idx_routes[target] or idx_routes[target - nums[idx]]
 
 
 def main():
-    print(Solution().canPartition([1, 5, 11, 5]))
+    print(Solution().canPartition([100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,99,97]))
 
 
 if __name__ == "__main__":
