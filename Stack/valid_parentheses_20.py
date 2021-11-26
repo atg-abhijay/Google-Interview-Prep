@@ -63,6 +63,8 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Stacks, Strings, Hashmaps
         brackets = {'}': '{', ')': '(', ']': '['}
         opening_bkts = set(brackets.values())
         stack = []
