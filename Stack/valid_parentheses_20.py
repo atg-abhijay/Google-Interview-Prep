@@ -64,9 +64,10 @@ class Solution(object):
         :rtype: bool
         """
         brackets = {'}': '{', ')': '(', ']': '['}
+        opening_bkts = set(brackets.values())
         stack = []
         for bkt in s:
-            if bkt in brackets.values():
+            if bkt in opening_bkts:
                 stack.append(bkt)
             else:
                 if not stack:
