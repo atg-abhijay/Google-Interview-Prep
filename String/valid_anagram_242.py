@@ -4,6 +4,9 @@ https://leetcode.com/problems/valid-anagram/
 """
 
 
+from collections import Counter
+
+
 class Solution:
     def isAnagram(self, s, t):
         """
@@ -11,7 +14,7 @@ class Solution:
         :type t: str
         :rtype: bool
         """
-        return False
+        return Counter(s) == Counter(t)
 
 
 def main():
