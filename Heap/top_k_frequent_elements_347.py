@@ -4,6 +4,8 @@ https://leetcode.com/problems/top-k-frequent-elements/
 """
 
 
+from collections import Counter
+import heapq
 from math import floor
 
 
@@ -72,7 +74,15 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        return []
+        counts = Counter(nums)
+        heap, size = [], 0
+        for num, count in counts.items():
+            heapq.heappush(heap, (count, num))
+            size += 1
+            if size > k:
+                heapq.heappop(heap)
+
+        return [item[1] for item in heap]
 
 
 def main():
