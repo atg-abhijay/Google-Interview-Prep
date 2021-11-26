@@ -63,7 +63,24 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        return False
+        brackets = {'}': '{', ')': '(', ']': '['}
+        stack = []
+        for bkt in s:
+            if bkt in brackets.values():
+                stack.append(bkt)
+            else:
+                if not stack:
+                    return False
+
+                opening_bkt = stack.pop()
+                if brackets[bkt] != opening_bkt:
+                    return False
+
+        # Unmatched opening brackets are left
+        if stack:
+            return False
+
+        return True
 
 
 def main():
