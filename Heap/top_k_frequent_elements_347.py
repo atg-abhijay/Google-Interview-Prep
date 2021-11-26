@@ -4,7 +4,7 @@ https://leetcode.com/problems/top-k-frequent-elements/
 """
 
 
-from collections import Counter
+from collections import Counter, deque
 import heapq
 from math import floor
 
@@ -91,7 +91,46 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        return []
+        counts = Counter(nums)
+        heap, size = deque(), 0
+        for num, count in counts.items():
+            heap.append((num, count))
+            size += 1
+            self.bubbleUp(heap, size - 1)
+            if size > k:
+                heap.popleft()
+                heap.appendleft(heap.pop())
+                self.bubbleDown(heap, 0, k)
+
+        return [item[0] for item in heap]
+
+
+    def bubbleUp(self, heap, idx):
+        if idx == 0:
+            return
+
+        parent_idx = floor((idx - 1)/2)
+        if heap[idx][1] < heap[parent_idx][1]:
+            heap[idx], heap[parent_idx] = heap[parent_idx], heap[idx]
+            self.bubbleUp(heap, parent_idx)
+
+        return
+
+
+    def bubbleDown(self, heap, idx, size_limit):
+        if idx >= size_limit:
+            return
+
+        left_idx, right_idx = 2 * idx + 1, 2 * idx + 2
+        left_count = heap[left_idx][1] if left_idx < size_limit else float('inf')
+        right_count = heap[right_idx][1] if right_idx < size_limit else float('inf')
+        min_idx = left_idx if left_count < right_count else right_idx
+
+        if heap[idx][1] > heap[min_idx][1]:
+            heap[idx], heap[min_idx] = heap[min_idx], heap[idx]
+            self.bubbleDown(heap, min_idx, size_limit)
+
+        return
 
 
 def main():
