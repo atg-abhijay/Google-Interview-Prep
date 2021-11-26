@@ -14,6 +14,8 @@ class Solution:
         :type t: str
         :rtype: bool
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Strings, Hashmaps
         return Counter(s) == Counter(t)
 
 
