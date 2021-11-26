@@ -58,6 +58,14 @@ class Solution(object):
         return True
 
 
+    def isValid_forTopicStrings_2ndPass(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        return False
+
+
 def main():
     print(Solution().isValid("()[]{}"))
 
