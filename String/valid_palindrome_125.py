@@ -10,7 +10,12 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        return False
+        alphanum_str = ''.join(filter(lambda x: x.isalnum(), s)).lower()
+        for char, rev_char in zip(alphanum_str, reversed(alphanum_str)):
+            if char != rev_char:
+                return False
+
+        return True
 
 
 def main():
