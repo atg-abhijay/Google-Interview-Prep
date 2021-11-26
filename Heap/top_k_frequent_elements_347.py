@@ -101,6 +101,7 @@ class Solution(object):
                 heap.popleft()
                 heap.appendleft(heap.pop())
                 self.bubbleDown(heap, 0, k)
+                size = k
 
         return [item[0] for item in heap]
 
@@ -124,6 +125,10 @@ class Solution(object):
         left_idx, right_idx = 2 * idx + 1, 2 * idx + 2
         left_count = heap[left_idx][1] if left_idx < size_limit else float('inf')
         right_count = heap[right_idx][1] if right_idx < size_limit else float('inf')
+
+        if left_idx >= size_limit and right_idx >= size_limit:
+            return
+
         min_idx = left_idx if left_count < right_count else right_idx
 
         if heap[idx][1] > heap[min_idx][1]:
