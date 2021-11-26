@@ -85,6 +85,15 @@ class Solution(object):
         return [item[1] for item in heap]
 
 
+    def topKFrequent_alternative_2ndPass(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        return []
+
+
 def main():
     print(Solution().topKFrequent([3, 0, 1, 0], 1))
 
