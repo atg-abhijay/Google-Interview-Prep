@@ -66,6 +66,15 @@ class Solution(object):
             self.minHeapify(heap, lowest_count_idx, counts, size)
 
 
+    def topKFrequent_2ndPass(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        return []
+
+
 def main():
     print(Solution().topKFrequent([3, 0, 1, 0], 1))
 
