@@ -10,6 +10,7 @@ class Solution:
         self.palindromes = []
         self.str_len = 0
         self.visited = set()
+        self.even_visited = set()
 
     def countSubstrings(self, s: str) -> int:
         if len(s) == 1:
@@ -29,6 +30,24 @@ class Solution:
 
         mid_idx = (start_idx + stop_idx) // 2
         left_idx, right_idx = mid_idx - 1, mid_idx + 1
+        if (
+            left_idx >= 0
+            and string[mid_idx] == string[left_idx]
+            and (left_idx, mid_idx) not in self.even_visited
+        ):
+            self.even_visited.add((left_idx, mid_idx))
+            self.palindromes.append(string[mid_idx] * 2)
+            self.num_palinds += 1
+
+        if (
+            right_idx <= self.str_len - 1
+            and string[mid_idx] == string[right_idx]
+            and (mid_idx, right_idx) not in self.even_visited
+        ):
+            self.even_visited.add((mid_idx, right_idx))
+            self.palindromes.append(string[mid_idx] * 2)
+            self.num_palinds += 1
+
         while left_idx >= 0 and right_idx <= self.str_len - 1:
             if string[left_idx] == string[right_idx]:
                 self.num_palinds += 1
