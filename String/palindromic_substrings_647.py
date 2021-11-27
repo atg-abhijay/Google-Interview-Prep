@@ -11,6 +11,8 @@ class Solution:
         # self.palindromes = []
 
     def countSubstrings(self, s):
+        # This question was solved using knowledge/
+        # approach learnt from a LeetCode discussion post
         self.str_len = len(s)
         for idx in range(self.str_len):
             # 1. Will find odd length palindromes
