@@ -8,67 +8,47 @@ class Solution:
     def __init__(self):
         self.num_palinds = 0
         self.palindromes = []
-        self.str_len = 0
-        self.visited = set()
-        self.even_visited = set()
 
-    def countSubstrings(self, s: str) -> int:
-        if len(s) == 1:
-            return 1
+    def countSubstrings(self, s):
+        str_len = len(s)
+        for odd_len_idx in range(str_len):
+            self.find_odd_palinds(s, odd_len_idx, str_len)
 
-        self.str_len = len(s)
-        self.palindromes.extend([char for char in s])
-        self.num_palinds += self.str_len
+        for even_len_idx in range(str_len):
+            self.find_even_palinds(s, even_len_idx, str_len)
 
-        self.checkIdx(s, 0, self.str_len - 1)
         print(self.palindromes)
         return self.num_palinds
 
-    def checkIdx(self, string, start_idx, stop_idx):
-        if start_idx == stop_idx:
-            return
 
-        mid_idx = (start_idx + stop_idx) // 2
-        left_idx, right_idx = mid_idx - 1, mid_idx + 1
-        if (
-            left_idx >= 0
-            and string[mid_idx] == string[left_idx]
-            and (left_idx, mid_idx) not in self.even_visited
-        ):
-            self.even_visited.add((left_idx, mid_idx))
-            self.palindromes.append(string[mid_idx] * 2)
-            self.num_palinds += 1
-
-        if (
-            right_idx <= self.str_len - 1
-            and string[mid_idx] == string[right_idx]
-            and (mid_idx, right_idx) not in self.even_visited
-        ):
-            self.even_visited.add((mid_idx, right_idx))
-            self.palindromes.append(string[mid_idx] * 2)
-            self.num_palinds += 1
-
-        while left_idx >= 0 and right_idx <= self.str_len - 1:
+    def find_odd_palinds(self, string, odd_len_idx, str_len):
+        left_idx = right_idx = odd_len_idx
+        while left_idx >= 0 and right_idx < str_len:
             if string[left_idx] == string[right_idx]:
                 self.num_palinds += 1
                 self.palindromes.append(string[left_idx:right_idx+1])
-                left_idx -= 1
-                right_idx += 1
             else:
-                left_idxs, right_idxs = (start_idx, mid_idx), (mid_idx + 1, stop_idx)
-                if left_idxs not in self.visited:
-                    self.visited.add(left_idxs)
-                    self.checkIdx(string, *left_idxs)
-                if right_idxs not in self.visited:
-                    self.visited.add(right_idxs)
-                    self.checkIdx(string, *right_idxs)
                 break
 
-        return
+            left_idx -= 1
+            right_idx += 1
+
+
+    def find_even_palinds(self, string, even_len_idx, str_len):
+        left_idx, right_idx = even_len_idx, even_len_idx + 1
+        while left_idx >= 0 and right_idx < str_len:
+            if string[left_idx] == string[right_idx]:
+                self.num_palinds += 1
+                self.palindromes.append(string[left_idx:right_idx+1])
+            else:
+                break
+
+            left_idx -= 1
+            right_idx += 1
 
 
 def main():
-    print(Solution().countSubstrings("racecarbob"))
+    print(Solution().countSubstrings("abba"))
 
 
 if __name__ == "__main__":
