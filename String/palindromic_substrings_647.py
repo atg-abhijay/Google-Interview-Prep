@@ -12,11 +12,11 @@ class Solution:
 
     def countSubstrings(self, s):
         self.str_len = len(s)
-        for odd_len_idx in range(self.str_len):
-            self.find_palinds(s, odd_len_idx, odd_len_idx)
-
-        for even_len_idx in range(self.str_len - 1):
-            self.find_palinds(s, even_len_idx, even_len_idx+1)
+        for idx in range(self.str_len):
+            # 1. Will find odd length palindromes
+            # 2. Will find even length palindromes
+            self.find_palinds(s, idx, idx)
+            self.find_palinds(s, idx, idx+1)
 
         # print(self.palindromes)
         return self.num_palinds
