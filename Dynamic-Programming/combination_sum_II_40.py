@@ -10,7 +10,6 @@ from collections import defaultdict
 class Solution:
     def __init__(self):
         self.possible = defaultdict(lambda: defaultdict(set))
-        self.paths = set()
 
     def combinationSum2(self, candidates, target):
         """
@@ -19,15 +18,14 @@ class Solution:
         :rtype: List[List[int]]
         """
         candidates.sort()
-        self.partition(0, target, candidates, [])
+        self.partition(0, target, candidates)
         return self.possible[0][target]
 
-    def partition(self, idx, target, candidates, path):
+    def partition(self, idx, target, candidates):
         self.possible[idx][target] = set()
         # Base cases
         if target == 0:
             self.possible[idx][target].add(tuple())
-            # self.paths.add(tuple(path.copy()))
             return True
 
         if target < 0 or not candidates[idx:]:
@@ -36,9 +34,8 @@ class Solution:
         exclude_result = True
         # Exclude the number at idx
         if target not in self.possible[idx + 1]:
-            exclude_result = self.partition(idx + 1, target, candidates, path)
+            exclude_result = self.partition(idx + 1, target, candidates)
 
-        # exclude_result = self.possible[idx + 1][target]
         if exclude_result:
             self.possible[idx][target].update(self.possible[idx+1][target])
 
@@ -46,18 +43,12 @@ class Solution:
         include_result = True
         sub_target = target - candidates[idx]
         if sub_target not in self.possible[idx + 1]:
-            # path.append(candidates[idx])
-            include_result = self.partition(idx + 1, sub_target, candidates, path)
-            # path.pop()
+            include_result = self.partition(idx + 1, sub_target, candidates)
 
         if include_result:
             for sub_path in self.possible[idx+1][sub_target]:
                 self.possible[idx][target].add(tuple([candidates[idx]]) + sub_path)
 
-        # include_result = self.possible[idx + 1][sub_target]
-
-        # self.possible[idx][target] = exclude_result or include_result
-        # return self.possible[idx][target]
         return exclude_result or include_result
 
 
