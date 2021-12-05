@@ -9,7 +9,7 @@ from collections import defaultdict
 
 class Solution:
     def __init__(self):
-        self.possible = defaultdict(lambda: defaultdict(bool))
+        self.possible = defaultdict(lambda: defaultdict(list))
         self.paths = set()
 
     def combinationSum2(self, candidates, target):
@@ -20,39 +20,45 @@ class Solution:
         """
         candidates.sort()
         self.partition(0, target, candidates, [])
-        return self.paths
+        return self.possible[0][target]
 
     def partition(self, idx, target, candidates, path):
+        self.possible[idx][target] = []
         # Base cases
         if target == 0:
-            self.possible[idx][target] = True
-            self.paths.add(tuple(path.copy()))
+            self.possible[idx][target] = [[]]
+            # self.paths.add(tuple(path.copy()))
             return True
 
         if target < 0 or not candidates[idx:]:
-            self.possible[idx][target] = False
             return False
 
+        exclude_result = True
         # Exclude the number at idx
-        if target not in self.possible[idx + 1] or self.possible[idx + 1][target]:
+        if target not in self.possible[idx + 1]:
             exclude_result = self.partition(idx + 1, target, candidates, path)
 
-        exclude_result = self.possible[idx + 1][target]
+        # exclude_result = self.possible[idx + 1][target]
+        if exclude_result:
+            self.possible[idx][target].extend(self.possible[idx+1][target])
 
         # Include the number at idx
+        include_result = True
         sub_target = target - candidates[idx]
-        if sub_target not in self.possible[idx + 1] or self.possible[idx + 1][sub_target]:
-            path.append(candidates[idx])
+        if sub_target not in self.possible[idx + 1]:
+            # path.append(candidates[idx])
             include_result = self.partition(idx + 1, sub_target, candidates, path)
-            path.pop()
+            # path.pop()
 
-        include_result = self.possible[idx + 1][sub_target]
-        # for tgt in [target, target - candidates[idx]]:
-        #     if tgt not in self.possible[idx + 1]:
-        #         self.partition(idx + 1, tgt, candidates, path)
-                    # return True
+        if include_result:
+            for sub_path in self.possible[idx+1][sub_target]:
+                self.possible[idx][target].append([candidates[idx]] + sub_path)
 
-        self.possible[idx][target] = exclude_result or include_result
+        # include_result = self.possible[idx + 1][sub_target]
+
+        # self.possible[idx][target] = exclude_result or include_result
+        # return self.possible[idx][target]
+        return exclude_result or include_result
 
 
 def main():
