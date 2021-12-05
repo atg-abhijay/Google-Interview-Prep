@@ -9,7 +9,7 @@ from collections import defaultdict
 
 class Solution:
     def __init__(self):
-        self.possible = defaultdict(lambda: defaultdict(list))
+        self.possible = defaultdict(lambda: defaultdict(set))
         self.paths = set()
 
     def combinationSum2(self, candidates, target):
@@ -23,10 +23,10 @@ class Solution:
         return self.possible[0][target]
 
     def partition(self, idx, target, candidates, path):
-        self.possible[idx][target] = []
+        self.possible[idx][target] = set()
         # Base cases
         if target == 0:
-            self.possible[idx][target] = [[]]
+            self.possible[idx][target].add(tuple())
             # self.paths.add(tuple(path.copy()))
             return True
 
@@ -40,7 +40,7 @@ class Solution:
 
         # exclude_result = self.possible[idx + 1][target]
         if exclude_result:
-            self.possible[idx][target].extend(self.possible[idx+1][target])
+            self.possible[idx][target].update(self.possible[idx+1][target])
 
         # Include the number at idx
         include_result = True
@@ -52,7 +52,7 @@ class Solution:
 
         if include_result:
             for sub_path in self.possible[idx+1][sub_target]:
-                self.possible[idx][target].append([candidates[idx]] + sub_path)
+                self.possible[idx][target].add(tuple([candidates[idx]]) + sub_path)
 
         # include_result = self.possible[idx + 1][sub_target]
 
