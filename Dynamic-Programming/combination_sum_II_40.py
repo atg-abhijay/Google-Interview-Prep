@@ -28,7 +28,7 @@ class Solution:
             self.paths[idx][target].add(tuple())
             return
 
-        if target < 0 or not candidates[idx:]:
+        if not candidates[idx:] or target < candidates[idx]:
             return
 
         # Exclude the number at idx
