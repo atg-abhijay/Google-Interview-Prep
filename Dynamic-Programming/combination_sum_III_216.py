@@ -20,17 +20,17 @@ class Solution(object):
         """
         candidates = [x for x in range(1, 10)]
         self.size_limit = k
-        self.partition(0, n, candidates, 0)
-        return self.paths[0][n][0]
+        self.partition(0, n, candidates, k)
+        return self.paths[0][n][k]
 
     def partition(self, idx, target, candidates, path_size):
         self.paths[idx][target][path_size] = []
         # Base cases
-        if target == 0 and path_size == self.size_limit:
+        if target == 0 and path_size == 0:
             self.paths[idx][target][path_size].append([])
             return
 
-        if not candidates[idx:] or target < candidates[idx] or path_size > self.size_limit:
+        if not candidates[idx:] or target < candidates[idx] or path_size == 0:
             return
 
         # Exclude the number at idx
@@ -41,10 +41,10 @@ class Solution(object):
 
         # Include the number at idx
         sub_target = target - candidates[idx]
-        if sub_target not in self.paths[idx + 1] or path_size + 1 not in self.paths[idx + 1][sub_target]:
-            self.partition(idx + 1, sub_target, candidates, path_size + 1)
+        if sub_target not in self.paths[idx + 1] or path_size - 1 not in self.paths[idx + 1][sub_target]:
+            self.partition(idx + 1, sub_target, candidates, path_size - 1)
 
-        for sub_path in self.paths[idx + 1][sub_target][path_size + 1]:
+        for sub_path in self.paths[idx + 1][sub_target][path_size - 1]:
             self.paths[idx][target][path_size].append([candidates[idx]] + sub_path)
 
         return
