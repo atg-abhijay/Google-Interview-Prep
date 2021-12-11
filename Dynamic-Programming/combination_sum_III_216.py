@@ -17,6 +17,8 @@ class Solution:
         :type n: int
         :rtype: List[List[int]]
         """
+        # This solution is based on my solution for
+        # 40. Combination Sum II upto the commit 7c0356e.
         self.partition(0, n, k, list(range(1, 10)))
         return self.paths[(0, n, k)]
 
