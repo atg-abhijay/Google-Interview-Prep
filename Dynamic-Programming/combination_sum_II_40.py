@@ -9,7 +9,7 @@ from collections import defaultdict
 
 class Solution:
     def __init__(self):
-        self.paths = defaultdict(lambda: defaultdict(set))
+        self.paths = defaultdict(set)
 
     def combinationSum2(self, candidates, target):
         """
@@ -19,31 +19,33 @@ class Solution:
         """
         candidates.sort()
         self.partition(0, target, candidates)
-        return self.paths[0][target]
+        return self.paths[(0, target)]
 
     def partition(self, idx, target, candidates):
-        self.paths[idx][target] = set()
+        current_params = (idx, target)
+        self.paths[current_params] = set()
         # Base cases
         if target == 0:
-            self.paths[idx][target].add(tuple())
+            self.paths[current_params].add(tuple())
             return
 
         if not candidates[idx:] or target < candidates[idx]:
             return
 
         # Exclude the number at idx
-        if target not in self.paths[idx + 1]:
-            self.partition(idx + 1, target, candidates)
+        exclusion_params = (idx + 1, target)
+        if exclusion_params not in self.paths:
+            self.partition(*exclusion_params, candidates)
 
-        self.paths[idx][target].update(self.paths[idx + 1][target])
+        self.paths[current_params].update(self.paths[exclusion_params])
 
         # Include the number at idx
-        sub_target = target - candidates[idx]
-        if sub_target not in self.paths[idx + 1]:
-            self.partition(idx + 1, sub_target, candidates)
+        inclusion_params = (idx + 1, target - candidates[idx])
+        if inclusion_params not in self.paths:
+            self.partition(*inclusion_params, candidates)
 
-        for sub_path in self.paths[idx + 1][sub_target]:
-            self.paths[idx][target].add(tuple([candidates[idx]]) + sub_path)
+        for sub_path in self.paths[inclusion_params]:
+            self.paths[current_params].add(tuple([candidates[idx]]) + sub_path)
 
         return
 
