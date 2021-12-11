@@ -11,19 +11,22 @@ class Solution:
         :type target: int
         :rtype: int
         """
-        combinations = [[] for _ in range(target + 1)]
+        nums.sort()
+        combinations = [0 for _ in range(target + 1)]
         for tgt in range(1, target + 1):
             for candt in nums:
                 if tgt - candt > 0 and combinations[tgt - candt]:
-                    combinations[tgt] += [combn + [candt] for combn in combinations[tgt - candt]]
+                    combinations[tgt] += combinations[tgt - candt]
                 if tgt - candt == 0:
-                    combinations[tgt] += [[candt]]
+                    combinations[tgt] += 1
+                if tgt - candt < 0:
+                    break
 
         return combinations[target]
 
 
 def main():
-    print(Solution().combinationSum4([1, 2, 3], 4))
+    print(Solution().combinationSum4([4, 2, 1], 32))
 
 
 if __name__ == "__main__":
