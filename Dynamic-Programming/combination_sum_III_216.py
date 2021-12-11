@@ -7,7 +7,7 @@ https://leetcode.com/problems/combination-sum-iii/
 from collections import defaultdict
 
 
-class Solution(object):
+class Solution:
     def __init__(self):
         self.paths = defaultdict(list)
 
@@ -17,32 +17,34 @@ class Solution(object):
         :type n: int
         :rtype: List[List[int]]
         """
-        self.partition(0, n, list(range(1, 10)), k)
+        self.partition(0, n, k, list(range(1, 10)))
         return self.paths[(0, n, k)]
 
-    def partition(self, idx, target, candidates, path_size):
-        self.paths[(idx, target, path_size)] = []
+    def partition(self, idx, target, path_size, candidates):
+        current_params = (idx, target, path_size)
+        self.paths[current_params] = []
         # Base cases
         if target == 0 and path_size == 0:
-            self.paths[(idx, target, path_size)].append([])
+            self.paths[current_params].append([])
             return
 
         if not candidates[idx:] or target < candidates[idx] or path_size == 0:
             return
 
         # Exclude the number at idx
-        if (idx + 1, target, path_size) not in self.paths:
-            self.partition(idx + 1, target, candidates, path_size)
+        exclusion_params = (idx + 1, target, path_size)
+        if exclusion_params not in self.paths:
+            self.partition(*exclusion_params, candidates)
 
-        self.paths[(idx, target, path_size)].extend(self.paths[(idx + 1, target, path_size)])
+        self.paths[current_params].extend(self.paths[exclusion_params])
 
         # Include the number at idx
-        sub_target = target - candidates[idx]
-        if (idx + 1, sub_target, path_size - 1) not in self.paths:
-            self.partition(idx + 1, sub_target, candidates, path_size - 1)
+        inclusion_params = (idx + 1, target - candidates[idx], path_size - 1)
+        if inclusion_params not in self.paths:
+            self.partition(*inclusion_params, candidates)
 
-        for sub_path in self.paths[(idx + 1, sub_target, path_size - 1)]:
-            self.paths[(idx, target, path_size)].append([candidates[idx]] + sub_path)
+        for sub_path in self.paths[inclusion_params]:
+            self.paths[current_params].append([candidates[idx]] + sub_path)
 
         return
 
