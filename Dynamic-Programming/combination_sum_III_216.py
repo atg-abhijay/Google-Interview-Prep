@@ -10,7 +10,6 @@ from collections import defaultdict
 class Solution(object):
     def __init__(self):
         self.paths = defaultdict(list)
-        self.size_limit = 0
 
     def combinationSum3(self, k, n):
         """
@@ -18,7 +17,6 @@ class Solution(object):
         :type n: int
         :rtype: List[List[int]]
         """
-        self.size_limit = k
         self.partition(0, n, list(range(1, 10)), k)
         return self.paths[(0, n, k)]
 
