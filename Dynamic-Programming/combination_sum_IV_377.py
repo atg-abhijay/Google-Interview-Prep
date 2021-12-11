@@ -4,7 +4,10 @@ https://leetcode.com/problems/combination-sum-iv/
 """
 
 
-from collections import defaultdict
+from collections import defaultdict, Counter
+from functools import reduce
+from math import factorial
+from operator import mul
 
 
 class Solution:
@@ -19,7 +22,14 @@ class Solution:
         """
         nums.sort()
         self.partition(0, target, nums)
-        return self.paths[(0, target)]
+        num_ways = 0
+        for path in self.paths[(0, target)]:
+            numtr = factorial(len(path))
+            counter = Counter(path)
+            demtr = reduce(mul, map(factorial, counter.values()))
+            num_ways += numtr/demtr
+
+        return int(num_ways)
 
     def partition(self, idx, target, nums):
         current_params = (idx, target)
