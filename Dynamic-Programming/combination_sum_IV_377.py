@@ -15,11 +15,11 @@ class Solution:
         combinations = [0 for _ in range(target + 1)]
         for tgt in range(1, target + 1):
             for candt in nums:
-                if tgt - candt > 0 and combinations[tgt - candt]:
+                if tgt - candt > 0:
                     combinations[tgt] += combinations[tgt - candt]
-                if tgt - candt == 0:
+                elif tgt - candt == 0:
                     combinations[tgt] += 1
-                if tgt - candt < 0:
+                else:
                     break
 
         return combinations[target]
