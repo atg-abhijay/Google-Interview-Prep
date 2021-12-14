@@ -4,13 +4,33 @@ https://leetcode.com/problems/is-graph-bipartite/
 """
 
 
+from collections import defaultdict, deque
+
+
 class Solution:
     def isBipartite(self, graph):
         """
         :type graph: List[List[int]]
         :rtype: bool
         """
-        return False
+        partition = defaultdict(int)
+        all_nodes = set(range(len(graph)))
+
+        which_set = 1
+        while all_nodes:
+            queue = deque([all_nodes.pop()])
+            while queue:
+                node = queue.popleft()
+                all_nodes.discard(node)
+                partition[node] = which_set
+                which_set = 1 - which_set
+                for nbr in graph[node]:
+                    if nbr in partition and partition[node] == partition[nbr]:
+                        return False
+
+                    queue.append(nbr)
+
+        return True
 
 
 def main():
