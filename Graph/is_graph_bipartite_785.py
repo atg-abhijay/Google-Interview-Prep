@@ -19,16 +19,20 @@ class Solution:
         which_set = 1
         while all_nodes:
             queue = deque([all_nodes.pop()])
+            partition[queue[0]] = which_set
+            which_set = 1 - which_set
             while queue:
                 node = queue.popleft()
-                all_nodes.discard(node)
-                partition[node] = which_set
-                which_set = 1 - which_set
                 for nbr in graph[node]:
                     if nbr in partition and partition[node] == partition[nbr]:
                         return False
 
-                    queue.append(nbr)
+                    if nbr in all_nodes:
+                        all_nodes.discard(nbr)
+                        queue.append(nbr)
+                        partition[nbr] = which_set
+
+                which_set = 1 - which_set
 
         return True
 
