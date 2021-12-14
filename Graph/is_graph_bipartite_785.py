@@ -16,11 +16,9 @@ class Solution:
         partition = defaultdict(int)
         all_nodes = set(range(len(graph)))
 
-        which_set = 1
         while all_nodes:
             queue = deque([all_nodes.pop()])
-            partition[queue[0]] = which_set
-            which_set = 1 - which_set
+            partition[queue[0]] = 1
             while queue:
                 node = queue.popleft()
                 for nbr in graph[node]:
@@ -30,15 +28,13 @@ class Solution:
                     if nbr in all_nodes:
                         all_nodes.discard(nbr)
                         queue.append(nbr)
-                        partition[nbr] = which_set
-
-                which_set = 1 - which_set
+                        partition[nbr] = 1 - partition[node]
 
         return True
 
 
 def main():
-    print(Solution().isBipartite([[1, 2, 3], [0, 2], [0, 1, 3], [0, 2]]))
+    print(Solution().isBipartite([[1, 4], [0, 2], [1], [4], [0, 3]]))
 
 
 if __name__ == "__main__":
