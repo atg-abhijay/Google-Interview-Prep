@@ -4,7 +4,7 @@ https://leetcode.com/problems/is-graph-bipartite/
 """
 
 
-from collections import defaultdict, deque
+from collections import deque
 
 
 class Solution:
@@ -16,7 +16,7 @@ class Solution:
         # Time: O(#nodes + #edges) - BFS runtime
         # Space: O(#nodes + #edges) - BFS space
         # Tags: Graphs, BFS
-        partition = defaultdict(int)
+        partition = {}
         all_nodes = set(range(len(graph)))
 
         while all_nodes:
