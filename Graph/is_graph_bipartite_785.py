@@ -13,6 +13,9 @@ class Solution:
         :type graph: List[List[int]]
         :rtype: bool
         """
+        # Time: O(#nodes + #edges) - BFS runtime
+        # Space: O(#nodes + #edges) - BFS space
+        # Tags: Graphs, BFS
         partition = defaultdict(int)
         all_nodes = set(range(len(graph)))
 
