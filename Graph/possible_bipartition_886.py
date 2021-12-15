@@ -14,6 +14,9 @@ class Solution(object):
         :type dislikes: List[List[int]]
         :rtype: bool
         """
+        # Time: O(#people + #dislikes) - BFS runtime
+        # Space: O(#people + #dislikes) - BFS space
+        # Tags: Graphs, BFS
         graph = defaultdict(list)
         for person_a, person_b in dislikes:
             graph[person_a].append(person_b)
