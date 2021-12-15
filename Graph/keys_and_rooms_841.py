@@ -15,17 +15,17 @@ class Solution:
         """
         # Time: O(#rooms + #keys), Space: O(#rooms)
         # Tags: Graphs, DFS
-        all_rooms = set(range(len(rooms)))
+        unvisited_rooms = set(range(len(rooms)))
         queue = deque([0])
-        all_rooms.discard(0)
+        unvisited_rooms.discard(0)
         while queue:
             room = queue.popleft()
             for nbr in rooms[room]:
-                if nbr in all_rooms:
-                    all_rooms.discard(nbr)
+                if nbr in unvisited_rooms:
+                    unvisited_rooms.discard(nbr)
                     queue.append(nbr)
 
-        if all_rooms:
+        if unvisited_rooms:
             return False
 
         return True
