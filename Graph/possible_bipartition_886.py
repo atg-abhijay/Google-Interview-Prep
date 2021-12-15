@@ -4,7 +4,7 @@ https://leetcode.com/problems/possible-bipartition/
 """
 
 
-from collections import deque
+from collections import defaultdict, deque
 
 
 class Solution(object):
@@ -14,9 +14,13 @@ class Solution(object):
         :type dislikes: List[List[int]]
         :rtype: bool
         """
-        partition = {}
-        all_nodes = set(range(len(graph)))
+        graph = defaultdict(list)
+        for person_a, person_b in dislikes:
+            graph[person_a].append(person_b)
+            graph[person_b].append(person_a)
 
+        partition = {}
+        all_nodes = set(range(1, n + 1))
         while all_nodes:
             queue = deque([all_nodes.pop()])
             partition[queue[0]] = 1
