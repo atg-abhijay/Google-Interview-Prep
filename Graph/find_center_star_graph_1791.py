@@ -4,13 +4,17 @@ https://leetcode.com/problems/find-center-of-star-graph/
 """
 
 
+from collections import Counter
+from itertools import chain
+
 class Solution:
     def findCenter(self, edges):
         """
         :type edges: List[List[int]]
         :rtype: int
         """
-        return -1
+        counter = Counter(chain(*edges[:2]))
+        return counter.most_common(1)[0][0]
 
 
 def main():
