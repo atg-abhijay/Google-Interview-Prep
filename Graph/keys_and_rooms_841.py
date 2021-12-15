@@ -13,6 +13,8 @@ class Solution:
         :type rooms: List[List[int]]
         :rtype: bool
         """
+        # Time: O(#rooms + #keys), Space: O(#rooms)
+        # Tags: Graphs, DFS
         all_rooms = set(range(len(rooms)))
         queue = deque([0])
         all_rooms.discard(0)
