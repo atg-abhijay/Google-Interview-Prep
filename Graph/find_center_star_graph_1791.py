@@ -13,6 +13,8 @@ class Solution:
         :type edges: List[List[int]]
         :rtype: int
         """
+        # Time: O(1), Space: O(1)
+        # Tags: Graphs, Hash Tables
         counter = Counter(chain(*edges[:2]))
         return counter.most_common(1)[0][0]
 
