@@ -4,6 +4,9 @@ https://leetcode.com/problems/possible-bipartition/
 """
 
 
+from collections import deque
+
+
 class Solution(object):
     def possibleBipartition(self, n, dislikes):
         """
@@ -11,7 +14,24 @@ class Solution(object):
         :type dislikes: List[List[int]]
         :rtype: bool
         """
-        return False
+        partition = {}
+        all_nodes = set(range(len(graph)))
+
+        while all_nodes:
+            queue = deque([all_nodes.pop()])
+            partition[queue[0]] = 1
+            while queue:
+                node = queue.popleft()
+                for nbr in graph[node]:
+                    if nbr in partition and partition[node] == partition[nbr]:
+                        return False
+
+                    if nbr in all_nodes:
+                        all_nodes.discard(nbr)
+                        queue.append(nbr)
+                        partition[nbr] = 1 - partition[node]
+
+        return True
 
 
 def main():
