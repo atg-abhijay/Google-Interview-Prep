@@ -13,6 +13,9 @@ class Solution:
         :type isConnected: List[List[int]]
         :rtype: int
         """
+        # Time: O(#cities + #connections) - BFS runtime
+        # Space: O(#cities) - for unvisited_cities and queue
+        # Tags: Graphs, BFS
         num_provinces = 0
         unvisited_cities = set(range(len(isConnected)))
         while unvisited_cities:
