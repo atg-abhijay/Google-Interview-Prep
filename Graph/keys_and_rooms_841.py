@@ -4,13 +4,29 @@ https://leetcode.com/problems/keys-and-rooms/
 """
 
 
+from collections import deque
+
+
 class Solution:
     def canVisitAllRooms(self, rooms):
         """
         :type rooms: List[List[int]]
         :rtype: bool
         """
-        return False
+        all_rooms = set(range(len(rooms)))
+        queue = deque([0])
+        all_rooms.discard(0)
+        while queue:
+            room = queue.popleft()
+            for nbr in rooms[room]:
+                if nbr in all_rooms:
+                    all_rooms.discard(nbr)
+                    queue.append(nbr)
+
+        if all_rooms:
+            return False
+
+        return True
 
 
 def main():
