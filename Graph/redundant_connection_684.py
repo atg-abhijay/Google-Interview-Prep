@@ -10,7 +10,16 @@ class Solution:
         :type edges: List[List[int]]
         :rtype: List[int]
         """
-        return []
+        extra_edge = []
+        visited_nodes = set()
+        for node_u, node_v in edges:
+            if node_u in visited_nodes and node_v in visited_nodes:
+                extra_edge = [node_u, node_v]
+            else:
+                visited_nodes.add(node_u)
+                visited_nodes.add(node_v)
+
+        return extra_edge
 
 
 def main():
