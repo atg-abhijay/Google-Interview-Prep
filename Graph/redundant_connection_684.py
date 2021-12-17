@@ -4,7 +4,7 @@ https://leetcode.com/problems/redundant-connection/
 """
 
 
-from collections import defaultdict, deque
+from collections import defaultdict
 from itertools import chain
 
 
@@ -30,17 +30,16 @@ class Solution:
             node_cmpts[node_u] = node_cmpts[node_v] = cmpt_val
             components[cmpt_val].update(*[u_nodes, v_nodes])
 
-            cmpt_to_clear = float('inf')
+            params = {
+                curr_val: [[u_nodes, v_nodes], float('inf')],
+                u_cmpt: [[v_nodes], v_cmpt],
+                v_cmpt: [[u_nodes], u_cmpt]
+            }
+
             if cmpt_val == curr_val:
                 curr_val += 1
-                nodes_to_update = [u_nodes, v_nodes]
-            elif cmpt_val == u_cmpt:
-                nodes_to_update = [v_nodes]
-                cmpt_to_clear = v_cmpt
-            else:
-                nodes_to_update = [u_nodes]
-                cmpt_to_clear = u_cmpt
 
+            nodes_to_update, cmpt_to_clear = params[cmpt_val]
             for node in chain(*nodes_to_update):
                 node_cmpts[node] = cmpt_val
 
