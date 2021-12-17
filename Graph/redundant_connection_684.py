@@ -4,20 +4,24 @@ https://leetcode.com/problems/redundant-connection/
 """
 
 
+from collections import defaultdict
+
+
 class Solution:
     def findRedundantConnection(self, edges):
         """
         :type edges: List[List[int]]
         :rtype: List[int]
         """
-        extra_edge = []
-        visited_nodes = set()
+        graph = defaultdict(set)
         for node_u, node_v in edges:
-            if node_u in visited_nodes and node_v in visited_nodes:
+            graph[node_u].add(node_v)
+            graph[node_v].add(node_u)
+
+        extra_edge = None
+        for node_u, node_v in edges:
+            if graph[node_u] - {node_v} and graph[node_v] - {node_u}:
                 extra_edge = [node_u, node_v]
-            else:
-                visited_nodes.add(node_u)
-                visited_nodes.add(node_v)
 
         return extra_edge
 
