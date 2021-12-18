@@ -15,35 +15,35 @@ class Solution:
         :rtype: List[int]
         """
         components = defaultdict(set)
-        node_cmpts = defaultdict(lambda: float('inf'))
-        curr_val = 1
+        node_compts = defaultdict(lambda: float('inf'))
+        curr_compt = 1
         for node_u, node_v in edges:
-            u_cmpt, v_cmpt = node_cmpts[node_u], node_cmpts[node_v]
+            u_compt, v_compt = node_compts[node_u], node_compts[node_v]
             # Nodes that belong to the same
             # components as nodes u and v respectively
-            u_nodes, v_nodes = components[u_cmpt], components[v_cmpt]
-            if u_cmpt == v_cmpt != float('inf'):
+            u_nodes, v_nodes = components[u_compt], components[v_compt]
+            if u_compt == v_compt != float('inf'):
                 return [node_u, node_v]
 
-            cmpt_val = min(curr_val, u_cmpt, v_cmpt)
-            components[cmpt_val].update([node_u, node_v])
-            node_cmpts[node_u] = node_cmpts[node_v] = cmpt_val
-            components[cmpt_val].update(*[u_nodes, v_nodes])
+            min_compt = min(curr_compt, u_compt, v_compt)
+            components[min_compt].update([node_u, node_v])
+            node_compts[node_u] = node_compts[node_v] = min_compt
+            components[min_compt].update(*[u_nodes, v_nodes])
 
             params = {
-                curr_val: [[u_nodes, v_nodes], float('inf')],
-                u_cmpt: [[v_nodes], v_cmpt],
-                v_cmpt: [[u_nodes], u_cmpt]
+                curr_compt: [[u_nodes, v_nodes], float('inf')],
+                u_compt: [[v_nodes], v_compt],
+                v_compt: [[u_nodes], u_compt]
             }
 
-            if cmpt_val == curr_val:
-                curr_val += 1
+            if min_compt == curr_compt:
+                curr_compt += 1
 
-            nodes_to_update, cmpt_to_clear = params[cmpt_val]
+            nodes_to_update, compt_to_clear = params[min_compt]
             for node in chain(*nodes_to_update):
-                node_cmpts[node] = cmpt_val
+                node_compts[node] = min_compt
 
-            components[cmpt_to_clear].clear()
+            components[compt_to_clear].clear()
 
 
 def main():
