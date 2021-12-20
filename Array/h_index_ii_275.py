@@ -10,7 +10,19 @@ class Solution:
         :type citations: List[int]
         :rtype: int
         """
-        return -1
+        num_citns = len(citations)
+        start, stop = 0, num_citns - 1
+        max_h_val = -1
+        while start < stop - 1:
+            middle_idx = (start + stop) // 2
+            middle_citn = citations[middle_idx]
+            if num_citns - middle_idx >= middle_citn:
+                max_h_val = max(max_h_val, middle_citn)
+                start = middle_idx
+            else:
+                stop = middle_idx
+
+        return max_h_val
 
 
 def main():
