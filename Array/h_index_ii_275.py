@@ -11,13 +11,10 @@ class Solution:
         :rtype: int
         """
         num_citns = len(citations)
-        if num_citns == 1:
-            return min(1, citations[0])
-
         if num_citns <= citations[0]:
             return num_citns
 
-        start, stop, max_h_index = 0, num_citns, -1
+        start, stop, max_h_index = 0, num_citns, 0
         while start < stop:
             middle_idx = (start + stop) // 2
             middle_citn = citations[middle_idx]
