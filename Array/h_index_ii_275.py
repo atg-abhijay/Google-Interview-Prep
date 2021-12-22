@@ -11,18 +11,24 @@ class Solution:
         :rtype: int
         """
         num_citns = len(citations)
-        start, stop = 0, num_citns - 1
-        max_h_val = -1
-        while start < stop - 1:
+        if num_citns == 1:
+            return min(1, citations[0])
+
+        if num_citns <= citations[0]:
+            return num_citns
+
+        start, stop, max_h_index = 0, num_citns, -1
+        while start < stop:
             middle_idx = (start + stop) // 2
             middle_citn = citations[middle_idx]
-            if num_citns - middle_idx >= middle_citn:
-                max_h_val = max(max_h_val, middle_citn)
-                start = middle_idx
-            else:
+            num_papers = num_citns - middle_idx
+            if num_papers <= middle_citn:
+                max_h_index = max(max_h_index, num_papers)
                 stop = middle_idx
+            else:
+                start = middle_idx + 1
 
-        return max_h_val
+        return max_h_index
 
 
 def main():
