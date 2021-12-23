@@ -10,6 +10,7 @@ class Solution:
         :type citations: List[int]
         :rtype: int
         """
+        citations.sort()
         num_citns = len(citations)
         if num_citns <= citations[0]:
             return num_citns
