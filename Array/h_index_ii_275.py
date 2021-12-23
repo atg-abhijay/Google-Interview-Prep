@@ -10,6 +10,8 @@ class Solution:
         :type citations: List[int]
         :rtype: int
         """
+        # Time: O(log n), Space: O(1)
+        # Tags: Arrays, Binary Search
         num_citns = len(citations)
         if num_citns <= citations[0]:
             return num_citns
