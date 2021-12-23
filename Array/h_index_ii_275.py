@@ -22,7 +22,7 @@ class Solution:
             middle_citn = citations[middle_idx]
             num_papers = num_citns - middle_idx
             if num_papers <= middle_citn:
-                max_h_index = max(max_h_index, num_papers)
+                max_h_index = num_papers
                 stop = middle_idx
             else:
                 start = middle_idx + 1
