@@ -14,6 +14,8 @@ class Solution:
         :type prerequisites: List[List[int]]
         :rtype: List[int]
         """
+        # Time: O(#nodes + #edges), Space: O(#nodes + #edges)
+        # Tags: Graphs, DFS
         if numCourses == 1 or not prerequisites:
             return list(range(numCourses))
 
