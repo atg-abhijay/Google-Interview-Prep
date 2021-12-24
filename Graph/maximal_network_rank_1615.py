@@ -15,6 +15,8 @@ class Solution:
         :type roads: List[List[int]]
         :rtype: int
         """
+        # Time: O(n^2), Space: O(#cities + #roads)
+        # Tags: Graphs
         graph = defaultdict(set)
         for city_a, city_b in roads:
             graph[city_a].add(city_b)
