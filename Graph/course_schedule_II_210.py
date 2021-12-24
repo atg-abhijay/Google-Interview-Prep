@@ -15,7 +15,7 @@ class Solution:
         :rtype: List[int]
         """
         if numCourses == 1 or not prerequisites:
-            return True
+            return list(range(numCourses))
 
         # Build an adjacency list representation of the graph
         courses = defaultdict(list)
@@ -25,6 +25,7 @@ class Solution:
         # 0 = not visited, 1 = in progress, 2 = completed
         visited = [0] * numCourses
         course_keys = set(courses.keys())
+        path = []
         # Build a solution based on DFSing into the prerequisites graph.
         # Two while loops to handle the case of a disconnected graph.
         # - If status of a course is 0, add it's prerequisites to the
@@ -52,15 +53,15 @@ class Solution:
 
                 elif visit_status == 1:
                     if not all(map(lambda pr: visited[pr] == 2, courses[crse])):
-                        return False
+                        return []
 
                     visited[crse] = 2
-                    stack.pop()
+                    path.append(stack.pop())
 
                 else:
                     stack.pop()
 
-        return True
+        return path
 
 
 def main():
