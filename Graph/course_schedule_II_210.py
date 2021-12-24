@@ -24,7 +24,7 @@ class Solution:
 
         # 0 = not visited, 1 = in progress, 2 = completed
         visited = [0] * numCourses
-        course_keys = set(courses.keys())
+        course_keys = set(range(numCourses))
         path = []
         # Build a solution based on DFSing into the prerequisites graph.
         # Two while loops to handle the case of a disconnected graph.
