@@ -4,13 +4,27 @@ https://leetcode.com/problems/detonate-the-maximum-bombs/
 """
 
 
+from collections import defaultdict
+from itertools import combinations
+
+
 class Solution:
     def maximumDetonation(self, bombs):
         """
         :type bombs: List[List[int]]
         :rtype: int
         """
-        return 0
+        # Create an adjaceny list representation of
+        # which bombs are in the radius of other bombs
+        graph = defaultdict(set)
+        for bomb_a, bomb_b in combinations(enumerate(bombs), 2):
+            a_idx, [a_x_coord, a_y_coord, a_radius] = bomb_a
+            b_idx, [b_x_coord, b_y_coord, b_radius] = bomb_b
+            distance = (a_x_coord - b_x_coord) ** 2 + (a_y_coord - b_y_coord) ** 2
+            if distance <= a_radius ** 2 or distance <= b_radius ** 2:
+                graph[a_idx].add(b_idx)
+                graph[b_idx].add(a_idx)
+
 
 
 def main():
