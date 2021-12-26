@@ -21,8 +21,10 @@ class Solution:
             a_idx, [a_x_coord, a_y_coord, a_radius] = bomb_a
             b_idx, [b_x_coord, b_y_coord, b_radius] = bomb_b
             distance = (a_x_coord - b_x_coord) ** 2 + (a_y_coord - b_y_coord) ** 2
-            if distance <= a_radius ** 2 or distance <= b_radius ** 2:
+            if distance <= a_radius ** 2:
                 graph[a_idx].add(b_idx)
+
+            if distance <= b_radius ** 2:
                 graph[b_idx].add(a_idx)
 
 
