@@ -14,6 +14,13 @@ class Solution:
         :type bombs: List[List[int]]
         :rtype: int
         """
+        # Time:
+        # - Graph creation: O(#bombs ^ 2)
+        # - DFSes: O(#bombs * (#bombs + #edges))
+        # - Total: O(#bombs * (#bombs + #edges))
+        # Space: O(#bombs + #edges)
+        # Tags: Graphs, DFS
+
         # Create an adjaceny list representation of
         # which bombs are in the radius of other bombs
         graph = defaultdict(set)
