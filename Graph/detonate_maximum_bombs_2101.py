@@ -34,6 +34,8 @@ class Solution:
             if distance <= b_radius ** 2:
                 graph[b_idx].add(a_idx)
 
+        # Start a fresh DFS from each bomb and check the number
+        # of bombs that get detonated in the chain reaction
         max_detonations, visited = 0, set()
         for bomb in range(len(bombs)):
             visited.add(bomb)
