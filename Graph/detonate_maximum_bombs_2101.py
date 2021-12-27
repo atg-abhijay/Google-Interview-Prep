@@ -9,6 +9,10 @@ from itertools import combinations
 
 
 class Solution:
+    def __init__(self):
+        self.visited = set()
+        self.max_detonations = []
+
     def maximumDetonation(self, bombs):
         """
         :type bombs: List[List[int]]
@@ -27,6 +31,23 @@ class Solution:
             if distance <= b_radius ** 2:
                 graph[b_idx].add(a_idx)
 
+        num_bombs = len(bombs)
+        self.max_detonations = [1] * num_bombs
+        for bomb in range(num_bombs):
+            self.visited.add(bomb)
+            self.max_detonations[bomb] = self.perform_dfs(graph, bomb)
+            self.visited.clear()
+
+        return max(self.max_detonations)
+
+    def perform_dfs(self, graph, bomb):
+        num_detonations = 1
+        for nbr_bomb in graph[bomb]:
+            if nbr_bomb not in self.visited:
+                self.visited.add(nbr_bomb)
+                num_detonations += self.perform_dfs(graph, nbr_bomb)
+
+        return num_detonations
 
 
 def main():
