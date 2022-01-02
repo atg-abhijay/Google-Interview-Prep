@@ -17,11 +17,15 @@ class Solution:
         if n == 1 and not trust:
             return 1
 
+        # For a person x, track #people that x
+        # trusts as well as #people that trust x
         graph = defaultdict(lambda: [0, 0])
         for person_a, person_b in trust:
             graph[person_a][0] += 1
             graph[person_b][1] += 1
 
+        # Check for the existence of a person who
+        # trusts no one but is trusted by everyone else
         for person, trust_values in graph.items():
             if trust_values == [0, n-1]:
                 return person
