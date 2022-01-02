@@ -4,6 +4,9 @@ https://leetcode.com/problems/find-the-town-judge/
 """
 
 
+from collections import defaultdict
+
+
 class Solution:
     def findJudge(self, n, trust):
         """
@@ -11,6 +14,14 @@ class Solution:
         :type trust: List[List[int]]
         :rtype: int
         """
+        graph = defaultdict(set)
+        for person_a, person_b in trust:
+            graph[person_a].add(person_b)
+
+        town_judge = set(range(1, n+1)).difference(graph.keys())
+        if town_judge:
+            return town_judge.pop()
+
         return -1
 
 
