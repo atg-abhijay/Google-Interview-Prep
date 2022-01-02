@@ -14,14 +14,17 @@ class Solution:
         :type trust: List[List[int]]
         :rtype: int
         """
-        graph = [[0, 0] for _ in range(n)]
-        for person_a, person_b in trust:
-            graph[person_a-1][0] += 1
-            graph[person_b-1][1] += 1
+        if n == 1 and not trust:
+            return 1
 
-        for person, trust_values in enumerate(graph):
+        graph = defaultdict(lambda: [0, 0])
+        for person_a, person_b in trust:
+            graph[person_a][0] += 1
+            graph[person_b][1] += 1
+
+        for person, trust_values in graph.items():
             if trust_values == [0, n-1]:
-                return person + 1
+                return person
 
         return -1
 
