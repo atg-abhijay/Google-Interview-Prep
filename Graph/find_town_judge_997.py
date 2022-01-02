@@ -14,13 +14,14 @@ class Solution:
         :type trust: List[List[int]]
         :rtype: int
         """
-        graph = defaultdict(set)
+        graph = defaultdict(lambda: [0, 0])
         for person_a, person_b in trust:
-            graph[person_a].add(person_b)
+            graph[person_a][0] += 1
+            graph[person_b][1] += 1
 
-        town_judge = set(range(1, n+1)).difference(graph.keys())
-        if town_judge:
-            return town_judge.pop()
+        for person, trust_values in graph.items():
+            if trust_values == [0, n-1]:
+                return person
 
         return -1
 
