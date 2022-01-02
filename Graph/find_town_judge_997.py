@@ -14,6 +14,8 @@ class Solution:
         :type trust: List[List[int]]
         :rtype: int
         """
+        # Time: O(n), Space: O(n)
+        # Tags: Graphs
         if n == 1 and not trust:
             return 1
 
