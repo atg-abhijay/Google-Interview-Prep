@@ -24,18 +24,12 @@ class Solution:
                 continue
 
             stack = [vertex]
-            first_itn = True
             while stack:
                 vertex = stack.pop()
-                if not first_itn:
-                    all_vertices.discard(vertex)
-
                 for nbr in graph[vertex]:
                     if nbr in all_vertices:
                         all_vertices.discard(nbr)
                         stack.append(nbr)
-
-                first_itn = False
 
         return all_vertices
 
