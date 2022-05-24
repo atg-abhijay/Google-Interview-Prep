@@ -1,5 +1,7 @@
 # Google-Interview-Prep
 
+<img src="https://user-images.githubusercontent.com/23014438/169924618-55043a93-0071-4fec-88f9-90c44a0c46f0.jpg" alt="Google logo" width=800 height=533>
+
 Coding questions I did in preparation for my Google interviews.
 
 **Note**: There are files that have "2nd Pass" solutions. Those are solutions I wrote the second time around when I solved those problems.
