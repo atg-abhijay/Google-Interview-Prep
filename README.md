@@ -4,6 +4,11 @@ Coding questions I did in preparation for my Google interviews.
 
 **Note**: There are files that have "2nd Pass" solutions. Those are solutions I wrote the second time around when I solved those problems.
 
+To follow the history of commits for a specific solution, use the following command:
+```git
+git log --follow /path/to/X.py
+```
+
 Tree of problems in the repository:
 ```bash
 .
